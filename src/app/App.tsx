@@ -29,6 +29,7 @@ import tenisSpryteImg from "@/imports/Tênis Spryte - Sandrini/TenisSandriniSpry
 import tenisSpryteBrancoImg from "@/imports/Tênis Spryte - Sandrini/TenisSandriniSpryteMasculinoBranco-4.jpg";
 import tenisSprytePretoBrancoImg from "@/imports/Tênis Spryte - Sandrini/TenisSandriniSpryteMasculinoPretoBranco-CAPA.jpg";
 import tenisNbAzulImg from "@/imports/Tênis 480 Low - New Balance/TenisNewBalance480LowAzul1.jpg";
+import tenisNbBordoImg from "@/imports/Tênis 480 Low - New Balance/TenisNewBalance480LowBordo1.jpg";
 import relogioTechnosImg from "@/imports/Relógio - Technos/Relogio Steel Prata Technos.png";
 import dryFitAzulImg from "@/imports/Camiseta Dry Fit - Sandrini/dry fit azul.jpg";
 import dryFitCinzaImg from "@/imports/Camiseta Dry Fit - Sandrini/dry fit cinza.jpg";
