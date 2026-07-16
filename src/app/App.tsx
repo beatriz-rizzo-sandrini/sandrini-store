@@ -1203,7 +1203,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#4f4f4f] border-t border-white/5 text-white/70">
+      <footer className="border-t border-white/5 text-white/70" style={{ backgroundColor: "#4f4f4f" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
             {/* Brand */}
