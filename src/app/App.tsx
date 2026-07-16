@@ -416,29 +416,29 @@ function ProductCard({
           <h3 className="font-semibold text-sm leading-tight text-foreground group-hover:text-accent transition-colors line-clamp-2">
             {product.name}
           </h3>
-        {product.colors && (
-          <div className="flex gap-1.5 mt-1 mb-1">
-            {product.colors.map((col, idx) => (
-              <button
-                key={col.name}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setActiveColorIdx(idx);
-                }}
-                className={`w-3.5 h-3.5 rounded-full border transition-all cursor-pointer ${activeColorIdx === idx ? "border-black scale-110" : "border-border hover:border-black/50"
-                  }`}
-                style={{ backgroundColor: col.hex }}
-                title={col.name}
-              />
-            ))}
+          {product.colors && (
+            <div className="flex gap-1.5 mt-1 mb-1">
+              {product.colors.map((col, idx) => (
+                <button
+                  key={col.name}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveColorIdx(idx);
+                  }}
+                  className={`w-3.5 h-3.5 rounded-full border transition-all cursor-pointer ${activeColorIdx === idx ? "border-black scale-110" : "border-border hover:border-black/50"
+                    }`}
+                  style={{ backgroundColor: col.hex }}
+                  title={col.name}
+                />
+              ))}
+            </div>
+          )}
+          <div className="flex items-center gap-1 mt-0.5">
+            <Star size={11} className="fill-amber-400 text-amber-400" />
+            <span className="text-[11px] text-muted-foreground">
+              {product.rating} ({product.reviews})
+            </span>
           </div>
-        )}
-        <div className="flex items-center gap-1 mt-0.5">
-          <Star size={11} className="fill-amber-400 text-amber-400" />
-          <span className="text-[11px] text-muted-foreground">
-            {product.rating} ({product.reviews})
-          </span>
-        </div>
         </div>
         <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border/50">
           <span className="text-base font-bold text-foreground">
@@ -559,7 +559,7 @@ export default function App() {
     }
   };
 
-const heroSlides = [
+  const heroSlides = [
     {
       image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1400&h=900&fit=crop&auto=format",
       subtitle: "O Básico Reimaginado",
@@ -739,7 +739,7 @@ const heroSlides = [
                 className="h-10 sm:h-12 w-auto object-contain"
               />
             </button>
-            
+
             {/* Mobile Actions */}
             <div className="flex sm:hidden items-center gap-2">
               <button
@@ -917,7 +917,7 @@ const heroSlides = [
                   NAVEGUE POR CATEGORIAS
                 </h2>
               </div>
-              
+
               <div className="relative group">
                 <button
                   onClick={() => scrollContainer(categoriesRef, -1)}
@@ -1107,7 +1107,7 @@ const heroSlides = [
                 <p className="text-white/70 mb-8 text-sm">
                   Packs de cuecas, meias e camisetas básicas com o melhor custo-benefício.
                 </p>
-                <button 
+                <button
                   onClick={() => setCurrentPage("Promoções")}
                   className="bg-accent text-white text-xs font-bold tracking-widest px-8 py-4 hover:bg-red-700 transition-colors uppercase">
                   APROVEITAR OFERTA
@@ -1203,7 +1203,7 @@ const heroSlides = [
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#0a0a0a] border-t border-white/5 text-white/70">
+      <footer className="bg-[#4f4f4f] border-t border-white/5 text-white/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
             {/* Brand */}
