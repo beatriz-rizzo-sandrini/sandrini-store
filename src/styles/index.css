@@ -36,3 +36,22 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Delicate Scrollbar */
+.delicate-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+.delicate-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.delicate-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.delicate-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+.delicate-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}

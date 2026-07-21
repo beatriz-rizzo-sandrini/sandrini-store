@@ -1,323 +1,332 @@
 import { useState, useEffect, useRef } from "react";
 import { ShoppingBag, Search, Menu, X, ChevronRight, ChevronLeft, Heart, Star, Instagram, Facebook, Twitter } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
-import logoImg from "@/imports/logo_sandrini.png";
-import logoFooterImg from "@/imports/Logo_png_cropped.png";
-import kitCuecasImg from "@/imports/kit_10_cuecas_sandrini.png";
-import kitMeiasImg from "@/imports/kit_10_pares_meia_lupo.png";
-import kitShortsTactelImg from "@/imports/kit_2_shorts_tactel.webp";
-import kitDryFitImg from "@/imports/kit_4_dry.png";
-import shortsTactelImg from "@/imports/Shorts Tactel - Sandrini/shorts_tactel.png";
-import tenisAeroImg from "@/imports/Tênis Aero Spark - Sandrini/tenis_aero_spark_sandrini.png";
-import tenisAeroLaranjaImg from "@/imports/Tênis Aero Spark - Sandrini/tenis_aero_spark_sandrini_laranja.png";
-import tenisFilaVectorImg from "@/imports/Tênis Vector - Fila/tenis_fia_vector_cinza.png";
-import tenisFilaVectorPtoImg from "@/imports/Tênis Vector - Fila/tenis_fia_vector_pto.png";
+import logoImg from "@/imports/logo_transp.png";
+import logoFooterImg from "@/imports/logo_cortado.png";
 
 // Novas Imagens
-import chineloAdidasImg from "@/imports/Chinelo - Adidas/CAASBCO-01.jpg";
-import cuecaCavaleraImg from "@/imports/Cueca Boxer - Cavalera/KIT10SORT.jpg";
-import cuecaReebokAzulImg from "@/imports/Cueca - Reebok/azul.jpg";
-import cuecaReebokAzulClaroImg from "@/imports/Cueca - Reebok/azul claro.jpg";
-import cuecaReebokCinzaImg from "@/imports/Cueca - Reebok/cinza.jpg";
-import cuecaReebokPretoImg from "@/imports/Cueca - Reebok/preto (2).jpg";
-import kit3CamisetasImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandrini-CAPA.jpg";
-import meiaSandriniImg from "@/imports/Meia - Sandrini/KIT6.jpg";
-import shortsLinhoImg from "@/imports/Shorts Linho - Sandrini/ShortLinhoMasculinoSandriniPreto2159-5.jpg";
-import tenisAeroRunImg from "@/imports/Tênis Aero Run - Sandrini/TSSF1801005PTOCINZA-01.jpg";
-import tenisAeroRunAmareloImg from "@/imports/Tênis Aero Run - Sandrini/TSSF1801118BCOPTOAMARELO-01.jpg";
-import tenisSpryteImg from "@/imports/Tênis Spryte - Sandrini/TenisSandriniSpryteMasculinoPretoPreto-CAPA.jpg";
-import tenisSpryteBrancoImg from "@/imports/Tênis Spryte - Sandrini/TenisSandriniSpryteMasculinoBranco-4.jpg";
-import tenisSprytePretoBrancoImg from "@/imports/Tênis Spryte - Sandrini/TenisSandriniSpryteMasculinoPretoBranco-CAPA.jpg";
-import tenisNbAzulImg from "@/imports/Tênis 480 Low - New Balance/TenisNewBalance480LowAzul1.jpg";
-import tenisNbBordoImg from "@/imports/Tênis 480 Low - New Balance/TenisNewBalance480LowBordo1.jpg";
-import relogioTechnosImg from "@/imports/Relógio - Technos/Relogio Steel Prata Technos.png";
-import dryFitAzulImg from "@/imports/Camiseta Dry Fit - Sandrini/dry fit azul.jpg";
-import dryFitCinzaImg from "@/imports/Camiseta Dry Fit - Sandrini/dry fit cinza.jpg";
-import dryFitPretoImg from "@/imports/Camiseta Dry Fit - Sandrini/dry fit preto.jpg";
-import dryFitKit2Img from "@/imports/Camiseta Dry Fit - Sandrini/dry fit Kit 2 SORT.jpg";
+const globImages = import.meta.glob('@/imports/**/*.{jpg,png,webp}', { eager: true, import: 'default' }) as Record<string, string>;
+import heroBanner1Img from "@/imports/BANNERS PRINCIPAIS 1400X900/1/1400x900.jpg";
+import heroBanner2Img from "@/imports/BANNERS PRINCIPAIS 1400X900/2/1400x900.jpg";
+import banner1400x400Img from "@/imports/BANNER 1400X400/1400X400.jpg";
 
-const NAV_LINKS = ["Novidades", "Camisetas", "Shorts", "Tênis", "Chinelos", "Underwear", "Promoções"];
+import tenisCasualCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/TÊNIS CASUAL/TÊNIS-CASUAL-500X500.jpg";
+import undewearCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/UNDERWEAR/UNDERWEAR-500X500.jpg";
+import fitnessCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/FITNESS/FITNESS-500X500.jpg";
+import basicosCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/BÁSICOS/BASICOS-500X500.jpg";
+import tenisEsportivoCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/TÊNIS ESPORTIVO/TÊNIS-ESPORTIVO-500X500.jpg";
+import camisetaEssenciaisImg from "@/imports/ESSENCIAIS/CAMISETAS/CAMISETAS-800X800.jpg";
+import shortsEssenciaisImg from "@/imports/ESSENCIAIS/SHORTS/SHORTS-800X800.jpg";
+import tenisEssenciaisImg from "@/imports/ESSENCIAIS/TÊNIS/TENIS 800X800.jpg";
+import cuecaEssenciaisImg from "@/imports/ESSENCIAIS/CUECAS/CUECA-800X800.jpg";
+import meiaEssenciaisImg from "@/imports/ESSENCIAIS/MEIAS/MEIAS-800X800.jpg";
+import relogioEssenciaisImg from "@/imports/ESSENCIAIS/RELÓGIOS/RELOGIOS-800X800.jpg";
+import n1MaisVendidosImg from "@/imports/MAIS VENDIDOS/1-CUECA-ALGODÃO-SANDRINI.jpg";
+import n2MaisVendidosImg from "@/imports/MAIS VENDIDOS/2-KIT-4-DRY-FIT-SANDRINI.jpg";
+import n3MaisVendidosImg from "@/imports/MAIS VENDIDOS/3-KIT-15-MEIAS-CANO-MEDIO-SANDRINI.jpg";
+import n4MaisVendidosImg from "@/imports/MAIS VENDIDOS/4-KIT-3-CAMISETAS-ALGODÃO-SANDRINI.jpg";
+import n5MaisVendidosImg from "@/imports/MAIS VENDIDOS/5-KIT-4-BERMUDAS-TACTEL-SANDRINI.jpg";
+import n6MaisVendidosImg from "@/imports/MAIS VENDIDOS/6-AERO-RUN-SANDRINI.jpg";
+import n7MaisVendidosImg from "@/imports/MAIS VENDIDOS/7-KIT-3-REGATAS-DRY-SANDRINI.jpg";
+import n8MaisVendidosImg from "@/imports/MAIS VENDIDOS/8 SPRYTE-SANDRINI.jpg";
+import n9MaisVendidosImg from "@/imports/MAIS VENDIDOS/9-KIT-2-BERMUDAS-COMPRESSÃO-SANDRINI.jpg";
+import n10MaisVendidosImg from "@/imports/MAIS VENDIDOS/10-AERO-SPARK-SANDRINI.jpg";
+import n11MaisVendidosImg from "@/imports/MAIS VENDIDOS/11-SHORT-LINHO-SANDRINI.jpg";
+import n12MaisVendidosImg from "@/imports/MAIS VENDIDOS/12-KIT-12-MEIAS-SOQUETE-SANDRINI.jpg";
+import tenisAeroRunImg from "@/imports/Tênis Aero Run - Sandrini/PRETO E CINZA/TSSF1801005PTOCINZA-01.jpg";
+import tenisAeroRunAmareloImg from "@/imports/Tênis Aero Run - Sandrini/BRANCO PRETO E AMARELO/TSSF1801118BCOPTOAMARELO-01.jpg";
+import tenisAeroRunVermelhoImg from "@/imports/Tênis Aero Run - Sandrini/PRETO PRETO E VERMELHO/TSSF1801012PTOPTOVERMELHO-01.jpg";
+
+import tenisAeroSparkBrancoImg from "@/imports/Tênis Aero Spark - Sandrini/BRANCO CINZA E LARANJA/TênisMasculinoSandriniAeroSparkBranco408-CAPA.jpg";
+import tenisAeroSparkPretoImg from "@/imports/Tênis Aero Spark - Sandrini/PRETO E LARANJA/TênisMasculinoSandriniAeroSparkPreto034-CAPA.jpg";
+import tenisAeroSparkVerdeImg from "@/imports/Tênis Aero Spark - Sandrini/VERDE MARINHO/TênisMasculinoSandriniAeroSparkVerde412-CAPA.jpg";
+
+import tenisSpryteBrancoImg from "@/imports/Tênis Spryte - Sandrini/BRANCO GELO/TenisSandriniSpryteMasculinoBranco-CAPA.jpg";
+import tenisSprytePretoBrancoImg from "@/imports/Tênis Spryte - Sandrini/PRETO/TenisSandriniSpryteMasculinoPretoBranco-CAPA.jpg";
+import tenisSpryteVerdeImg from "@/imports/Tênis Spryte - Sandrini/VERDE/TenisSandriniSpryteMasculinoVerdeMilitar-CAPA.jpg";
+
+import shortsLinhoBegeImg from "@/imports/Shorts Linho - Sandrini/BEGE/ShortLinhoMasculinoSandrini2032CR-CAPA.jpg";
+import shortsLinhoPretoImg from "@/imports/Shorts Linho - Sandrini/PRETO/ShortLinhoMasculinoSandriniPreto2159-5.jpg";
+import shortsLinhoTerracotaImg from "@/imports/Shorts Linho - Sandrini/TERRACOTA/ShortLinhoMasculinoSandrini2032TC-CAPA.jpg";
+import shortsLinhoVerdeImg from "@/imports/Shorts Linho - Sandrini/VERDE MILITAR/ShortLinhoMasculinoSandriniVerdeMilitar-CAPA.jpg";
+
+import kit3CamisetasSortidoImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandrini-CAPA.jpg";
+import kit3CamisetasBrancoImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandriniBranco-CAPA.jpg";
+import kit3CamisetasPretoImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandriniPreto-CAPA.jpg";
+import relogioTechnosImg from "@/imports/Relógios/Relógio - Technos/Relogio Steel Prata Technos.png";
+
+const NAV_LINKS = ["Início", "Novidades", "Camisetas", "Shorts", "Tênis", "Underwear", "Acessórios", "Promoções"];
 
 const CATEGORIES = [
   {
-    label: "Camisetas",
-    img: kit3CamisetasImg,
+    label: "Tênis Casual",
+    img: tenisCasualCategoriaImg,
   },
 
   {
-    label: "Shorts",
-    img: shortsLinhoImg,
-  },
-  {
-    label: "Tênis",
-    img: tenisSpryteImg,
-  },
-  {
-    label: "Chinelos",
-    img: chineloAdidasImg,
-  },
-  {
     label: "Underwear",
-    img: cuecaCavaleraImg,
+    img: undewearCategoriaImg,
+  },
+  {
+    label: "Fitness",
+    img: fitnessCategoriaImg,
+  },
+  {
+    label: "Básicos",
+    img: basicosCategoriaImg,
+  },
+  {
+    label: "Tênis Esportivo",
+    img: tenisEsportivoCategoriaImg,
   },
   {
     label: "Relógios",
     img: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=600&fit=crop&auto=format",
-  },
-  {
-    label: "Dry Fit",
-    img: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&h=600&fit=crop&auto=format",
   },
 ];
 
 const PRODUCTS = [
   {
     id: 1,
-    name: "Kit 4 Camisetas Dry Fit Masculinas",
-    category: "Camisetas",
-    price: 129.90,
-    originalPrice: 179.90,
-    img: kitDryFitImg,
+    name: "Kit 10 Cuecas Boxer Algodão Sandrini",
+    category: "Underwear",
+    price: 99.99,
+    originalPrice: 139.99,
+    img: n1MaisVendidosImg,
     badge: "MAIS VENDIDO",
     rating: 4.8,
     reviews: 245,
+    sizes: ["P", "M", "G", "GG"],
     brand: "Sandrini"
   },
   {
     id: 2,
-    name: "Short Tactel Casual Sandrini",
-    category: "Shorts",
-    price: 69.90,
-    originalPrice: null,
-    img: shortsTactelImg,
+    name: "Kit 4 Dry Fit Sandrini",
+    category: "Fitness",
+    price: 99.99,
+    originalPrice: 149.99,
+    img: n2MaisVendidosImg,
     badge: "NOVO",
     rating: 4.6,
     reviews: 88,
+    sizes: ["P", "M", "G", "GG"],
     brand: "Sandrini"
   },
   {
     id: 3,
-    name: "Kit 2 Shorts Tactel Masculinos Sport",
-    category: "Shorts",
-    price: 109.90,
-    originalPrice: 149.90,
-    img: kitShortsTactelImg,
+    name: "Kit 15 Meias Cano Médio Sandrini",
+    category: "Underwear",
+    price: 109.99,
+    originalPrice: null,
+    img: n3MaisVendidosImg,
     badge: "OFERTA",
     rating: 4.7,
     reviews: 132,
+    sizes: ["Único"],
     brand: "Sandrini"
   },
   {
     id: 4,
-    name: "Tênis Aero Spark Sandrini",
-    category: "Tênis",
-    price: 219.90,
-    originalPrice: 299.90,
-    img: tenisAeroImg,
+    name: "Kit 3 Camisetas Algodão Sandrini",
+    category: "Camisetas",
+    price: 95.72,
+    originalPrice: 72.99,
+    img: n4MaisVendidosImg,
     badge: "DESTAQUE",
     rating: 4.9,
     reviews: 312,
+    sizes: ["P", "M", "G", "GG"],
+    brand: "Sandrini",
     colors: [
-      { name: "Marinho", img: tenisAeroImg, hex: "#1d2e47" },
-      { name: "Laranja", img: tenisAeroLaranjaImg, hex: "#ff6b35" },
+      { name: "Sortido", img: kit3CamisetasSortidoImg, hex: "#9ca3af" },
+      { name: "Branco", img: kit3CamisetasBrancoImg, hex: "#ffffff" },
+      { name: "Preto", img: kit3CamisetasPretoImg, hex: "#111111" },
     ],
+  },
+  {
+    id: 5,
+    name: "Kit 4 Bermudas Tactel Sandrini",
+    category: "Shorts",
+    price: 124.99,
+    originalPrice: 90.52,
+    img: n5MaisVendidosImg,
+    badge: "NOVO",
+    rating: 4.9,
+    reviews: 167,
+    sizes: ["P", "M", "G", "GG"],
     brand: "Sandrini"
   },
   {
     id: 6,
-    name: "Tênis Fila Vector Masculino",
-    category: "Tênis",
-    price: 249.90,
-    originalPrice: 329.90,
-    img: tenisFilaVectorPtoImg,
+    name: "Tênis Aero Run Sandrini",
+    category: "Tênis Esportivo",
+    price: 74.90,
+    originalPrice: 149.99,
+    img: n6MaisVendidosImg,
     badge: "NOVO",
     rating: 4.9,
     reviews: 167,
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
+    brand: "Sandrini",
     colors: [
-      { name: "Preto", img: tenisFilaVectorPtoImg, hex: "#111111" },
-      { name: "Cinza", img: tenisFilaVectorImg, hex: "#888888" },
+      { name: "Preto/Cinza", img: tenisAeroRunImg, hex: "#4b5563", folderPath: "Tênis Aero Run - Sandrini/PRETO E CINZA" },
+      { name: "Branco/Amarelo", img: tenisAeroRunAmareloImg, hex: "#eab308", folderPath: "Tênis Aero Run - Sandrini/BRANCO PRETO E AMARELO" },
+      { name: "Preto/Vermelho", img: tenisAeroRunVermelhoImg, hex: "#ef4444", folderPath: "Tênis Aero Run - Sandrini/PRETO PRETO E VERMELHO" },
     ],
-    brand: "Fila"
   },
   {
-    id: 8,
-    name: "Kit 10 Cuecas Boxer Algodão Sandrini",
-    category: "Underwear",
-    price: 99.90,
-    originalPrice: 139.90,
-    img: kitCuecasImg,
-    badge: "OFERTA",
-    rating: 4.8,
-    reviews: 412,
+    id: 7,
+    name: "Kit 3 Regatas Dry Fit Sandrini",
+    category: "Fitness",
+    price: 81.99,
+    originalPrice: 128.91,
+    img: n7MaisVendidosImg,
+    badge: "NOVO",
+    rating: 4.9,
+    reviews: 167,
     sizes: ["P", "M", "G", "GG"],
     brand: "Sandrini"
   },
   {
+    id: 8,
+    name: "Tênis Spryte Sandrini",
+    category: "Tênis Esportivo",
+    price: 129.99,
+    originalPrice: 189.99,
+    img: n8MaisVendidosImg,
+    badge: "OFERTA",
+    rating: 4.8,
+    reviews: 412,
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
+    brand: "Sandrini",
+    colors: [
+      { name: "Preto/Branco", img: tenisSprytePretoBrancoImg, hex: "#111111", folderPath: "Tênis Spryte - Sandrini/PRETO" },
+      { name: "Branco/Gelo", img: tenisSpryteBrancoImg, hex: "#ffffff", folderPath: "Tênis Spryte - Sandrini/BRANCO GELO" },
+      { name: "Verde Militar", img: tenisSpryteVerdeImg, hex: "#4b5320", folderPath: "Tênis Spryte - Sandrini/VERDE" },
+    ],
+  },
+  {
     id: 9,
-    name: "Kit 10 Pares de Meia Lupo Cano Médio",
-    category: "Underwear",
-    price: 79.90,
-    originalPrice: 99.90,
-    img: kitMeiasImg,
-    badge: "DESTAQUE",
+    name: "Kit 2 Bermudas Compressão Sandrini",
+    category: "Shorts",
+    price: 78.99,
+    originalPrice: 139.99,
+    img: n9MaisVendidosImg,
+    badge: "NOVO",
     rating: 4.9,
-    reviews: 521,
-    brand: "Lupo"
+    reviews: 167,
+    sizes: ["P", "M", "G", "GG"],
+    brand: "Sandrini"
   },
   {
     id: 10,
-    name: "Tênis Aero Run Sandrini",
-    category: "Tênis",
-    price: 189.90,
-    originalPrice: 249.90,
-    img: tenisAeroRunImg,
-    badge: "NOVO",
-    rating: 4.8,
-    reviews: 145,
+    name: "Tênis Aero Spark Sandrini",
+    category: "Tênis Esportivo",
+    price: 149.99,
+    originalPrice: 271.56,
+    img: n10MaisVendidosImg,
+    badge: "DESTAQUE",
+    rating: 4.9,
+    reviews: 521,
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
     brand: "Sandrini",
     colors: [
-      { name: "Preto/Cinza", img: tenisAeroRunImg, hex: "#4b5563" },
-      { name: "Branco/Amarelo", img: tenisAeroRunAmareloImg, hex: "#eab308" },
+      { name: "Branco", img: tenisAeroSparkBrancoImg, hex: "#ffffff", folderPath: "Tênis Aero Spark - Sandrini/BRANCO CINZA E LARANJA" },
+      { name: "Preto", img: tenisAeroSparkPretoImg, hex: "#111111", folderPath: "Tênis Aero Spark - Sandrini/PRETO E LARANJA" },
+      { name: "Verde", img: tenisAeroSparkVerdeImg, hex: "#166534", folderPath: "Tênis Aero Spark - Sandrini/VERDE MARINHO" },
     ],
   },
   {
     id: 11,
-    name: "Cueca Boxer Reebok Comfort",
-    category: "Underwear",
-    price: 29.90,
-    originalPrice: null,
-    img: cuecaReebokPretoImg,
-    badge: "OFERTA",
-    rating: 4.9,
-    reviews: 82,
+    name: "Shorts Linho Sandrini",
+    category: "Shorts",
+    price: 38.70,
+    originalPrice: 84.90,
+    img: n11MaisVendidosImg,
+    badge: "NOVO",
+    rating: 4.8,
+    reviews: 145,
     sizes: ["P", "M", "G", "GG"],
-    brand: "Reebok",
+    brand: "Sandrini",
     colors: [
-      { name: "Preto", img: cuecaReebokPretoImg, hex: "#111111" },
-      { name: "Azul", img: cuecaReebokAzulImg, hex: "#1e3a8a" },
-      { name: "Azul Claro", img: cuecaReebokAzulClaroImg, hex: "#3b82f6" },
-      { name: "Cinza", img: cuecaReebokCinzaImg, hex: "#9ca3af" },
+      { name: "Bege", img: shortsLinhoBegeImg, hex: "#d5bdaf", folderPath: "Shorts Linho - Sandrini/BEGE" },
+      { name: "Preto", img: shortsLinhoPretoImg, hex: "#111111", folderPath: "Shorts Linho - Sandrini/PRETO" },
+      { name: "Terracota", img: shortsLinhoTerracotaImg, hex: "#e2725b", folderPath: "Shorts Linho - Sandrini/TERRACOTA" },
+      { name: "Verde Militar", img: shortsLinhoVerdeImg, hex: "#4b5320", folderPath: "Shorts Linho - Sandrini/VERDE MILITAR" },
     ],
   },
   {
     id: 12,
-    name: "Chinelo Adidas Adilette",
-    category: "Chinelos",
-    price: 149.90,
-    originalPrice: 199.90,
-    img: chineloAdidasImg,
-    badge: "DESTAQUE",
-    rating: 4.7,
-    reviews: 320,
-    brand: "Adidas"
+    name: "Kit 12 Meias Soquete Sandrini",
+    category: "Underwear",
+    price: 59.99,
+    originalPrice: null,
+    img: n12MaisVendidosImg,
+    badge: "OFERTA",
+    rating: 4.9,
+    reviews: 82,
+    sizes: ["Único"],
+    brand: "Sandrini",
   },
   {
     id: 13,
-    name: "Tênis 480 Low New Balance",
-    category: "Tênis",
-    price: 499.90,
-    originalPrice: 599.90,
-    img: tenisNbAzulImg,
-    badge: "DESTAQUE",
-    rating: 5.0,
-    reviews: 120,
-    brand: "New Balance",
-    colors: [
-      { name: "Azul", img: tenisNbAzulImg, hex: "#1d4ed8" },
-      { name: "Bordô", img: tenisNbBordoImg, hex: "#7f1d1d" },
-    ],
-  },
-  {
-    id: 14,
-    name: "Relógio Steel Prata Technos",
+    name: "Relógio Steel Prata",
     category: "Relógios",
     price: 349.90,
-    originalPrice: null,
+    originalPrice: 429.90,
     img: relogioTechnosImg,
-    badge: "NOVO",
-    rating: 4.8,
-    reviews: 45,
-    brand: "Technos"
-  },
-  {
-    id: 15,
-    name: "Tênis Spryte Sandrini Casual",
-    category: "Tênis",
-    price: 119.90,
-    originalPrice: 159.90,
-    img: tenisSpryteImg,
-    badge: "MAIS VENDIDO",
-    rating: 4.7,
-    reviews: 210,
-    brand: "Sandrini",
-    colors: [
-      { name: "Preto", img: tenisSpryteImg, hex: "#111111" },
-      { name: "Branco", img: tenisSpryteBrancoImg, hex: "#ffffff" },
-      { name: "Preto/Branco", img: tenisSprytePretoBrancoImg, hex: "#6b7280" },
-    ],
-  },
-  {
-    id: 16,
-    name: "Camiseta Dry Fit Sandrini",
-    category: "Camisetas",
-    price: 49.90,
-    originalPrice: 79.90,
-    img: dryFitPretoImg,
-    badge: "NOVO",
-    rating: 4.8,
-    reviews: 112,
-    brand: "Sandrini",
-    colors: [
-      { name: "Preto", img: dryFitPretoImg, hex: "#111111" },
-      { name: "Azul", img: dryFitAzulImg, hex: "#1e3a8a" },
-      { name: "Cinza", img: dryFitCinzaImg, hex: "#9ca3af" },
-    ],
-  },
-  {
-    id: 17,
-    name: "Kit 2 Camisetas Dry Fit Sandrini",
-    category: "Camisetas",
-    price: 89.90,
-    originalPrice: 139.90,
-    img: dryFitKit2Img,
     badge: "OFERTA",
-    rating: 4.9,
-    reviews: 204,
-    brand: "Sandrini",
-  }
+    rating: 5.0,
+    reviews: 12,
+    sizes: ["Único"],
+    brand: "Technos",
+    colors: [
+      { name: "Prata", img: relogioTechnosImg, hex: "#c0c0c0", folderPath: "Relógio - Technos" }
+    ]
+  },
 ];
 
-const BRANDS = ["Fila", "New Balance", "Puma", "Champion", "Adidas", "Reebok", "Technos", "Ferracini"];
+const globLogos = import.meta.glob('@/imports/Logo de Fornecedores/*.jpg', { eager: true, import: 'default' }) as Record<string, string>;
+const LOGOS = Object.entries(globLogos).map(([path, url]) => ({
+  name: path.split('/').pop()?.replace('.jpg', '').replace(/-/g, ' ') || '',
+  url
+}));
 
 const ESSENCIAIS = [
   {
     title: "CAMISETAS",
     price: "39,90",
-    img: kit3CamisetasImg,
+    img: camisetaEssenciaisImg,
     category: "Camisetas",
-  },
-  {
-    title: "TÊNIS",
-    price: "119,90",
-    img: tenisSpryteBrancoImg,
-    category: "Tênis",
   },
   {
     title: "SHORTS",
     price: "49,90",
-    img: shortsLinhoImg,
+    img: shortsEssenciaisImg,
     category: "Shorts",
   },
   {
-    title: "CHINELOS",
-    price: "29,90",
-    img: chineloAdidasImg,
-    category: "Chinelos",
+    title: "TÊNIS",
+    price: "119,90",
+    img: tenisEssenciaisImg,
+    category: "Tênis",
   },
   {
     title: "CUECAS",
+    price: "29,90",
+    img: cuecaEssenciaisImg,
+    category: "Underwear",
+  },
+  {
+    title: "MEIAS",
     price: "19,90",
-    img: cuecaCavaleraImg,
+    img: meiaEssenciaisImg,
+    category: "Underwear",
+  },
+  {
+    title: "RELÓGIOS",
+    price: "129,90",
+    img: relogioEssenciaisImg,
     category: "Underwear",
   },
 ];
@@ -473,11 +482,20 @@ function CategoryPageView({
     if (isBrand) {
       return p.brand === displayTitle;
     }
+    if (category === "Mais Vendidos" || category === "Todos") {
+      return true;
+    }
+    if (category === "Kits") {
+      return p.name.toLowerCase().includes("kit");
+    }
     if (category === "Novidades") {
       return p.badge === "NOVO";
     }
     if (category === "Promoções") {
       return p.badge === "OFERTA";
+    }
+    if (category.toLowerCase() === "tênis") {
+      return p.category.toLowerCase().includes("tênis");
     }
     return p.category.toLowerCase() === category.toLowerCase();
   });
@@ -543,6 +561,7 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
   const [chosenSize, setChosenSize] = useState("M");
   const [chosenColor, setChosenColor] = useState<string | null>(null);
+  const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
   const [activeFilter, setActiveFilter] = useState("Todos");
   const [email, setEmail] = useState("");
@@ -552,6 +571,7 @@ export default function App() {
   const categoriesRef = useRef<HTMLDivElement>(null);
   const essenciaisRef = useRef<HTMLDivElement>(null);
   const productsRef = useRef<HTMLDivElement>(null);
+  const brandsRef = useRef<HTMLDivElement>(null);
 
   const scrollContainer = (ref: React.RefObject<HTMLDivElement>, direction: number) => {
     if (ref.current) {
@@ -561,31 +581,30 @@ export default function App() {
 
   const heroSlides = [
     {
-      image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1400&h=900&fit=crop&auto=format",
-      subtitle: "O Básico Reimaginado",
-      title: "ESTILO E\nCONFORTO\nPARA SEU DIA.",
-      desc: "Tênis casuais, shorts de linho e camisetas essenciais com caimento premium.",
-      btn1: "EXPLORAR COLEÇÃO",
+      image: heroBanner1Img,
+      subtitle: "Bem-vindo ao universo Sandrini",
+      title: "ENTRE E ESCOLHA\nSEU ESTILO.",
+      desc: "Roupas, calçados, relógios e acessórios para completar suas escolhas.",
+      btn1: "EXPLORAR LOJA",
       link1: "Novidades",
-      btn2: "VER PROMOÇÕES",
-      link2: "Promoções",
+      position: "object-[center_15%]",
+      titleSize: "clamp(3rem, 6vw, 5.5rem)",
     },
     {
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1400&h=900&fit=crop&auto=format",
-      subtitle: "Seleção Especial",
-      title: "GRANDES MARCAS.\nGRANDES\nOFERTAS.",
-      desc: "Fila, New Balance, Reebok, Technos e muito mais com condições exclusivas.",
-      btn1: "APROVEITAR OFERTA",
-      link1: "Promoções",
-      btn2: "VER TODAS",
-      link2: "Novidades",
+      image: heroBanner2Img,
+      subtitle: "Descubra novas opções",
+      title: "ESCOLHA. COMBINE.\nUSE DO SEU JEITO.",
+      desc: "Navegue pelas categorias e encontre produtos que combinam com você.",
+      btn1: "EXPLORAR AGORA",
+      link1: "Novidades",
+      titleSize: "clamp(3rem, 6vw, 5.5rem)",
     }
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
+    }, 10000);
     return () => clearInterval(timer);
   }, [heroSlides.length]);
 
@@ -617,14 +636,19 @@ export default function App() {
     }
     setChosenColor(defaultColor || (product.colors ? product.colors[0].name : null));
     setSelectedProduct(product);
+    setActiveImageIdx(0);
   };
 
   const filters = ["Todos", "Camisas", "Shorts", "Calçados", "Acessórios"];
 
-  const filtered =
-    activeFilter === "Todos"
-      ? PRODUCTS
-      : PRODUCTS.filter((p) => p.category === activeFilter);
+  const filtered = activeFilter === "Todos"
+    ? PRODUCTS
+    : PRODUCTS.filter((p) => {
+      if (activeFilter === "Camisas") return p.category.includes("Camiseta") || p.category.includes("Camisa") || p.category === "Fitness";
+      if (activeFilter === "Calçados") return p.category.includes("Tênis") || p.category.includes("Chinelo") || p.category === "Calçados";
+      if (activeFilter === "Acessórios") return p.category === "Acessórios" || p.category === "Relógios" || p.category === "Underwear" || p.category === "Meias" || p.category === "Cuecas" || p.category === "Meia";
+      return p.category === activeFilter;
+    });
 
   const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -692,7 +716,7 @@ export default function App() {
     setActiveFilter(filterVal);
     setMenuOpen(false);
 
-    if (categoryName === "home") {
+    if (categoryName === "home" || categoryName === "Início") {
       setCurrentPage("home");
     } else {
       setCurrentPage(categoryName);
@@ -702,7 +726,19 @@ export default function App() {
   };
 
   const activeColorObj = selectedProduct?.colors?.find((c) => c.name === chosenColor);
-  const modalDisplayImg = activeColorObj ? activeColorObj.img : selectedProduct?.img;
+
+  let galleryImages = activeColorObj ? [activeColorObj.img] : (selectedProduct ? [selectedProduct.img] : []);
+  if (activeColorObj && (activeColorObj as any).folderPath) {
+    const path = (activeColorObj as any).folderPath;
+    const imagesInFolder = Object.entries(globImages)
+      .filter(([k]) => k.includes(path))
+      .map(([_, v]) => v as string);
+    if (imagesInFolder.length > 0) {
+      galleryImages = imagesInFolder;
+    }
+  }
+
+  const modalDisplayImg = galleryImages[activeImageIdx] || galleryImages[0];
 
   return (
     <div
@@ -731,12 +767,12 @@ export default function App() {
             </button>
             <button
               onClick={() => navigateToCategory("home")}
-              className="cursor-pointer flex items-center"
+              className="cursor-pointer flex items-center mr-4"
             >
               <ImageWithFallback
                 src={logoImg}
                 alt="Grupo Sandrini"
-                className="h-10 sm:h-12 w-auto object-contain"
+                className="h-16 sm:h-20 w-auto object-contain transform scale-[1.5] sm:scale-[2.5] origin-left"
               />
             </button>
 
@@ -832,7 +868,7 @@ export default function App() {
                   <img
                     src={slide.image}
                     alt={slide.subtitle}
-                    className="w-full h-full object-cover opacity-60"
+                    className={`w-full h-full object-cover opacity-60 ${slide.position || ""}`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
                 </div>
@@ -849,7 +885,7 @@ export default function App() {
                       className="text-white font-black leading-none mb-4 sm:mb-6 whitespace-pre-line"
                       style={{
                         fontFamily: "'Barlow Condensed', sans-serif",
-                        fontSize: "clamp(3.5rem, 8vw, 7.5rem)",
+                        fontSize: (slide as any).titleSize || "clamp(3.5rem, 8vw, 7.5rem)",
                         letterSpacing: "-0.02em",
                       }}
                     >
@@ -865,12 +901,14 @@ export default function App() {
                       >
                         {slide.btn1}
                       </button>
-                      <button
-                        onClick={() => setCurrentPage(slide.link2)}
-                        className="border border-white/50 bg-white/10 backdrop-blur-sm text-white text-xs font-bold tracking-widest px-6 sm:px-8 py-4 hover:border-white hover:bg-white/30 transition-colors uppercase"
-                      >
-                        {slide.btn2}
-                      </button>
+                      {slide.btn2 && slide.link2 && (
+                        <button
+                          onClick={() => setCurrentPage(slide.link2)}
+                          className="border border-white/50 bg-white/10 backdrop-blur-sm text-white text-xs font-bold tracking-widest px-6 sm:px-8 py-4 hover:border-white hover:bg-white/30 transition-colors uppercase"
+                        >
+                          {slide.btn2}
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -919,13 +957,8 @@ export default function App() {
               </div>
 
               <div className="relative group">
-                <button
-                  onClick={() => scrollContainer(categoriesRef, -1)}
-                  className="absolute left-0 top-1/2 -translate-y-[calc(50%+12px)] z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -ml-5"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <div ref={categoriesRef} className="flex overflow-x-auto pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 gap-4 sm:gap-8 snap-x hide-scrollbar">
+
+                <div ref={categoriesRef} className="flex overflow-x-auto pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 gap-4 sm:gap-8 snap-x hide-scrollbar md:justify-center">
                   {CATEGORIES.map((cat) => (
                     <div
                       key={cat.label}
@@ -946,12 +979,7 @@ export default function App() {
                     </div>
                   ))}
                 </div>
-                <button
-                  onClick={() => scrollContainer(categoriesRef, 1)}
-                  className="absolute right-0 top-1/2 -translate-y-[calc(50%+12px)] z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -mr-5"
-                >
-                  <ChevronRight size={24} />
-                </button>
+
               </div>
             </div>
           </section>
@@ -960,7 +988,7 @@ export default function App() {
           <section className="bg-white py-12 border-b border-border">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="flex justify-center mb-8">
-                <div className="bg-[#3b82f6] text-white px-4 py-1 text-sm font-bold tracking-widest uppercase inline-block">
+                <div className="bg-black text-white px-4 py-1 text-sm font-bold tracking-widest uppercase inline-block">
                   ESSENCIAIS
                 </div>
               </div>
@@ -1076,7 +1104,13 @@ export default function App() {
               </div>
 
               <div className="text-center mt-10">
-                <button className="border-2 border-black text-black text-xs font-bold tracking-widest px-10 py-4 hover:bg-black hover:text-white transition-colors uppercase">
+                <button
+                  onClick={() => {
+                    setCurrentPage("Mais Vendidos");
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="border-2 border-black text-black text-xs font-bold tracking-widest px-10 py-4 hover:bg-black hover:text-white transition-colors uppercase"
+                >
                   VER TODOS OS PRODUTOS
                 </button>
               </div>
@@ -1086,31 +1120,31 @@ export default function App() {
           {/* Full-width Banner */}
           <section className="relative overflow-hidden bg-black h-[400px] flex items-center">
             <img
-              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1400&h=400&fit=crop&auto=format"
-              alt="Promoção Sandrini"
-              className="absolute inset-0 w-full h-full object-cover opacity-30"
+              src={banner1400x400Img}
+              alt="Kits Essenciais Sandrini"
+              className="absolute inset-0 w-full h-full object-cover opacity-50"
             />
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full">
               <div className="max-w-2xl">
                 <span className="text-accent text-xs tracking-[0.3em] uppercase font-bold mb-4 block">
-                  Renove Seu Guarda-Roupa
+                  Tudo o que você precisa
                 </span>
                 <h2
-                  className="text-white font-black leading-none mb-4"
+                  className="text-white font-black leading-none mb-4 whitespace-pre-line"
                   style={{
                     fontFamily: "'Barlow Condensed', sans-serif",
                     fontSize: "clamp(3rem, 7vw, 5.5rem)",
                   }}
                 >
-                  KITS ESSENCIAIS <br /> COM DESCONTO
+                  {"SEUS ESSENCIAIS\nEM UM SÓ LUGAR"}
                 </h2>
-                <p className="text-white/70 mb-8 text-sm">
-                  Packs de cuecas, meias e camisetas básicas com o melhor custo-benefício.
+                <p className="text-white/80 mb-8 text-sm max-w-md">
+                  Mais peças, com combinações práticas e preços que valem a pena.
                 </p>
                 <button
-                  onClick={() => setCurrentPage("Promoções")}
+                  onClick={() => setCurrentPage("Kits")}
                   className="bg-accent text-white text-xs font-bold tracking-widest px-8 py-4 hover:bg-red-700 transition-colors uppercase">
-                  APROVEITAR OFERTA
+                  CONHECER OS KITS
                 </button>
               </div>
             </div>
@@ -1118,8 +1152,8 @@ export default function App() {
           </section>
 
           {/* Brands */}
-          <section className="bg-secondary/50 py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <section className="bg-white py-16 border-t border-border">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 relative group/brands">
               <div className="text-center mb-10">
                 <h2
                   className="font-black text-black leading-none mb-2"
@@ -1134,22 +1168,32 @@ export default function App() {
                   As melhores marcas do mercado em um só lugar
                 </p>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4">
-                {BRANDS.map((b) => (
+
+              <button
+                onClick={() => scrollContainer(brandsRef, -1)}
+                className="absolute left-0 top-1/2 translate-y-4 z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover/brands:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -ml-5"
+              >
+                <ChevronLeft size={24} />
+              </button>
+
+              <div ref={brandsRef} className="flex overflow-x-auto gap-12 px-4 sm:px-0 py-4 items-center hide-scrollbar snap-x">
+                {LOGOS.map((logo) => (
                   <div
-                    key={b}
-                    onClick={() => setCurrentPage(`brand:${b}`)}
-                    className="bg-white border border-border/60 flex items-center justify-center h-24 hover:border-black hover:shadow-md transition-all cursor-pointer group"
+                    key={logo.name}
+                    onClick={() => setCurrentPage(`brand:${logo.name}`)}
+                    className="min-w-[140px] sm:min-w-[180px] shrink-0 snap-center cursor-pointer opacity-60 hover:opacity-100 hover:scale-125 transition-all duration-300 flex justify-center"
                   >
-                    <span
-                      className="text-muted-foreground group-hover:text-black text-xl font-bold tracking-widest uppercase transition-colors"
-                      style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                    >
-                      {b}
-                    </span>
+                    <img src={logo.url} alt={logo.name} className="h-16 sm:h-20 object-contain mix-blend-multiply" />
                   </div>
                 ))}
               </div>
+
+              <button
+                onClick={() => scrollContainer(brandsRef, 1)}
+                className="absolute right-0 top-1/2 translate-y-4 z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover/brands:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -mr-5"
+              >
+                <ChevronRight size={24} />
+              </button>
             </div>
           </section>
         </>
@@ -1212,7 +1256,7 @@ export default function App() {
                 <ImageWithFallback
                   src={logoFooterImg}
                   alt="Grupo Sandrini"
-                  className="h-10 w-auto object-contain"
+                  className="h-16 sm:h-24 w-auto object-contain object-left -ml-4 sm:-ml-6"
                 />
               </div>
               <p className="text-xs text-white/40 leading-relaxed mb-4">
@@ -1270,7 +1314,7 @@ export default function App() {
 
           <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p className="text-[10px] text-white/30 tracking-wider">
-              © 2025 LOJA SANDRINI. TODOS OS DIREITOS RESERVADOS.
+              © 2026 LOJA SANDRINI. TODOS OS DIREITOS RESERVADOS.
             </p>
             <div className="flex items-center gap-4">
               {["Pix", "Visa", "Mastercard", "Boleto", "Elo"].map((p) => (
@@ -1449,12 +1493,44 @@ export default function App() {
             </button>
 
             {/* Product Image */}
-            <div className="md:w-1/2 bg-white aspect-[3/4] md:aspect-auto p-6 flex items-center justify-center border-r border-border/40">
-              <img
-                src={modalDisplayImg}
-                alt={selectedProduct.name}
-                className="max-h-full max-w-full object-contain"
-              />
+            <div className="md:w-1/2 bg-white p-6 flex flex-col items-center justify-center border-r border-border/40">
+              <div className="aspect-[3/4] md:aspect-auto w-full flex items-center justify-center mb-4 relative group">
+                {galleryImages.length > 1 && (
+                  <button
+                    onClick={() => setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white border border-border text-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black hover:text-white cursor-pointer shadow-sm"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                )}
+                <img
+                  src={modalDisplayImg}
+                  alt={selectedProduct.name}
+                  className="max-h-[400px] max-w-full object-contain"
+                />
+                {galleryImages.length > 1 && (
+                  <button
+                    onClick={() => setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white border border-border text-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black hover:text-white cursor-pointer shadow-sm"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                )}
+              </div>
+              {galleryImages.length > 1 && (
+                <div className="flex gap-2 overflow-x-auto w-full max-w-[300px] md:max-w-[400px] pb-3 snap-x delicate-scrollbar">
+                  {galleryImages.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImageIdx(idx)}
+                      className={`w-16 h-16 shrink-0 border p-1 transition-colors cursor-pointer snap-center ${activeImageIdx === idx ? "border-black border-2" : "border-border hover:border-black/50"
+                        }`}
+                    >
+                      <img src={img} alt="" className="w-full h-full object-contain" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Product Info */}
@@ -1464,8 +1540,7 @@ export default function App() {
                   {selectedProduct.badge || selectedProduct.category}
                 </span>
                 <h2
-                  className="font-black text-black leading-tight text-3xl uppercase mt-2 mb-3"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+                  className="font-bold text-black leading-tight text-2xl uppercase mt-2 mb-3"
                 >
                   {selectedProduct.name}
                 </h2>
@@ -1518,12 +1593,14 @@ export default function App() {
                       {selectedProduct.colors.map((col) => (
                         <button
                           key={col.name}
-                          onClick={() => setChosenColor(col.name)}
-                          className={`px-3 py-1.5 border text-xs font-bold tracking-wider uppercase transition-colors flex items-center gap-2 cursor-pointer ${chosenColor === col.name
+                          onClick={() => {
+                            setChosenColor(col.name);
+                            setActiveImageIdx(0);
+                          }}
+                          className={`px-3 py-1.5 border text-xs font-medium tracking-wide uppercase transition-colors flex items-center gap-2 cursor-pointer ${chosenColor === col.name
                             ? "bg-black text-white border-black"
                             : "bg-white text-black border-border hover:border-black"
                             }`}
-                          style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                         >
                           <span className="w-3.5 h-3.5 rounded-full border border-black/10" style={{ backgroundColor: col.hex }} />
                           {col.name}
@@ -1544,11 +1621,10 @@ export default function App() {
                         <button
                           key={size}
                           onClick={() => setChosenSize(size)}
-                          className={`w-11 h-11 border flex items-center justify-center text-xs font-bold transition-colors cursor-pointer ${chosenSize === size
+                          className={`w-11 h-11 border flex items-center justify-center text-xs font-medium transition-colors cursor-pointer ${chosenSize === size
                             ? "bg-black text-white border-black"
                             : "bg-white text-black border-border hover:border-black"
                             }`}
-                          style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                         >
                           {size}
                         </button>
