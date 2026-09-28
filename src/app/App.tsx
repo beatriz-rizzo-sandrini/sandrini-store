@@ -1,10 +1,36 @@
 import { useState, useEffect, useRef } from "react";
-import { ShoppingBag, Search, Menu, X, ChevronRight, ChevronLeft, Heart, Star, Instagram, Facebook, Twitter } from "lucide-react";
+import {
+  ShoppingBag,
+  Search,
+  Menu,
+  X,
+  ChevronRight,
+  ChevronLeft,
+  Heart,
+  Star,
+  Instagram,
+  Youtube,
+  Facebook,
+  Twitter,
+  Check,
+  Copy,
+  Truck,
+  RotateCcw,
+  Tag,
+  ShieldCheck,
+  CreditCard,
+  User,
+  Flame,
+  Play,
+  Share2,
+  Sparkles,
+  ArrowRight
+} from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import logoImg from "@/imports/logo_transp.png";
 import logoFooterImg from "@/imports/logo_cortado.png";
 
-// Novas Imagens
+// Import imagens do repositório
 const globImages = import.meta.glob('@/imports/**/*.{jpg,png,webp}', { eager: true, import: 'default' }) as Record<string, string>;
 import heroBanner1Img from "@/imports/BANNERS PRINCIPAIS 1400X900/1/1400x900.jpg";
 import heroBanner2Img from "@/imports/BANNERS PRINCIPAIS 1400X900/2/1400x900.jpg";
@@ -15,12 +41,14 @@ import undewearCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/UNDERWE
 import fitnessCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/FITNESS/FITNESS-500X500.jpg";
 import basicosCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/BÁSICOS/BASICOS-500X500.jpg";
 import tenisEsportivoCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/TÊNIS ESPORTIVO/TÊNIS-ESPORTIVO-500X500.jpg";
+
 import camisetaEssenciaisImg from "@/imports/ESSENCIAIS/CAMISETAS/CAMISETAS-800X800.jpg";
 import shortsEssenciaisImg from "@/imports/ESSENCIAIS/SHORTS/SHORTS-800X800.jpg";
 import tenisEssenciaisImg from "@/imports/ESSENCIAIS/TÊNIS/TENIS 800X800.jpg";
 import cuecaEssenciaisImg from "@/imports/ESSENCIAIS/CUECAS/CUECA-800X800.jpg";
 import meiaEssenciaisImg from "@/imports/ESSENCIAIS/MEIAS/MEIAS-800X800.jpg";
 import relogioEssenciaisImg from "@/imports/ESSENCIAIS/RELÓGIOS/RELOGIOS-800X800.jpg";
+
 import n1MaisVendidosImg from "@/imports/MAIS VENDIDOS/1-CUECA-ALGODÃO-SANDRINI.jpg";
 import n2MaisVendidosImg from "@/imports/MAIS VENDIDOS/2-KIT-4-DRY-FIT-SANDRINI.jpg";
 import n3MaisVendidosImg from "@/imports/MAIS VENDIDOS/3-KIT-15-MEIAS-CANO-MEDIO-SANDRINI.jpg";
@@ -33,6 +61,7 @@ import n9MaisVendidosImg from "@/imports/MAIS VENDIDOS/9-KIT-2-BERMUDAS-COMPRESS
 import n10MaisVendidosImg from "@/imports/MAIS VENDIDOS/10-AERO-SPARK-SANDRINI.jpg";
 import n11MaisVendidosImg from "@/imports/MAIS VENDIDOS/11-SHORT-LINHO-SANDRINI.jpg";
 import n12MaisVendidosImg from "@/imports/MAIS VENDIDOS/12-KIT-12-MEIAS-SOQUETE-SANDRINI.jpg";
+
 import tenisAeroRunImg from "@/imports/Tênis Aero Run - Sandrini/PRETO E CINZA/TSSF1801005PTOCINZA-01.jpg";
 import tenisAeroRunAmareloImg from "@/imports/Tênis Aero Run - Sandrini/BRANCO PRETO E AMARELO/TSSF1801118BCOPTOAMARELO-01.jpg";
 import tenisAeroRunVermelhoImg from "@/imports/Tênis Aero Run - Sandrini/PRETO PRETO E VERMELHO/TSSF1801012PTOPTOVERMELHO-01.jpg";
@@ -53,121 +82,87 @@ import shortsLinhoVerdeImg from "@/imports/Shorts Linho - Sandrini/VERDE MILITAR
 import kit3CamisetasSortidoImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandrini-CAPA.jpg";
 import kit3CamisetasBrancoImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandriniBranco-CAPA.jpg";
 import kit3CamisetasPretoImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandriniPreto-CAPA.jpg";
-import relogioTechnosImg from "@/imports/Relógios/Relógio - Technos/Relogio Steel Prata Technos.png";
 
-const NAV_LINKS = ["Início", "Novidades", "Camisetas", "Shorts", "Tênis", "Underwear", "Acessórios", "Promoções"];
+const NAV_LINKS = [
+  { label: "LANÇAMENTO", category: "Novidades" },
+  { label: "TREINO & ACADEMIA", category: "Fitness" },
+  { label: "CORRIDA", category: "Corrida" },
+  { label: "ESSENCIAIS", category: "Básicos" },
+  { label: "KITS", category: "Kits" },
+  { label: "UNDERWEAR", category: "Underwear" },
+  { label: "PROMOÇÕES", category: "Promoções" },
+];
 
-const CATEGORIES = [
-  {
-    label: "Tênis Casual",
-    img: tenisCasualCategoriaImg,
-  },
+const TORX_TOPBAR_MESSAGES = [
+  "ATÉ 6X SEM JUROS",
+  "FRETE GRÁTIS PARA O SUDESTE",
+  "FRETE GRÁTIS ACIMA DE R$ 259",
+  "USE O CUPOM BEMVINDOSANDRINI E GANHE 7% OFF",
+];
 
+const TORX_CATEGORY_GRID = [
   {
-    label: "Underwear",
-    img: undewearCategoriaImg,
-  },
-  {
-    label: "Fitness",
-    img: fitnessCategoriaImg,
-  },
-  {
-    label: "Básicos",
-    img: basicosCategoriaImg,
-  },
-  {
-    label: "Tênis Esportivo",
+    title: "CORRIDA",
+    subtitle: "Amortecimento, leveza e alta impulsão",
+    category: "Corrida",
     img: tenisEsportivoCategoriaImg,
+    badge: "TECNOLOGIA RUNNING",
   },
   {
-    label: "Relógios",
-    img: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600&h=600&fit=crop&auto=format",
+    title: "TREINO & ACADEMIA",
+    subtitle: "Resistência, respirabilidade e alta performance",
+    category: "Fitness",
+    img: fitnessCategoriaImg,
+    badge: "DRY PERFORMANCE",
+  },
+  {
+    title: "ESSENCIAIS & CASUAL",
+    subtitle: "Conforto anatômico para todas as ocasiões",
+    category: "Básicos",
+    img: tenisCasualCategoriaImg,
+    badge: "COLEÇÃO 2026",
   },
 ];
 
-const PRODUCTS = [
+interface ProductColor {
+  name: string;
+  img: string;
+  hex: string;
+  folderPath?: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  originalPrice: number | null;
+  img: string;
+  secondImg?: string;
+  badge?: string;
+  discountBadge?: string;
+  rating: number;
+  reviews: number;
+  sizes: string[];
+  brand: string;
+  colors?: ProductColor[];
+}
+
+const PRODUCTS: Product[] = [
   {
     id: 1,
-    name: "Kit 10 Cuecas Boxer Algodão Sandrini",
-    category: "Underwear",
-    price: 99.99,
-    originalPrice: 139.99,
-    img: n1MaisVendidosImg,
-    badge: "MAIS VENDIDO",
-    rating: 4.8,
-    reviews: 245,
-    sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini"
-  },
-  {
-    id: 2,
-    name: "Kit 4 Dry Fit Sandrini",
-    category: "Fitness",
-    price: 99.99,
-    originalPrice: 149.99,
-    img: n2MaisVendidosImg,
+    name: "Tênis Sandrini Aero Run Performance",
+    category: "Corrida",
+    price: 349.90,
+    originalPrice: 399.90,
+    discountBadge: "13% OFF",
     badge: "NOVO",
-    rating: 4.6,
-    reviews: 88,
-    sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini"
-  },
-  {
-    id: 3,
-    name: "Kit 15 Meias Cano Médio Sandrini",
-    category: "Underwear",
-    price: 109.99,
-    originalPrice: null,
-    img: n3MaisVendidosImg,
-    badge: "OFERTA",
-    rating: 4.7,
-    reviews: 132,
-    sizes: ["Único"],
-    brand: "Sandrini"
-  },
-  {
-    id: 4,
-    name: "Kit 3 Camisetas Algodão Sandrini",
-    category: "Camisetas",
-    price: 95.72,
-    originalPrice: 72.99,
-    img: n4MaisVendidosImg,
-    badge: "DESTAQUE",
-    rating: 4.9,
-    reviews: 312,
-    sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini",
-    colors: [
-      { name: "Sortido", img: kit3CamisetasSortidoImg, hex: "#9ca3af" },
-      { name: "Branco", img: kit3CamisetasBrancoImg, hex: "#ffffff" },
-      { name: "Preto", img: kit3CamisetasPretoImg, hex: "#111111" },
-    ],
-  },
-  {
-    id: 5,
-    name: "Kit 4 Bermudas Tactel Sandrini",
-    category: "Shorts",
-    price: 124.99,
-    originalPrice: 90.52,
-    img: n5MaisVendidosImg,
-    badge: "NOVO",
-    rating: 4.9,
-    reviews: 167,
-    sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini"
-  },
-  {
-    id: 6,
-    name: "Tênis Aero Run Sandrini",
-    category: "Tênis Esportivo",
-    price: 74.90,
-    originalPrice: 149.99,
     img: n6MaisVendidosImg,
-    badge: "NOVO",
+    secondImg: tenisAeroRunImg,
     rating: 4.9,
-    reviews: 167,
+    reviews: 348,
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    brand: "Sandrini",
+    brand: "Sandrini Performance",
     colors: [
       { name: "Preto/Cinza", img: tenisAeroRunImg, hex: "#4b5563", folderPath: "Tênis Aero Run - Sandrini/PRETO E CINZA" },
       { name: "Branco/Amarelo", img: tenisAeroRunAmareloImg, hex: "#eab308", folderPath: "Tênis Aero Run - Sandrini/BRANCO PRETO E AMARELO" },
@@ -175,61 +170,19 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 7,
-    name: "Kit 3 Regatas Dry Fit Sandrini",
-    category: "Fitness",
-    price: 81.99,
-    originalPrice: 128.91,
-    img: n7MaisVendidosImg,
-    badge: "NOVO",
-    rating: 4.9,
-    reviews: 167,
-    sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini"
-  },
-  {
-    id: 8,
-    name: "Tênis Spryte Sandrini",
-    category: "Tênis Esportivo",
-    price: 129.99,
-    originalPrice: 189.99,
-    img: n8MaisVendidosImg,
-    badge: "OFERTA",
-    rating: 4.8,
-    reviews: 412,
-    sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    brand: "Sandrini",
-    colors: [
-      { name: "Preto/Branco", img: tenisSprytePretoBrancoImg, hex: "#111111", folderPath: "Tênis Spryte - Sandrini/PRETO" },
-      { name: "Branco/Gelo", img: tenisSpryteBrancoImg, hex: "#ffffff", folderPath: "Tênis Spryte - Sandrini/BRANCO GELO" },
-      { name: "Verde Militar", img: tenisSpryteVerdeImg, hex: "#4b5320", folderPath: "Tênis Spryte - Sandrini/VERDE" },
-    ],
-  },
-  {
-    id: 9,
-    name: "Kit 2 Bermudas Compressão Sandrini",
-    category: "Shorts",
-    price: 78.99,
-    originalPrice: 139.99,
-    img: n9MaisVendidosImg,
-    badge: "NOVO",
-    rating: 4.9,
-    reviews: 167,
-    sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini"
-  },
-  {
-    id: 10,
-    name: "Tênis Aero Spark Sandrini",
-    category: "Tênis Esportivo",
-    price: 149.99,
-    originalPrice: 271.56,
+    id: 2,
+    name: "Tênis Sandrini Aero Spark Treino & Corrida",
+    category: "Corrida",
+    price: 299.90,
+    originalPrice: 339.90,
+    discountBadge: "12% OFF",
+    badge: "MAIS VENDIDO",
     img: n10MaisVendidosImg,
-    badge: "DESTAQUE",
+    secondImg: tenisAeroSparkPretoImg,
     rating: 4.9,
     reviews: 521,
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    brand: "Sandrini",
+    brand: "Sandrini Performance",
     colors: [
       { name: "Branco", img: tenisAeroSparkBrancoImg, hex: "#ffffff", folderPath: "Tênis Aero Spark - Sandrini/BRANCO CINZA E LARANJA" },
       { name: "Preto", img: tenisAeroSparkPretoImg, hex: "#111111", folderPath: "Tênis Aero Spark - Sandrini/PRETO E LARANJA" },
@@ -237,318 +190,323 @@ const PRODUCTS = [
     ],
   },
   {
-    id: 11,
-    name: "Shorts Linho Sandrini",
-    category: "Shorts",
-    price: 38.70,
-    originalPrice: 84.90,
-    img: n11MaisVendidosImg,
-    badge: "NOVO",
+    id: 3,
+    name: "Tênis Sandrini Spryte Grip Academia & Treino",
+    category: "Fitness",
+    price: 229.90,
+    originalPrice: 260.90,
+    discountBadge: "12% OFF",
+    badge: "LANÇAMENTO",
+    img: n8MaisVendidosImg,
+    secondImg: tenisSpryteBrancoImg,
     rating: 4.8,
-    reviews: 145,
-    sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini",
+    reviews: 412,
+    sizes: ["38", "39", "40", "41", "42", "43", "44"],
+    brand: "Sandrini Performance",
     colors: [
-      { name: "Bege", img: shortsLinhoBegeImg, hex: "#d5bdaf", folderPath: "Shorts Linho - Sandrini/BEGE" },
-      { name: "Preto", img: shortsLinhoPretoImg, hex: "#111111", folderPath: "Shorts Linho - Sandrini/PRETO" },
-      { name: "Terracota", img: shortsLinhoTerracotaImg, hex: "#e2725b", folderPath: "Shorts Linho - Sandrini/TERRACOTA" },
-      { name: "Verde Militar", img: shortsLinhoVerdeImg, hex: "#4b5320", folderPath: "Shorts Linho - Sandrini/VERDE MILITAR" },
+      { name: "Preto/Branco", img: tenisSprytePretoBrancoImg, hex: "#111111", folderPath: "Tênis Spryte - Sandrini/PRETO" },
+      { name: "Branco/Gelo", img: tenisSpryteBrancoImg, hex: "#ffffff", folderPath: "Tênis Spryte - Sandrini/BRANCO GELO" },
+      { name: "Verde Militar", img: tenisSpryteVerdeImg, hex: "#4b5320", folderPath: "Tênis Spryte - Sandrini/VERDE" },
     ],
   },
   {
-    id: 12,
-    name: "Kit 12 Meias Soquete Sandrini",
-    category: "Underwear",
-    price: 59.99,
-    originalPrice: null,
-    img: n12MaisVendidosImg,
-    badge: "OFERTA",
+    id: 4,
+    name: "Kit 4 Camisetas Dry Fit Sandrini Performance",
+    category: "Fitness",
+    price: 99.99,
+    originalPrice: 149.99,
+    discountBadge: "33% OFF",
+    badge: "DESTAQUE",
+    img: n2MaisVendidosImg,
+    secondImg: n7MaisVendidosImg,
+    rating: 4.8,
+    reviews: 188,
+    sizes: ["P", "M", "G", "GG"],
+    brand: "Sandrini Active",
+  },
+  {
+    id: 5,
+    name: "Kit 2 Bermudas de Compressão Sandrini Treino",
+    category: "Fitness",
+    price: 78.99,
+    originalPrice: 139.99,
+    discountBadge: "43% OFF",
+    badge: "NOVO",
+    img: n9MaisVendidosImg,
+    secondImg: n5MaisVendidosImg,
     rating: 4.9,
-    reviews: 82,
-    sizes: ["Único"],
-    brand: "Sandrini",
+    reviews: 167,
+    sizes: ["P", "M", "G", "GG"],
+    brand: "Sandrini Active",
   },
   {
-    id: 13,
-    name: "Relógio Steel Prata",
-    category: "Relógios",
-    price: 349.90,
-    originalPrice: 429.90,
-    img: relogioTechnosImg,
-    badge: "OFERTA",
-    rating: 5.0,
-    reviews: 12,
-    sizes: ["Único"],
-    brand: "Technos",
+    id: 6,
+    name: "Kit 10 Cuecas Boxer Algodão Premium Sandrini",
+    category: "Underwear",
+    price: 99.99,
+    originalPrice: 139.99,
+    discountBadge: "28% OFF",
+    badge: "MAIS VENDIDO",
+    img: n1MaisVendidosImg,
+    secondImg: cuecaEssenciaisImg,
+    rating: 4.9,
+    reviews: 645,
+    sizes: ["P", "M", "G", "GG"],
+    brand: "Sandrini Underwear",
+  },
+  {
+    id: 7,
+    name: "Kit 3 Camisetas Algodão Penteado Sandrini",
+    category: "Básicos",
+    price: 95.72,
+    originalPrice: 129.90,
+    discountBadge: "26% OFF",
+    badge: "ESSENCIAL",
+    img: n4MaisVendidosImg,
+    secondImg: kit3CamisetasBrancoImg,
+    rating: 4.9,
+    reviews: 312,
+    sizes: ["P", "M", "G", "GG"],
+    brand: "Sandrini Casual",
     colors: [
-      { name: "Prata", img: relogioTechnosImg, hex: "#c0c0c0", folderPath: "Relógio - Technos" }
-    ]
+      { name: "Sortido", img: kit3CamisetasSortidoImg, hex: "#9ca3af" },
+      { name: "Branco", img: kit3CamisetasBrancoImg, hex: "#ffffff" },
+      { name: "Preto", img: kit3CamisetasPretoImg, hex: "#111111" },
+    ],
+  },
+  {
+    id: 8,
+    name: "Shorts Linho Premium Alfaiataria Sandrini",
+    category: "Básicos",
+    price: 89.90,
+    originalPrice: 129.90,
+    discountBadge: "30% OFF",
+    badge: "NOVO",
+    img: n11MaisVendidosImg,
+    secondImg: shortsLinhoBegeImg,
+    rating: 4.8,
+    reviews: 145,
+    sizes: ["P", "M", "G", "GG"],
+    brand: "Sandrini Casual",
+    colors: [
+      { name: "Bege", img: shortsLinhoBegeImg, hex: "#d6c5b3" },
+      { name: "Preto", img: shortsLinhoPretoImg, hex: "#111111" },
+      { name: "Terracota", img: shortsLinhoTerracotaImg, hex: "#c86d51" },
+      { name: "Verde Militar", img: shortsLinhoVerdeImg, hex: "#4b5320" },
+    ],
+  },
+  {
+    id: 9,
+    name: "Kit 15 Meias Cano Médio Sandrini Sport",
+    category: "Underwear",
+    price: 109.99,
+    originalPrice: 149.99,
+    discountBadge: "26% OFF",
+    badge: "OFERTA",
+    img: n3MaisVendidosImg,
+    secondImg: meiaEssenciaisImg,
+    rating: 4.7,
+    reviews: 132,
+    sizes: ["Único (38-43)"],
+    brand: "Sandrini Underwear",
+  },
+  {
+    id: 10,
+    name: "Kit 4 Bermudas Tactel Sandrini Active",
+    category: "Fitness",
+    price: 124.99,
+    originalPrice: 169.90,
+    discountBadge: "26% OFF",
+    badge: "POPULAR",
+    img: n5MaisVendidosImg,
+    secondImg: shortsEssenciaisImg,
+    rating: 4.8,
+    reviews: 194,
+    sizes: ["P", "M", "G", "GG"],
+    brand: "Sandrini Active",
+  },
+  {
+    id: 11,
+    name: "Kit 3 Regatas Dry Fit Sandrini Training",
+    category: "Fitness",
+    price: 81.99,
+    originalPrice: 119.90,
+    discountBadge: "31% OFF",
+    badge: "NOVO",
+    img: n7MaisVendidosImg,
+    secondImg: camisetaEssenciaisImg,
+    rating: 4.9,
+    reviews: 167,
+    sizes: ["P", "M", "G", "GG"],
+    brand: "Sandrini Active",
+  },
+  {
+    id: 12,
+    name: "Kit 12 Meias Soquete Invisível Sandrini",
+    category: "Underwear",
+    price: 79.90,
+    originalPrice: 109.90,
+    discountBadge: "27% OFF",
+    badge: "ESSENCIAL",
+    img: n12MaisVendidosImg,
+    secondImg: meiaEssenciaisImg,
+    rating: 4.8,
+    reviews: 210,
+    sizes: ["Único (38-43)"],
+    brand: "Sandrini Underwear",
   },
 ];
 
-const globLogos = import.meta.glob('@/imports/Logo de Fornecedores/*.jpg', { eager: true, import: 'default' }) as Record<string, string>;
-const LOGOS = Object.entries(globLogos).map(([path, url]) => ({
-  name: path.split('/').pop()?.replace('.jpg', '').replace(/-/g, ' ') || '',
-  url
-}));
-
-const ESSENCIAIS = [
-  {
-    title: "CAMISETAS",
-    price: "39,90",
-    img: camisetaEssenciaisImg,
-    category: "Camisetas",
-  },
-  {
-    title: "SHORTS",
-    price: "49,90",
-    img: shortsEssenciaisImg,
-    category: "Shorts",
-  },
-  {
-    title: "TÊNIS",
-    price: "119,90",
-    img: tenisEssenciaisImg,
-    category: "Tênis",
-  },
-  {
-    title: "CUECAS",
-    price: "29,90",
-    img: cuecaEssenciaisImg,
-    category: "Underwear",
-  },
-  {
-    title: "MEIAS",
-    price: "19,90",
-    img: meiaEssenciaisImg,
-    category: "Underwear",
-  },
-  {
-    title: "RELÓGIOS",
-    price: "129,90",
-    img: relogioEssenciaisImg,
-    category: "Underwear",
-  },
+const INSTAGRAM_POSTS = [
+  { img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1483721074573-586540da5703?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
 ];
 
-function formatPrice(n: number) {
-  return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+function formatPrice(val: number) {
+  return val.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
-function BadgePill({ text }: { text: string }) {
-  const isOffer = text === "OFERTA";
-  const isNew = text === "NOVO";
-  return (
-    <span
-      className={`text-[10px] font-bold tracking-widest px-2 py-0.5 ${isOffer
-        ? "bg-accent text-white"
-        : isNew
-          ? "bg-black text-white"
-          : "bg-black text-white"
-        }`}
-    >
-      {text}
-    </span>
-  );
+function calculatePixPrice(val: number) {
+  // 5% de desconto extra no PIX estilo Torx
+  return val * 0.95;
 }
 
-function ProductCard({
+// Card de produto estilo Torx Brasil
+function TorxProductCard({
   product,
   onAddToCart,
   onClickDetails,
+  isFavorite,
+  onToggleFavorite,
 }: {
-  product: (typeof PRODUCTS)[0];
-  onAddToCart: (product: (typeof PRODUCTS)[0], size: string) => void;
-  onClickDetails: (product: (typeof PRODUCTS)[0], defaultColor: string | null) => void;
+  product: Product;
+  onAddToCart: (product: Product, size: string) => void;
+  onClickDetails: (product: Product, defaultColor: string | null) => void;
+  isFavorite?: boolean;
+  onToggleFavorite?: (productId: number) => void;
 }) {
-  const [liked, setLiked] = useState(false);
-  const [addedToCart, setAddedToCart] = useState(false);
-  const [activeColorIdx, setActiveColorIdx] = useState(0);
-
-  const displayImg = product.colors ? product.colors[activeColorIdx].img : product.img;
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if ((product.category === "Acessórios" || product.category === "Relógios") && !product.sizes) {
-      onAddToCart(product, "Único");
-      setAddedToCart(true);
-      setTimeout(() => setAddedToCart(false), 1500);
-    } else {
-      onClickDetails(product, product.colors ? product.colors[activeColorIdx].name : null);
-    }
-  };
+  const [hovered, setHovered] = useState(false);
+  const pixPrice = calculatePixPrice(product.price);
+  const installmentValue = product.price / 6;
 
   return (
     <div
-      onClick={() => onClickDetails(product, product.colors ? product.colors[activeColorIdx].name : null)}
-      className="group relative bg-card flex flex-col overflow-hidden border border-border hover:border-black transition-colors duration-300 cursor-pointer h-full mx-auto w-full max-w-[320px]"
+      className="group flex flex-col bg-white border border-[#EBEBEB] transition-all duration-300 hover:shadow-xl hover:border-black/20 relative"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <div className="relative overflow-hidden bg-white aspect-[4/5] p-4 flex items-center justify-center border-b border-border/40 shrink-0">
-        <img
-          src={displayImg}
-          alt={product.name}
-          className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
-        />
-        {product.badge && (
-          <div className="absolute top-3 left-3">
-            <BadgePill text={product.badge} />
-          </div>
-        )}
+      {/* Imagem com Hover Flip */}
+      <div className="relative aspect-square w-full overflow-hidden bg-[#FAFAFA] cursor-pointer" onClick={() => onClickDetails(product, null)}>
+        {/* Wishlist Heart */}
         <button
           onClick={(e) => {
             e.stopPropagation();
-            setLiked(!liked);
+            if (onToggleFavorite) onToggleFavorite(product.id);
           }}
-          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-black hover:text-[#D94A2F] hover:bg-white transition-all shadow-sm cursor-pointer"
+          title="Favoritar produto"
         >
-          <Heart
-            size={16}
-            className={liked ? "fill-accent text-accent" : "text-black"}
+          <Heart size={18} className={isFavorite ? "fill-[#D94A2F] text-[#D94A2F]" : "text-black/70"} />
+        </button>
+
+        {/* Badges Torx Style */}
+        <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5 pointer-events-none">
+          {product.discountBadge && (
+            <span className="bg-[#D94A2F] text-white text-[11px] font-black tracking-wider uppercase px-2.5 py-1 rounded-xs shadow-xs">
+              {product.discountBadge}
+            </span>
+          )}
+          {product.badge && (
+            <span className="bg-black text-white text-[10px] font-black tracking-widest uppercase px-2 py-0.5 rounded-xs">
+              {product.badge}
+            </span>
+          )}
+        </div>
+
+        {/* Imagem Principal */}
+        <img
+          src={product.img}
+          alt={product.name}
+          className={`absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500 ease-out ${
+            hovered && product.secondImg ? "opacity-0 scale-95" : "opacity-100 scale-100"
+          }`}
+        />
+
+        {/* Segunda Imagem no Hover */}
+        {product.secondImg && (
+          <img
+            src={product.secondImg}
+            alt={`${product.name} detalhe`}
+            className={`absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500 ease-out ${
+              hovered ? "opacity-100 scale-105" : "opacity-0 scale-100"
+            }`}
           />
-        </button>
-        <button
-          onClick={handleAdd}
-          className="absolute bottom-0 left-0 right-0 bg-black text-white text-xs font-bold tracking-widest py-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 hover:bg-accent cursor-pointer"
-        >
-          {addedToCart
-            ? "ADICIONADO ✓"
-            : (product.category === "Acessórios" || product.category === "Relógios") && !product.sizes
-              ? "ADICIONAR AO CARRINHO"
-              : "ESCOLHER TAMANHO"}
-        </button>
+        )}
       </div>
-      <div className="p-4 flex flex-col flex-1 justify-between">
+
+      {/* Info do Produto Torx */}
+      <div className="p-4 flex flex-col flex-1 justify-between gap-3">
         <div>
-          <span className="text-[10px] text-muted-foreground tracking-widest uppercase mb-1 block">
-            {product.category}
+          <span className="text-[10px] tracking-[0.15em] uppercase font-bold text-black/40 block mb-1">
+            {product.brand}
           </span>
-          <h3 className="font-semibold text-sm leading-tight text-foreground group-hover:text-accent transition-colors line-clamp-2">
+          <h3
+            onClick={() => onClickDetails(product, null)}
+            className="font-bold text-[14px] text-black leading-snug line-clamp-2 cursor-pointer hover:text-[#D94A2F] transition-colors"
+          >
             {product.name}
           </h3>
-          {product.colors && (
-            <div className="flex gap-1.5 mt-1 mb-1">
-              {product.colors.map((col, idx) => (
-                <button
-                  key={col.name}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveColorIdx(idx);
-                  }}
-                  className={`w-3.5 h-3.5 rounded-full border transition-all cursor-pointer ${activeColorIdx === idx ? "border-black scale-110" : "border-border hover:border-black/50"
-                    }`}
-                  style={{ backgroundColor: col.hex }}
-                  title={col.name}
-                />
-              ))}
-            </div>
-          )}
-          <div className="flex items-center gap-1 mt-0.5">
-            <Star size={11} className="fill-amber-400 text-amber-400" />
-            <span className="text-[11px] text-muted-foreground">
-              {product.rating} ({product.reviews})
+        </div>
+
+        {/* Cores disponíveis em swatches */}
+        {product.colors && product.colors.length > 0 && (
+          <div className="flex items-center gap-1.5 py-0.5">
+            {product.colors.map((c) => (
+              <span
+                key={c.name}
+                className="w-3.5 h-3.5 rounded-full border border-black/20 shadow-2xs"
+                style={{ backgroundColor: c.hex }}
+                title={c.name}
+              />
+            ))}
+            <span className="text-[10px] text-black/50 ml-1 font-medium">
+              +{product.colors.length} cores
             </span>
           </div>
-        </div>
-        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border/50">
-          <span className="text-base font-bold text-foreground">
-            {formatPrice(product.price)}
-          </span>
+        )}
+
+        {/* Bloco de Preços Estilo Torx Brasil */}
+        <div className="pt-2 border-t border-black/5 flex flex-col gap-0.5">
           {product.originalPrice && (
-            <span className="text-xs text-muted-foreground line-through">
+            <span className="text-xs text-black/40 line-through">
               {formatPrice(product.originalPrice)}
             </span>
           )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CategoryPageView({
-  category,
-  onBackToHome,
-  onAddToCart,
-  onClickDetails,
-}: {
-  category: string;
-  onBackToHome: () => void;
-  onAddToCart: (product: typeof PRODUCTS[0], size: string) => void;
-  onClickDetails: (product: typeof PRODUCTS[0], defaultColor: string | null) => void;
-}) {
-  const isBrand = category.startsWith("brand:");
-  const displayTitle = isBrand ? category.replace("brand:", "") : category;
-
-  const categoryProducts = PRODUCTS.filter((p) => {
-    if (isBrand) {
-      return p.brand === displayTitle;
-    }
-    if (category === "Mais Vendidos" || category === "Todos") {
-      return true;
-    }
-    if (category === "Kits") {
-      return p.name.toLowerCase().includes("kit");
-    }
-    if (category === "Novidades") {
-      return p.badge === "NOVO";
-    }
-    if (category === "Promoções") {
-      return p.badge === "OFERTA";
-    }
-    if (category.toLowerCase() === "tênis") {
-      return p.category.toLowerCase().includes("tênis");
-    }
-    return p.category.toLowerCase() === category.toLowerCase();
-  });
-
-  return (
-    <div className="bg-secondary min-h-screen py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground mb-6 uppercase tracking-wider font-semibold">
-          <button onClick={onBackToHome} className="hover:text-black transition-colors cursor-pointer">
-            Home
-          </button>
-          <ChevronRight size={12} />
-          <span className="text-black">{displayTitle}</span>
+          <div className="flex items-baseline gap-1.5 flex-wrap">
+            <span className="text-base font-extrabold text-[#0B0B0B]">
+              {formatPrice(pixPrice)}
+            </span>
+            <span className="text-xs font-bold text-[#D94A2F]">no PIX</span>
+          </div>
+          <p className="text-[11px] text-black/60 font-medium">
+            ou {formatPrice(product.price)} em até <b className="text-black">6x de {formatPrice(installmentValue)}</b> sem juros
+          </p>
         </div>
 
-        <div className="border-b border-border/60 pb-8 mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-          <div>
-            <h1
-              className="font-black text-black leading-none text-5xl md:text-6xl uppercase"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            >
-              {displayTitle}
-            </h1>
-            <p className="text-muted-foreground text-sm mt-2">
-              Mostrando {categoryProducts.length} {categoryProducts.length === 1 ? 'produto encontrado' : 'produtos encontrados'}
-            </p>
-          </div>
-        </div>
-
-        {categoryProducts.length === 0 ? (
-          <div className="bg-white border border-border p-16 text-center flex flex-col items-center gap-4">
-            <p className="text-muted-foreground text-sm font-semibold">
-              Nenhum produto encontrado nesta categoria no momento.
-            </p>
-            <button
-              onClick={onBackToHome}
-              className="bg-black text-white text-xs font-bold tracking-widest px-8 py-3.5 hover:bg-accent transition-colors uppercase cursor-pointer"
-            >
-              Voltar para a Home
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-            {categoryProducts.map((p) => (
-              <ProductCard
-                key={p.id}
-                product={p}
-                onAddToCart={(prod, size) => onAddToCart(prod, size)}
-                onClickDetails={onClickDetails}
-              />
-            ))}
-          </div>
-        )}
+        {/* Botão de Compra Rápida */}
+        <button
+          onClick={() => onAddToCart(product, product.sizes[0] || "M")}
+          className="w-full bg-[#0B0B0B] text-white text-xs font-bold tracking-widest py-3 uppercase hover:bg-[#D94A2F] transition-colors cursor-pointer flex items-center justify-center gap-2 mt-1 shadow-sm"
+        >
+          <ShoppingBag size={14} />
+          COMPRAR
+        </button>
       </div>
     </div>
   );
@@ -556,103 +514,106 @@ function CategoryPageView({
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<{ product: typeof PRODUCTS[0]; quantity: number; selectedSize: string; selectedColor?: string | null }[]>([]);
+  const [cartItems, setCartItems] = useState<{ product: Product; quantity: number; selectedSize: string; selectedColor?: string | null }[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
-  const [chosenSize, setChosenSize] = useState("M");
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [chosenSize, setChosenSize] = useState("41");
   const [chosenColor, setChosenColor] = useState<string | null>(null);
   const [activeImageIdx, setActiveImageIdx] = useState(0);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("Todos");
-  const [email, setEmail] = useState("");
   const [currentPage, setCurrentPage] = useState<string>("home");
+  const [activeVitrineTab, setActiveVitrineTab] = useState<string>("CORRIDA");
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [couponCopied, setCouponCopied] = useState(false);
+  const [appliedCoupon, setAppliedCoupon] = useState<string>("");
+  const [couponInput, setCouponInput] = useState<string>("");
+  const [couponError, setCouponError] = useState<string>("");
+  const [cepInput, setCepInput] = useState<string>("");
+  const [shippingCalculated, setShippingCalculated] = useState<boolean>(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [currentTopNoticeIdx, setCurrentTopNoticeIdx] = useState(0);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterSent, setNewsletterSent] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
 
-  const categoriesRef = useRef<HTMLDivElement>(null);
-  const essenciaisRef = useRef<HTMLDivElement>(null);
-  const productsRef = useRef<HTMLDivElement>(null);
-  const brandsRef = useRef<HTMLDivElement>(null);
+  const vitrineScrollRef = useRef<HTMLDivElement>(null);
 
-  const scrollContainer = (ref: React.RefObject<HTMLDivElement>, direction: number) => {
-    if (ref.current) {
-      ref.current.scrollBy({ left: direction * 300, behavior: "smooth" });
-    }
-  };
+  // Topbar Notice Rotation
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTopNoticeIdx((prev) => (prev + 1) % TORX_TOPBAR_MESSAGES.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
+  // Hero Slides
   const heroSlides = [
     {
+      title: "SANDRINI ULTRA RUN",
+      subtitle: "PERFORMANCE, AMORTECIMENTO & VELOCIDADE",
+      desc: "Desenvolvido com tecnologia de absorção de impacto para impulsionar seus treinos e corridas.",
       image: heroBanner1Img,
-      subtitle: "Bem-vindo ao universo Sandrini",
-      title: "ENTRE E ESCOLHA\nSEU ESTILO.",
-      desc: "Roupas, calçados, relógios e acessórios para completar suas escolhas.",
-      btn1: "EXPLORAR LOJA",
-      link1: "Novidades",
-      position: "object-[center_15%]",
-      titleSize: "clamp(3rem, 6vw, 5.5rem)",
+      badge: "LANÇAMENTO 2026",
+      cta: "EXPLORAR CORRIDA",
+      category: "Corrida",
     },
     {
+      title: "COLEÇÃO TREINO & ACADEMIA",
+      subtitle: "MÁXIMA RESISTÊNCIA E RESPIRABILIDADE",
+      desc: "Camisetas Dry Fit, bermudas de compressão e tênis leves para elevar sua rotina fitness.",
       image: heroBanner2Img,
-      subtitle: "Descubra novas opções",
-      title: "ESCOLHA. COMBINE.\nUSE DO SEU JEITO.",
-      desc: "Navegue pelas categorias e encontre produtos que combinam com você.",
-      btn1: "EXPLORAR AGORA",
-      link1: "Novidades",
-      titleSize: "clamp(3rem, 6vw, 5.5rem)",
-    }
+      badge: "ALTA PERFORMANCE",
+      cta: "VER TREINO & ACADEMIA",
+      category: "Fitness",
+    },
+    {
+      title: "KITS ESSENCIAIS SANDRINI",
+      subtitle: "MAIS ECONOMIA E PRATICIDADE",
+      desc: "Kits de cuecas boxer, meias esportivas e camisetas com descontos exclusivos de fábrica.",
+      image: banner1400x400Img,
+      badge: "CUPOM 7% OFF",
+      cta: "VER KITS COMPLETOS",
+      category: "Kits",
+    },
   ];
 
+  // Auto Hero Slider
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 10000);
+    }, 7000);
     return () => clearInterval(timer);
   }, [heroSlides.length]);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
-
-  const getProductSizes = (product: typeof PRODUCTS[0]) => {
-    if (product.sizes) {
-      return product.sizes;
-    }
-    if (product.category === "Acessórios" || product.category === "Relógios") {
-      return [];
-    }
-    if (product.category === "Tênis" || product.category === "Chinelos") {
-      return ["39", "40", "41", "42", "43", "44"];
-    }
-    return ["P", "M", "G", "GG"];
+  const copyCouponCode = () => {
+    navigator.clipboard.writeText("BEMVINDOSANDRINI");
+    setCouponCopied(true);
+    setTimeout(() => setCouponCopied(false), 3000);
   };
 
-  const openProductDetails = (product: typeof PRODUCTS[0], defaultColor: string | null = null) => {
-    if (product.sizes) {
-      setChosenSize(product.sizes[0]);
-    } else if (product.category === "Acessórios") {
-      setChosenSize("Único");
-    } else if (product.category === "Calçados") {
-      setChosenSize("40");
+  const handleApplyCoupon = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (couponInput.trim().toUpperCase() === "BEMVINDOSANDRINI" || couponInput.trim().toUpperCase() === "SANDRINI7") {
+      setAppliedCoupon("BEMVINDOSANDRINI");
+      setCouponError("");
     } else {
-      setChosenSize("M");
+      setCouponError("Cupom inválido. Tente BEMVINDOSANDRINI");
     }
-    setChosenColor(defaultColor || (product.colors ? product.colors[0].name : null));
-    setSelectedProduct(product);
-    setActiveImageIdx(0);
   };
 
-  const filters = ["Todos", "Camisas", "Shorts", "Calçados", "Acessórios"];
+  const removeCoupon = () => {
+    setAppliedCoupon("");
+    setCouponInput("");
+    setCouponError("");
+  };
 
-  const filtered = activeFilter === "Todos"
-    ? PRODUCTS
-    : PRODUCTS.filter((p) => {
-      if (activeFilter === "Camisas") return p.category.includes("Camiseta") || p.category.includes("Camisa") || p.category === "Fitness";
-      if (activeFilter === "Calçados") return p.category.includes("Tênis") || p.category.includes("Chinelo") || p.category === "Calçados";
-      if (activeFilter === "Acessórios") return p.category === "Acessórios" || p.category === "Relógios" || p.category === "Underwear" || p.category === "Meias" || p.category === "Cuecas" || p.category === "Meia";
-      return p.category === activeFilter;
-    });
+  const toggleFavorite = (id: number) => {
+    setFavorites((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
+  };
 
-  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-
-  const addToCart = (product: typeof PRODUCTS[0], size: string = "M", color: string | null = null) => {
+  const addToCart = (product: Product, size: string = "41", color: string | null = null) => {
     setCartItems((prev) => {
       const existing = prev.find(
         (item) =>
@@ -663,14 +624,15 @@ export default function App() {
       if (existing) {
         return prev.map((item) =>
           item.product.id === product.id &&
-            item.selectedSize === size &&
-            item.selectedColor === color
+          item.selectedSize === size &&
+          item.selectedColor === color
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
       return [...prev, { product, quantity: 1, selectedSize: size, selectedColor: color }];
     });
+    setCartOpen(true);
   };
 
   const updateQuantity = (productId: number, size: string, color: string | null | undefined, delta: number) => {
@@ -704,730 +666,897 @@ export default function App() {
     );
   };
 
-  const cartSubtotal = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const rawSubtotal = cartItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+  const couponDiscount = appliedCoupon ? rawSubtotal * 0.07 : 0;
+  const finalSubtotal = rawSubtotal - couponDiscount;
+  const freeShippingThreshold = 259;
+  const freeShippingPercent = Math.min(100, (finalSubtotal / freeShippingThreshold) * 100);
+  const remainingForFreeShipping = Math.max(0, freeShippingThreshold - finalSubtotal);
 
-  const navigateToCategory = (categoryName: string) => {
-    let filterVal = "Todos";
-    if (["Camisetas", "Polos", "Dry Fit", "Camisas"].includes(categoryName)) filterVal = "Camisas";
-    else if (categoryName === "Shorts") filterVal = "Shorts";
-    else if (["Tênis", "Chinelos", "Calçados"].includes(categoryName)) filterVal = "Calçados";
-    else if (["Cuecas", "Meias", "Relógios", "Acessórios"].includes(categoryName)) filterVal = "Acessórios";
+  const openProductDetails = (product: Product, defaultColor: string | null = null) => {
+    setChosenSize(product.sizes[0] || "M");
+    setChosenColor(defaultColor || (product.colors ? product.colors[0].name : null));
+    setSelectedProduct(product);
+    setActiveImageIdx(0);
+  };
 
-    setActiveFilter(filterVal);
+  const navigateToCategory = (catName: string) => {
+    setCurrentPage(catName);
     setMenuOpen(false);
-
-    if (categoryName === "home" || categoryName === "Início") {
-      setCurrentPage("home");
-    } else {
-      setCurrentPage(categoryName);
-    }
-
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const activeColorObj = selectedProduct?.colors?.find((c) => c.name === chosenColor);
+  // Filtragem de produtos para a vitrine
+  const vitrineProducts = PRODUCTS.filter((p) => {
+    if (activeVitrineTab === "CORRIDA") return p.category === "Corrida";
+    if (activeVitrineTab === "TREINO & ACADEMIA") return p.category === "Fitness";
+    if (activeVitrineTab === "MAIS VENDIDOS") return p.badge?.includes("VENDIDO") || p.rating >= 4.8;
+    if (activeVitrineTab === "LANÇAMENTOS") return p.badge?.includes("NOVO") || p.badge?.includes("LANÇAMENTO");
+    if (activeVitrineTab === "KITS") return p.name.includes("Kit");
+    return true;
+  });
 
-  let galleryImages = activeColorObj ? [activeColorObj.img] : (selectedProduct ? [selectedProduct.img] : []);
-  if (activeColorObj && (activeColorObj as any).folderPath) {
-    const path = (activeColorObj as any).folderPath;
-    const imagesInFolder = Object.entries(globImages)
-      .filter(([k]) => k.includes(path))
-      .map(([_, v]) => v as string);
-    if (imagesInFolder.length > 0) {
-      galleryImages = imagesInFolder;
-    }
+  const activeColorObj = selectedProduct?.colors?.find((c) => c.name === chosenColor);
+  let galleryImages = activeColorObj ? [activeColorObj.img] : selectedProduct ? [selectedProduct.img] : [];
+  if (selectedProduct?.secondImg && !galleryImages.includes(selectedProduct.secondImg)) {
+    galleryImages.push(selectedProduct.secondImg);
   }
 
-  const modalDisplayImg = galleryImages[activeImageIdx] || galleryImages[0];
-
   return (
-    <div
-      className="min-h-screen bg-background text-foreground"
-      style={{ fontFamily: "'Poppins', sans-serif" }}
-    >
-      {/* Top Banner */}
-      <div className="bg-[#111111] text-white text-center text-[11px] sm:text-xs tracking-[0.1em] py-2.5 font-bold uppercase relative overflow-hidden flex items-center justify-center gap-4 sm:gap-12">
-        <span className="hidden sm:inline">Frete Grátis acima de R$ 299</span>
-        <span className="hidden sm:inline text-white/40">|</span>
-        <span className="text-accent">Troca Fácil em até 30 Dias</span>
-        <span className="hidden sm:inline text-white/40">|</span>
-        <span className="hidden sm:inline">Parcele em até 6x Sem Juros</span>
+    <div className="min-h-screen bg-[#FFFFFF] text-[#0B0B0B] font-['Open_Sans',sans-serif]">
+      {/* 1. TOPO ANÚNCIO ROTATIVO (Torx Header Ticker) */}
+      <div className="bg-[#0B0B0B] text-white py-2 px-4 text-center text-[11px] sm:text-[12px] font-bold tracking-[0.12em] uppercase overflow-hidden relative">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
+          <span className="inline-flex items-center gap-2 animate-fade-in key={currentTopNoticeIdx}">
+            <Sparkles size={14} className="text-[#D94A2F]" />
+            {TORX_TOPBAR_MESSAGES[currentTopNoticeIdx]}
+          </span>
+        </div>
       </div>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white shadow-sm border-b-4 border-accent">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between py-2 gap-4">
-          {/* Top Row for Mobile (Logo + Menu + Cart) */}
-          <div className="flex items-center justify-between w-full sm:w-auto">
+      {/* 2. HEADER PRINCIPAL (Torx Clean Header) */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EBEBEB] transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between gap-4">
+          {/* Mobile Menu Trigger & Logo */}
+          <div className="flex items-center gap-3">
             <button
-              className="sm:hidden text-black p-1 mr-2"
               onClick={() => setMenuOpen(!menuOpen)}
+              className="lg:hidden p-2 text-black hover:text-[#D94A2F] transition-colors cursor-pointer"
+              aria-label="Abrir menu"
             >
               {menuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
-            <button
-              onClick={() => navigateToCategory("home")}
-              className="cursor-pointer flex items-center mr-4"
-            >
-              <ImageWithFallback
-                src={logoImg}
-                alt="Grupo Sandrini"
-                className="h-16 sm:h-20 w-auto object-contain transform scale-[1.5] sm:scale-[2.5] origin-left"
-              />
-            </button>
 
-            {/* Mobile Actions */}
-            <div className="flex sm:hidden items-center gap-2">
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                navigateToCategory("home");
+              }}
+              className="flex items-center gap-2 cursor-pointer group"
+            >
+              <img
+                src={logoImg}
+                alt="Sandrini"
+                className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105"
+              />
+            </a>
+          </div>
+
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {NAV_LINKS.map((link) => (
               <button
-                className="p-2 text-black relative cursor-pointer"
-                onClick={() => setCartOpen(true)}
+                key={link.label}
+                onClick={() => navigateToCategory(link.category)}
+                className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${
+                  currentPage === link.category
+                    ? "text-[#D94A2F]"
+                    : "text-[#0B0B0B] hover:text-[#D94A2F]"
+                }`}
               >
-                <ShoppingBag size={22} />
-                {cartCount > 0 && (
-                  <span className="absolute top-0 right-0 w-4 h-4 rounded-full bg-accent text-white text-[10px] font-bold flex items-center justify-center leading-none">
-                    {cartCount}
-                  </span>
+                {link.label}
+                {currentPage === link.category && (
+                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D94A2F]" />
                 )}
               </button>
-            </div>
-          </div>
+            ))}
+          </nav>
 
-          {/* Search Bar (Center) */}
-          <div className="w-full sm:w-flex-1 sm:max-w-xl relative flex items-center">
-            <input
-              type="text"
-              placeholder="O que você está procurando?"
-              className="w-full bg-[#f4f4f4] border border-transparent focus:border-accent focus:bg-white transition-all text-sm py-3 px-5 pr-12 rounded-full outline-none text-black placeholder:text-black/50"
-            />
-            <button className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-accent text-white rounded-full hover:bg-black transition-colors">
-              <Search size={16} />
-            </button>
-          </div>
-
-          {/* Desktop Actions */}
-          <div className="hidden sm:flex items-center gap-6">
-            <div className="flex items-center gap-2 text-sm">
-              <div className="flex flex-col text-right">
-                <span className="text-xs text-black/60">Bem-vindo(a)</span>
-                <span className="font-bold cursor-pointer hover:text-accent">Entrar ou Cadastrar</span>
-              </div>
+          {/* Tools & Actions (Search, Account, Wishlist, Cart) */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* Search Button / Input */}
+            <div className="relative">
+              {searchOpen ? (
+                <div className="flex items-center bg-[#F5F5F5] rounded-full px-3 py-1.5 border border-black/10">
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Buscar produtos..."
+                    className="bg-transparent text-xs text-black outline-none w-36 sm:w-48 placeholder:text-black/40"
+                    autoFocus
+                  />
+                  <button onClick={() => setSearchOpen(false)} className="text-black/50 hover:text-black p-0.5">
+                    <X size={14} />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setSearchOpen(true)}
+                  className="p-2 text-black hover:text-[#D94A2F] transition-colors rounded-full hover:bg-black/5 cursor-pointer"
+                  title="Pesquisar"
+                >
+                  <Search size={20} />
+                </button>
+              )}
             </div>
+
+            {/* Favoritos */}
             <button
-              className="p-2.5 text-black hover:text-accent transition-colors relative cursor-pointer bg-[#f4f4f4] rounded-full"
-              onClick={() => setCartOpen(true)}
+              onClick={() => navigateToCategory("Favoritos")}
+              className="p-2 text-black hover:text-[#D94A2F] transition-colors rounded-full hover:bg-black/5 relative cursor-pointer hidden sm:flex"
+              title="Favoritos"
             >
-              <ShoppingBag size={22} />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent text-white text-[10px] font-bold flex items-center justify-center leading-none shadow-md">
-                  {cartCount}
+              <Heart size={20} />
+              {favorites.length > 0 && (
+                <span className="absolute 0 top-1 right-1 w-4 h-4 bg-[#D94A2F] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                  {favorites.length}
                 </span>
               )}
+            </button>
+
+            {/* Conta / Perfil */}
+            <button
+              onClick={() => alert("Área do cliente Sandrini - Login & Pedidos")}
+              className="p-2 text-black hover:text-[#D94A2F] transition-colors rounded-full hover:bg-black/5 cursor-pointer hidden sm:flex"
+              title="Minha Conta"
+            >
+              <User size={20} />
+            </button>
+
+            {/* Sacola / Cart */}
+            <button
+              onClick={() => setCartOpen(true)}
+              className="flex items-center gap-2.5 bg-[#0B0B0B] text-white px-3.5 sm:px-4 py-2.5 rounded-full hover:bg-[#D94A2F] transition-all cursor-pointer shadow-sm group"
+            >
+              <ShoppingBag size={18} />
+              <span className="text-xs font-bold">{cartCount}</span>
             </button>
           </div>
         </div>
 
-        {/* Desktop Nav (Mega Menu Style) */}
-        <nav className="hidden sm:flex items-center justify-center gap-8 bg-[#111111] text-white">
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link}
-              onClick={() => navigateToCategory(link)}
-              className="px-2 py-3.5 text-[13px] font-bold tracking-wider hover:text-accent transition-colors uppercase cursor-pointer"
-            >
-              {link}
-            </button>
-          ))}
-        </nav>
-
-        {/* Mobile Menu */}
+        {/* Mobile Dropdown Menu */}
         {menuOpen && (
-          <div className="lg:hidden bg-white border-t border-border">
+          <div className="lg:hidden bg-white border-t border-[#EBEBEB] px-6 py-6 flex flex-col gap-4 shadow-xl">
             {NAV_LINKS.map((link) => (
               <button
-                key={link}
-                onClick={() => navigateToCategory(link)}
-                className="block w-full text-left px-6 py-3.5 text-xs tracking-widest text-black/70 hover:text-black hover:bg-black/5 border-b border-border uppercase cursor-pointer"
+                key={link.label}
+                onClick={() => navigateToCategory(link.category)}
+                className="text-left font-bold text-sm tracking-wider uppercase text-black py-2 border-b border-black/5 hover:text-[#D94A2F]"
               >
-                {link}
+                {link.label}
               </button>
             ))}
           </div>
         )}
       </header>
 
+      {/* 3. FAIXA CUPOM (Torx Style Coupon Bar) */}
+      <div className="bg-[#F7F7F7] border-b border-[#EBEBEB] py-2.5 px-4 text-center">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-semibold">
+          <span className="text-black/80">
+            Ganhe <b>7% OFF</b> na sua 1ª Compra com Cupom:
+          </span>
+          <div className="inline-flex items-center gap-2 bg-white border border-[#D94A2F] px-3 py-1 rounded-sm shadow-2xs">
+            <span className="font-extrabold text-[#D94A2F] tracking-widest uppercase">
+              BEMVINDOSANDRINI
+            </span>
+            <button
+              onClick={copyCouponCode}
+              className="text-[11px] font-bold bg-[#D94A2F] text-white px-2 py-0.5 rounded-xs hover:bg-black transition-colors flex items-center gap-1 cursor-pointer"
+            >
+              {couponCopied ? (
+                <>
+                  <Check size={12} /> Copiado!
+                </>
+              ) : (
+                <>
+                  <Copy size={12} /> Copiar
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
       {currentPage === "home" ? (
         <>
-          {/* Hero Slider */}
-          <section className="relative overflow-hidden bg-black min-h-[60vh] sm:min-h-[85vh] flex items-center group">
+          {/* 4. HERO BANNER PRINCIPAL (Torx Hero Banner Slider / Video Feel) */}
+          <section className="relative w-full overflow-hidden bg-black aspect-[9/14] sm:aspect-[150/61] flex items-center group">
             {heroSlides.map((slide, idx) => (
               <div
                 key={idx}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  idx === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                }`}
               >
-                <div className="absolute inset-0">
-                  <img
-                    src={slide.image}
-                    alt={slide.subtitle}
-                    className={`w-full h-full object-cover opacity-60 ${slide.position || ""}`}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
-                </div>
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover opacity-75 object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent sm:bg-gradient-to-r sm:from-black/85 sm:via-black/40 sm:to-transparent" />
 
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full h-full flex items-center py-24">
-                  <div className="max-w-xl">
-                    <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                      <div className="w-8 h-px bg-accent" />
-                      <span className="text-accent text-[10px] sm:text-xs tracking-[0.3em] uppercase font-bold bg-black/50 px-2 py-1">
-                        {slide.subtitle}
-                      </span>
-                    </div>
-                    <h1
-                      className="text-white font-black leading-none mb-4 sm:mb-6 whitespace-pre-line"
-                      style={{
-                        fontFamily: "'Barlow Condensed', sans-serif",
-                        fontSize: (slide as any).titleSize || "clamp(3.5rem, 8vw, 7.5rem)",
-                        letterSpacing: "-0.02em",
-                      }}
-                    >
+                <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 w-full h-full flex flex-col justify-end sm:justify-center pb-12 sm:pb-0">
+                  <div className="max-w-xl text-white">
+                    <span className="inline-block bg-[#D94A2F] text-white text-[10px] sm:text-xs font-black tracking-widest uppercase px-3 py-1 mb-3 rounded-xs">
+                      {slide.badge}
+                    </span>
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-none mb-3 font-['Barlow_Condensed',sans-serif]">
                       {slide.title}
                     </h1>
-                    <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-8 max-w-sm">
+                    <p className="text-xs sm:text-sm font-semibold tracking-wider text-white/90 uppercase mb-2">
+                      {slide.subtitle}
+                    </p>
+                    <p className="text-xs sm:text-sm text-white/70 mb-6 line-clamp-2 max-w-md">
                       {slide.desc}
                     </p>
-                    <div className="flex flex-wrap gap-3">
-                      <button
-                        onClick={() => setCurrentPage(slide.link1)}
-                        className="bg-accent text-white text-xs font-bold tracking-widest px-6 sm:px-8 py-4 hover:bg-black transition-colors uppercase"
-                      >
-                        {slide.btn1}
-                      </button>
-                      {slide.btn2 && slide.link2 && (
-                        <button
-                          onClick={() => setCurrentPage(slide.link2)}
-                          className="border border-white/50 bg-white/10 backdrop-blur-sm text-white text-xs font-bold tracking-widest px-6 sm:px-8 py-4 hover:border-white hover:bg-white/30 transition-colors uppercase"
-                        >
-                          {slide.btn2}
-                        </button>
-                      )}
-                    </div>
+                    <button
+                      onClick={() => navigateToCategory(slide.category)}
+                      className="bg-[#D94A2F] hover:bg-white hover:text-black text-white text-xs font-extrabold tracking-widest px-8 py-3.5 uppercase transition-all duration-300 rounded-xs shadow-lg cursor-pointer inline-flex items-center gap-2"
+                    >
+                      {slide.cta}
+                      <ArrowRight size={16} />
+                    </button>
                   </div>
                 </div>
               </div>
             ))}
 
-            {/* Slider Controls */}
+            {/* Slider Arrows */}
             <button
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-black/50 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent cursor-pointer"
+              onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-white/80 hover:bg-white text-black rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft size={22} />
             </button>
             <button
-              onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-black/50 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent cursor-pointer"
+              onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-white/80 hover:bg-white text-black rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
             >
-              <ChevronRight size={24} />
+              <ChevronRight size={22} />
             </button>
 
             {/* Slider Dots */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-              {heroSlides.map((_, idx) => (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+              {heroSlides.map((_, i) => (
                 <button
-                  key={idx}
-                  onClick={() => setCurrentSlide(idx)}
-                  className={`w-12 h-1.5 transition-all ${idx === currentSlide ? "bg-accent" : "bg-white/40 hover:bg-white/80"} cursor-pointer`}
+                  key={i}
+                  onClick={() => setCurrentSlide(i)}
+                  className={`h-1.5 transition-all rounded-full cursor-pointer ${
+                    i === currentSlide ? "w-8 bg-[#D94A2F]" : "w-2.5 bg-white/50"
+                  }`}
                 />
               ))}
             </div>
           </section>
 
-          {/* Categories Quick Links */}
-          <section className="bg-white py-10 sm:py-16 border-b border-border">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
-              <div className="flex items-center justify-between mb-8">
-                <h2
-                  className="font-black text-black leading-none"
-                  style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
-                    fontSize: "clamp(2rem, 4vw, 3rem)",
-                  }}
-                >
-                  NAVEGUE POR CATEGORIAS
-                </h2>
-              </div>
-
-              <div className="relative group">
-
-                <div ref={categoriesRef} className="flex overflow-x-auto pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 gap-4 sm:gap-8 snap-x hide-scrollbar md:justify-center">
-                  {CATEGORIES.map((cat) => (
-                    <div
-                      key={cat.label}
-                      onClick={() => navigateToCategory(cat.label)}
-                      className="flex flex-col items-center gap-3 cursor-pointer min-w-[100px] sm:min-w-[140px] group/item snap-start"
-                    >
-                      <div className="w-24 h-24 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-transparent group-hover/item:border-accent transition-colors relative">
-                        <img
-                          src={cat.img}
-                          alt={cat.label}
-                          className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-black/10 group-hover/item:bg-black/0 transition-colors" />
-                      </div>
-                      <span className="font-bold text-sm sm:text-base text-black group-hover/item:text-accent transition-colors">
-                        {cat.label}
+          {/* 5. CATEGORY 3-GRID (Torx Banner Grid) */}
+          <section className="py-10 sm:py-16 bg-[#FFFFFF]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {TORX_CATEGORY_GRID.map((item) => (
+                  <div
+                    key={item.title}
+                    onClick={() => navigateToCategory(item.category)}
+                    className="group relative overflow-hidden bg-black aspect-[4/5] rounded-xs cursor-pointer shadow-md"
+                  >
+                    <img
+                      src={item.img}
+                      alt={item.title}
+                      className="w-full h-full object-cover opacity-80 transition-transform duration-700 ease-out group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
+                      <span className="text-[10px] font-black tracking-widest text-[#D94A2F] uppercase mb-1">
+                        {item.badge}
                       </span>
-                    </div>
-                  ))}
-                </div>
-
-              </div>
-            </div>
-          </section>
-
-          {/* Essenciais Banner Section */}
-          <section className="bg-white py-12 border-b border-border">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
-              <div className="flex justify-center mb-8">
-                <div className="bg-black text-white px-4 py-1 text-sm font-bold tracking-widest uppercase inline-block">
-                  ESSENCIAIS
-                </div>
-              </div>
-              <div className="relative group">
-                <button
-                  onClick={() => scrollContainer(essenciaisRef, -1)}
-                  className="absolute left-0 top-1/2 -translate-y-[calc(50%+12px)] z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -ml-5"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <div ref={essenciaisRef} className="flex overflow-x-auto pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 gap-4 snap-x hide-scrollbar">
-                  {ESSENCIAIS.map((item, idx) => (
-                    <div
-                      key={idx}
-                      onClick={() => navigateToCategory(item.category)}
-                      className="relative min-w-[200px] sm:min-w-[240px] aspect-square snap-start shrink-0 group/item cursor-pointer overflow-hidden bg-[#f4f4f4]"
-                    >
-                      <img
-                        src={item.img}
-                        alt={item.title}
-                        className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover/item:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-black/30 group-hover/item:bg-black/40 transition-colors" />
-                      <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                        <h3
-                          className="text-white font-black leading-tight text-3xl uppercase drop-shadow-md mb-1"
-                          style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                        >
-                          {item.title}
-                        </h3>
-                        <p className="text-white font-medium text-sm drop-shadow-md">
-                          a partir de
-                        </p>
-                        <div className="text-white font-black drop-shadow-md">
-                          <span className="text-xl">R$</span>
-                          <span className="text-4xl" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>
-                            {item.price.split(",")[0]}
-                          </span>
-                          <span className="text-xl">,{item.price.split(",")[1]}</span>
-                        </div>
+                      <h3 className="text-3xl font-black uppercase tracking-tight font-['Barlow_Condensed',sans-serif] leading-tight mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-white/70 mb-4 line-clamp-2">
+                        {item.subtitle}
+                      </p>
+                      <div className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-white group-hover:text-[#D94A2F] transition-colors">
+                        CONFERIR PRODUTOS <ChevronRight size={16} />
                       </div>
                     </div>
-                  ))}
-                </div>
-                <button
-                  onClick={() => scrollContainer(essenciaisRef, 1)}
-                  className="absolute right-0 top-1/2 -translate-y-[calc(50%+12px)] z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -mr-5"
-                >
-                  <ChevronRight size={24} />
-                </button>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
-          {/* Products */}
-          <section id="vitrine-produtos" className="bg-secondary py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          {/* 6. VITRINES ROTATIVAS (Torx Rotation Vitrine) */}
+          <section className="py-12 sm:py-16 bg-[#FAFAFA] border-y border-[#EBEBEB]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-8">
+              {/* Vitrine Tabs */}
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
                 <div>
-                  <h2
-                    className="font-black text-black leading-none"
-                    style={{
-                      fontFamily: "'Barlow Condensed', sans-serif",
-                      fontSize: "clamp(2.5rem, 5vw, 4rem)",
-                    }}
-                  >
-                    MAIS VENDIDOS
+                  <span className="text-xs font-black tracking-[0.2em] text-[#D94A2F] uppercase block mb-1">
+                    SELEÇÃO DE PERFORMANCE
+                  </span>
+                  <h2 className="text-3xl sm:text-4xl font-black uppercase font-['Barlow_Condensed',sans-serif] tracking-tight">
+                    DESTAQUES EM ALTA
                   </h2>
-                  <p className="text-muted-foreground text-sm mt-1">
-                    Os favoritos dos nossos clientes
-                  </p>
                 </div>
+
                 <div className="flex flex-wrap gap-2">
-                  {filters.map((f) => (
+                  {["CORRIDA", "TREINO & ACADEMIA", "MAIS VENDIDOS", "LANÇAMENTOS", "KITS"].map((tab) => (
                     <button
-                      key={f}
-                      onClick={() => setActiveFilter(f)}
-                      className={`text-[10px] font-bold tracking-widest px-4 py-2 uppercase transition-colors ${activeFilter === f
-                        ? "bg-black text-white"
-                        : "bg-white text-black border border-border hover:border-black"
-                        }`}
+                      key={tab}
+                      onClick={() => setActiveVitrineTab(tab)}
+                      className={`text-xs font-extrabold tracking-wider px-5 py-2.5 uppercase transition-all rounded-xs cursor-pointer ${
+                        activeVitrineTab === tab
+                          ? "bg-[#0B0B0B] text-white shadow-sm"
+                          : "bg-white text-black/70 border border-[#E0E0E0] hover:border-black hover:text-black"
+                      }`}
                     >
-                      {f}
+                      {tab}
                     </button>
                   ))}
                 </div>
               </div>
 
-              <div className="relative group">
-                <button
-                  onClick={() => scrollContainer(productsRef, -1)}
-                  className="absolute left-0 top-1/2 -translate-y-[calc(50%+16px)] z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -ml-5"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-                <div ref={productsRef} className="flex overflow-x-auto pb-8 -mx-4 px-4 sm:mx-0 sm:px-0 gap-4 sm:gap-6 snap-x hide-scrollbar">
-                  {(filtered.length > 0 ? filtered : PRODUCTS).map((p) => (
-                    <div key={p.id} className="min-w-[240px] sm:min-w-[280px] snap-start shrink-0">
-                      <ProductCard
-                        product={p}
-                        onAddToCart={(prod, size) => addToCart(prod, size)}
-                        onClickDetails={(prod, color) => openProductDetails(prod, color)}
-                      />
-                    </div>
-                  ))}
-                </div>
-                <button
-                  onClick={() => scrollContainer(productsRef, 1)}
-                  className="absolute right-0 top-1/2 -translate-y-[calc(50%+16px)] z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -mr-5"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </div>
-
-              <div className="text-center mt-10">
-                <button
-                  onClick={() => {
-                    setCurrentPage("Mais Vendidos");
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  className="border-2 border-black text-black text-xs font-bold tracking-widest px-10 py-4 hover:bg-black hover:text-white transition-colors uppercase"
-                >
-                  VER TODOS OS PRODUTOS
-                </button>
-              </div>
-            </div>
-          </section>
-
-          {/* Full-width Banner */}
-          <section className="relative overflow-hidden bg-black h-[400px] flex items-center">
-            <img
-              src={banner1400x400Img}
-              alt="Kits Essenciais Sandrini"
-              className="absolute inset-0 w-full h-full object-cover opacity-50"
-            />
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full">
-              <div className="max-w-2xl">
-                <span className="text-accent text-xs tracking-[0.3em] uppercase font-bold mb-4 block">
-                  Tudo o que você precisa
-                </span>
-                <h2
-                  className="text-white font-black leading-none mb-4 whitespace-pre-line"
-                  style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
-                    fontSize: "clamp(3rem, 7vw, 5.5rem)",
-                  }}
-                >
-                  {"SEUS ESSENCIAIS\nEM UM SÓ LUGAR"}
-                </h2>
-                <p className="text-white/80 mb-8 text-sm max-w-md">
-                  Mais peças, com combinações práticas e preços que valem a pena.
-                </p>
-                <button
-                  onClick={() => setCurrentPage("Kits")}
-                  className="bg-accent text-white text-xs font-bold tracking-widest px-8 py-4 hover:bg-red-700 transition-colors uppercase">
-                  CONHECER OS KITS
-                </button>
-              </div>
-            </div>
-            <div className="absolute right-0 top-0 bottom-0 w-2 bg-accent hidden lg:block" />
-          </section>
-
-          {/* Brands */}
-          <section className="bg-white py-16 border-t border-border">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 relative group/brands">
-              <div className="text-center mb-10">
-                <h2
-                  className="font-black text-black leading-none mb-2"
-                  style={{
-                    fontFamily: "'Barlow Condensed', sans-serif",
-                    fontSize: "clamp(2rem, 4vw, 3rem)",
-                  }}
-                >
-                  NOSSAS MARCAS
-                </h2>
-                <p className="text-muted-foreground text-sm">
-                  As melhores marcas do mercado em um só lugar
-                </p>
-              </div>
-
-              <button
-                onClick={() => scrollContainer(brandsRef, -1)}
-                className="absolute left-0 top-1/2 translate-y-4 z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover/brands:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -ml-5"
-              >
-                <ChevronLeft size={24} />
-              </button>
-
-              <div ref={brandsRef} className="flex overflow-x-auto gap-12 px-4 sm:px-0 py-4 items-center hide-scrollbar snap-x">
-                {LOGOS.map((logo) => (
-                  <div
-                    key={logo.name}
-                    onClick={() => setCurrentPage(`brand:${logo.name}`)}
-                    className="min-w-[140px] sm:min-w-[180px] shrink-0 snap-center cursor-pointer opacity-60 hover:opacity-100 hover:scale-125 transition-all duration-300 flex justify-center"
-                  >
-                    <img src={logo.url} alt={logo.name} className="h-16 sm:h-20 object-contain mix-blend-multiply" />
-                  </div>
+              {/* Vitrine Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                {vitrineProducts.slice(0, 8).map((p) => (
+                  <TorxProductCard
+                    key={p.id}
+                    product={p}
+                    onAddToCart={(prod, size) => addToCart(prod, size)}
+                    onClickDetails={(prod, color) => openProductDetails(prod, color)}
+                    isFavorite={favorites.includes(p.id)}
+                    onToggleFavorite={toggleFavorite}
+                  />
                 ))}
               </div>
 
-              <button
-                onClick={() => scrollContainer(brandsRef, 1)}
-                className="absolute right-0 top-1/2 translate-y-4 z-20 w-10 h-10 flex items-center justify-center bg-white border border-border text-black rounded-full shadow-md opacity-0 group-hover/brands:opacity-100 transition-all hover:bg-black hover:text-white cursor-pointer hidden sm:flex -mr-5"
-              >
-                <ChevronRight size={24} />
-              </button>
+              {/* Ver Todos Button */}
+              <div className="text-center mt-10">
+                <button
+                  onClick={() => navigateToCategory(activeVitrineTab === "KITS" ? "Kits" : "Todos")}
+                  className="inline-flex items-center gap-2 border-2 border-black text-black hover:bg-black hover:text-white font-extrabold text-xs tracking-widest px-8 py-3.5 uppercase transition-all cursor-pointer"
+                >
+                  VER TODA A LINHA ({vitrineProducts.length} PRODUTOS)
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {/* 7. FAIXA COMUNICADO / BENEFÍCIOS (Torx 4 Pillars) */}
+          <section className="py-12 bg-white border-b border-[#EBEBEB]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <div className="flex items-start gap-4 p-4 border border-[#F0F0F0] rounded-xs bg-[#FAFAFA]/50">
+                  <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                    <RotateCcw size={22} />
+                  </div>
+                  <div>
+                    <h4 className="font-black text-sm uppercase tracking-wide text-black">
+                      TROCA FACILITADA
+                    </h4>
+                    <p className="text-xs text-black/60 mt-1 leading-relaxed">
+                      Você tem até 30 dias para realizar a troca sem burocracia.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 border border-[#F0F0F0] rounded-xs bg-[#FAFAFA]/50">
+                  <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                    <Truck size={22} />
+                  </div>
+                  <div>
+                    <h4 className="font-black text-sm uppercase tracking-wide text-black">
+                      FRETE GRÁTIS
+                    </h4>
+                    <p className="text-xs text-black/60 mt-1 leading-relaxed">
+                      Para todo o Brasil em compras a partir de R$ 259,00.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 border border-[#F0F0F0] rounded-xs bg-[#FAFAFA]/50">
+                  <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                    <Tag size={22} />
+                  </div>
+                  <div>
+                    <h4 className="font-black text-sm uppercase tracking-wide text-black">
+                      GANHE 7% OFF
+                    </h4>
+                    <p className="text-xs text-black/60 mt-1 leading-relaxed">
+                      Utilize o cupom <b>BEMVINDOSANDRINI</b> em sua 1ª compra.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 border border-[#F0F0F0] rounded-xs bg-[#FAFAFA]/50">
+                  <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                    <Flame size={22} />
+                  </div>
+                  <div>
+                    <h4 className="font-black text-sm uppercase tracking-wide text-black">
+                      CLUBE SANDRINI
+                    </h4>
+                    <p className="text-xs text-black/60 mt-1 leading-relaxed">
+                      Seja membro do clube e receba lançamentos e ofertas VIP.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 8. QUEM SOMOS / BRAND VIDEO SECTION (Torx About Section) */}
+          <section className="py-16 bg-[#0B0B0B] text-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-8">
+              <div className="text-center max-w-2xl mx-auto mb-10">
+                <span className="text-[#D94A2F] text-xs font-black tracking-[0.25em] uppercase">
+                  NOSSA HISTÓRIA & PROPÓSITO
+                </span>
+                <h2 className="text-3xl sm:text-5xl font-black uppercase font-['Barlow_Condensed',sans-serif] tracking-tight mt-1">
+                  QUEM SOMOS
+                </h2>
+                <p className="text-xs sm:text-sm text-white/70 mt-2">
+                  Criamos produtos esportivos e casuais com design inovador, tecnologia anatômica e conforto absoluto para o seu dia a dia.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+                {/* Video Card */}
+                <div
+                  onClick={() => setVideoModalOpen(true)}
+                  className="lg:col-span-2 relative aspect-video bg-black rounded-xs overflow-hidden group cursor-pointer border border-white/10"
+                >
+                  <img
+                    src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1200&h=700&fit=crop&auto=format"
+                    alt="Vídeo Institucional Sandrini"
+                    className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D94A2F] text-white flex items-center justify-center pl-1 shadow-2xl group-hover:scale-110 group-hover:bg-white group-hover:text-[#D94A2F] transition-all">
+                      <Play size={28} />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <span className="bg-black/80 text-white text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest">
+                      VÍDEO DE PERFORMANCE
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-black uppercase font-['Barlow_Condensed',sans-serif] mt-2">
+                      A tecnologia por trás de cada passo
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Side Lifestyle Cards */}
+                <div className="flex flex-col gap-6">
+                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-xs flex flex-col justify-between">
+                    <div>
+                      <span className="text-[#D94A2F] text-xs font-black tracking-widest uppercase">
+                        QUALIDADE COMPROVADA
+                      </span>
+                      <h4 className="text-xl font-bold uppercase mt-1 mb-2">
+                        Mais de 500.000 clientes satisfeitos
+                      </h4>
+                      <p className="text-xs text-white/60 leading-relaxed">
+                        Foco em matérias-primas nobres, amortecimento durável e corte anatômico com padrão internacional.
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1 text-amber-400 mt-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className="fill-amber-400" />
+                      ))}
+                      <span className="text-xs text-white/80 ml-2 font-bold">4.9 / 5.0</span>
+                    </div>
+                  </div>
+
+                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-xs flex flex-col justify-between">
+                    <div>
+                      <span className="text-[#D94A2F] text-xs font-black tracking-widest uppercase">
+                        PRODUÇÃO NACIONAL
+                      </span>
+                      <h4 className="text-xl font-bold uppercase mt-1 mb-2">
+                        Direto da fábrica para sua casa
+                      </h4>
+                      <p className="text-xs text-white/60 leading-relaxed">
+                        Preço justo, entrega rastreada e suporte dedicado de segunda a sexta para você comprar com tranquilidade.
+                      </p>
+                    </div>
+                    <a
+                      href="#newsletter"
+                      className="text-xs font-bold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 mt-3"
+                    >
+                      FAÇA PARTE DO CLUBE <ChevronRight size={14} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* 9. INSTAGRAM GRID (Torx Banner Instagram) */}
+          <section className="py-14 bg-white">
+            <div className="max-w-7xl mx-auto px-4 sm:px-8">
+              <div className="text-center mb-8">
+                <span className="text-xs font-black tracking-[0.2em] text-[#D94A2F] uppercase">
+                  SIGA NOSSO FEED
+                </span>
+                <h2 className="text-3xl font-black uppercase font-['Barlow_Condensed',sans-serif] tracking-tight">
+                  INSTAGRAM @SANDRINI.OFICIAL
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
+                {INSTAGRAM_POSTS.map((post, i) => (
+                  <a
+                    key={i}
+                    href={post.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="relative aspect-square overflow-hidden group bg-black/10 rounded-xs"
+                  >
+                    <img
+                      src={post.img}
+                      alt={`Instagram Sandrini ${i + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                      <Instagram size={24} />
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
           </section>
         </>
       ) : (
-        <CategoryPageView
-          category={currentPage}
-          onBackToHome={() => setCurrentPage("home")}
-          onAddToCart={addToCart}
-          onClickDetails={openProductDetails}
-        />
-      )}
-
-      {/* Newsletter */}
-      <section className="bg-black py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-8 h-px bg-accent" />
-            <span className="text-accent text-[10px] tracking-[0.3em] uppercase">
-              Exclusivo para Assinantes
-            </span>
-            <div className="w-8 h-px bg-accent" />
+        /* PÁGINA DE CATEGORIA / BUSCA / FAVORITOS */
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10 min-h-[70vh]">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black/50 mb-6">
+            <button onClick={() => setCurrentPage("home")} className="hover:text-black cursor-pointer">
+              Home
+            </button>
+            <ChevronRight size={12} />
+            <span className="text-black">{currentPage}</span>
           </div>
-          <h2
-            className="text-white font-black leading-none mb-4"
-            style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-            }}
-          >
-            10% OFF NA <br /> PRIMEIRA COMPRA
-          </h2>
-          <p className="text-white/60 mb-8 text-sm">
-            Cadastre seu e-mail e receba ofertas exclusivas, lançamentos e dicas de estilo.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-0 max-w-md mx-auto">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="seu@email.com"
-              className="flex-1 bg-white/10 text-white placeholder-white/30 border border-white/20 px-5 py-3.5 text-sm outline-none focus:border-accent transition-colors"
-            />
-            <button className="bg-accent text-white text-xs font-bold tracking-widest px-6 py-3.5 hover:bg-red-700 transition-colors uppercase whitespace-nowrap">
-              QUERO DESCONTO
+
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-black/10 pb-6 mb-8 gap-4">
+            <div>
+              <h1 className="text-4xl sm:text-5xl font-black uppercase font-['Barlow_Condensed',sans-serif]">
+                {currentPage === "Favoritos" ? "Meus Favoritos" : currentPage}
+              </h1>
+              <p className="text-xs text-black/60 mt-1">
+                {currentPage === "Favoritos"
+                  ? `${favorites.length} itens salvos`
+                  : "Produtos com garantia de qualidade e troca fácil"}
+              </p>
+            </div>
+            <button
+              onClick={() => setCurrentPage("home")}
+              className="text-xs font-bold text-[#D94A2F] hover:underline uppercase"
+            >
+              ← Voltar para a Home
             </button>
           </div>
-          <p className="text-white/30 text-[10px] mt-4">
-            Ao cadastrar, você concorda com nossa política de privacidade.
+
+          {/* Grid de Produtos da Categoria */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+            {PRODUCTS.filter((p) => {
+              if (currentPage === "Favoritos") return favorites.includes(p.id);
+              if (currentPage === "Corrida") return p.category === "Corrida";
+              if (currentPage === "Fitness" || currentPage === "TREINO & ACADEMIA") return p.category === "Fitness";
+              if (currentPage === "Underwear") return p.category === "Underwear";
+              if (currentPage === "Básicos" || currentPage === "ESSENCIAIS") return p.category === "Básicos";
+              if (currentPage === "Kits") return p.name.includes("Kit");
+              if (currentPage === "Novidades" || currentPage === "LANÇAMENTO") return p.badge?.includes("NOVO") || p.badge?.includes("LANÇAMENTO");
+              if (currentPage === "Promoções") return p.originalPrice !== null;
+              if (currentPage === "Todos") return true;
+              return p.category.toLowerCase().includes(currentPage.toLowerCase()) || p.name.toLowerCase().includes(currentPage.toLowerCase());
+            }).map((p) => (
+              <TorxProductCard
+                key={p.id}
+                product={p}
+                onAddToCart={(prod, size) => addToCart(prod, size)}
+                onClickDetails={(prod, color) => openProductDetails(prod, color)}
+                isFavorite={favorites.includes(p.id)}
+                onToggleFavorite={toggleFavorite}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 10. NEWSLETTER STRIP (Torx Newsletter) */}
+      <section id="newsletter" className="py-14 bg-[#0B0B0B] text-white border-t border-white/10">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <span className="text-[#D94A2F] text-xs font-black tracking-[0.25em] uppercase block mb-1">
+            NEWSLETTER
+          </span>
+          <h2 className="text-2xl sm:text-4xl font-black uppercase font-['Barlow_Condensed',sans-serif] tracking-tight mb-2">
+            CADASTRE-SE E GANHE ATÉ 7% OFF EM SUA PRIMEIRA COMPRA!
+          </h2>
+          <p className="text-xs text-white/60 mb-6 max-w-md mx-auto">
+            Receba lançamentos antecipados, promoções relâmpago e cupons exclusivos direto no seu e-mail.
           </p>
+
+          {newsletterSent ? (
+            <div className="bg-[#D94A2F]/20 border border-[#D94A2F] text-white p-4 rounded-xs text-xs font-bold inline-flex items-center gap-2">
+              <Check size={16} className="text-[#D94A2F]" />
+              E-mail cadastrado com sucesso! Use o cupom BEMVINDOSANDRINI no checkout.
+            </div>
+          ) : (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (newsletterEmail) setNewsletterSent(true);
+              }}
+              className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto"
+            >
+              <input
+                type="email"
+                required
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                placeholder="Digite seu melhor e-mail"
+                className="flex-1 bg-white/10 text-white placeholder:text-white/40 border border-white/20 px-4 py-3 text-xs outline-none focus:border-[#D94A2F] rounded-xs"
+              />
+              <button
+                type="submit"
+                className="bg-[#D94A2F] text-white text-xs font-black tracking-widest px-8 py-3 uppercase hover:bg-white hover:text-black transition-colors rounded-xs cursor-pointer"
+              >
+                ENVIAR
+              </button>
+            </form>
+          )}
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 text-white/70" style={{ backgroundColor: "#4f4f4f" }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            {/* Brand */}
-            <div className="col-span-2 md:col-span-1">
-              <div className="mb-4">
-                <ImageWithFallback
-                  src={logoFooterImg}
-                  alt="Grupo Sandrini"
-                  className="h-16 sm:h-24 w-auto object-contain object-left -ml-4 sm:-ml-6"
-                />
-              </div>
-              <p className="text-xs text-white/40 leading-relaxed mb-4">
-                Moda masculina com estilo, qualidade e atitude desde 2011.
+      {/* 11. FOOTER COMPLETO ESTILO TORX BRASIL */}
+      <footer className="bg-[#111111] text-white/70 text-xs border-t border-white/5 pt-14 pb-24 sm:pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
+            {/* Logo & Redes */}
+            <div className="md:col-span-1">
+              <img src={logoFooterImg} alt="Sandrini" className="h-14 w-auto object-contain mb-4" />
+              <p className="text-xs text-white/50 leading-relaxed mb-4">
+                Performance, estilo e durabilidade para acompanhar sua rotina esportiva e casual.
               </p>
               <div className="flex gap-3">
-                {[Instagram, Facebook, Twitter].map((Icon, i) => (
-                  <button
-                    key={i}
-                    className="w-8 h-8 border border-white/10 flex items-center justify-center text-white/40 hover:text-white hover:border-white/30 transition-colors"
-                  >
-                    <Icon size={13} />
-                  </button>
-                ))}
+                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D94A2F] hover:text-white transition-colors">
+                  <Instagram size={14} />
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D94A2F] hover:text-white transition-colors">
+                  <Youtube size={14} />
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D94A2F] hover:text-white transition-colors">
+                  <Facebook size={14} />
+                </a>
               </div>
             </div>
 
-            {/* Links */}
-            {[
-              {
-                title: "PRODUTOS",
-                links: ["Novidades", "Camisas & Polos", "Camisetas", "Shorts", "Calçados", "Relógios & Acessórios"],
-              },
-              {
-                title: "ATENDIMENTO",
-                links: ["Central de Ajuda", "Trocas e Devoluções", "Rastrear Pedido", "Fale Conosco"],
-              },
-              {
-                title: "EMPRESA",
-                links: ["Sobre Nós", "Trabalhe Conosco", "Blog de Moda", "Lojas Físicas"],
-              },
-            ].map((col) => (
-              <div key={col.title}>
-                <h4
-                  className="text-white text-xs font-black tracking-widest mb-4"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "0.8rem" }}
-                >
-                  {col.title}
-                </h4>
-                <ul className="space-y-2.5">
-                  {col.links.map((l) => (
-                    <li key={l}>
-                      <a
-                        href="#"
-                        className="text-[11px] text-white/40 hover:text-white transition-colors"
-                      >
-                        {l}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {/* Sua Conta */}
+            <div>
+              <h4 className="text-white font-extrabold text-sm uppercase tracking-wider mb-4 font-['Barlow_Condensed',sans-serif]">
+                SUA CONTA
+              </h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-white transition-colors">Acesso ao Painel</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Meus Pedidos</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Meus Dados</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Meus Favoritos</a></li>
+              </ul>
+            </div>
+
+            {/* Institucional */}
+            <div>
+              <h4 className="text-white font-extrabold text-sm uppercase tracking-wider mb-4 font-['Barlow_Condensed',sans-serif]">
+                INSTITUCIONAL
+              </h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-white transition-colors">Política de Privacidade</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Quem Somos</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Garantia e Reembolso</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Como cuidar do seu produto</a></li>
+              </ul>
+            </div>
+
+            {/* Dúvidas */}
+            <div>
+              <h4 className="text-white font-extrabold text-sm uppercase tracking-wider mb-4 font-['Barlow_Condensed',sans-serif]">
+                DÚVIDAS
+              </h4>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-white transition-colors">Fale Conosco</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Dúvidas Frequentes (FAQ)</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Troca e Devoluções (30 Dias)</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Rastreamento de Pedido</a></li>
+              </ul>
+            </div>
+
+            {/* Atendimento */}
+            <div>
+              <h4 className="text-white font-extrabold text-sm uppercase tracking-wider mb-4 font-['Barlow_Condensed',sans-serif]">
+                ATENDIMENTO
+              </h4>
+              <p className="text-xs text-white/50 mb-2">Segunda à Sexta: 08h às 17h</p>
+              <p className="text-xs text-white/80 font-bold mb-1">WhatsApp: (11) 98765-4321</p>
+              <p className="text-xs text-white/80 font-bold">contato@sandrini.com.br</p>
+            </div>
           </div>
 
-          <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-[10px] text-white/30 tracking-wider">
-              © 2026 LOJA SANDRINI. TODOS OS DIREITOS RESERVADOS.
-            </p>
-            <div className="flex items-center gap-4">
-              {["Pix", "Visa", "Mastercard", "Boleto", "Elo"].map((p) => (
-                <span
-                  key={p}
-                  className="text-[9px] text-white/30 border border-white/10 px-2 py-1 tracking-wider"
-                >
-                  {p}
-                </span>
-              ))}
+          {/* Formas de Pagamento e Segurança */}
+          <div className="border-t border-white/10 pt-8 pb-4 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h5 className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-2 text-center md:text-left">
+                PAGAMENTO
+              </h5>
+              <div className="flex items-center gap-2 flex-wrap justify-center md:justify-start">
+                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">PIX (5% OFF)</span>
+                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">VISA</span>
+                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">MASTERCARD</span>
+                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">ELO</span>
+                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">HIPERCARD</span>
+                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">BOLETO</span>
+              </div>
             </div>
+
+            <div>
+              <h5 className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-2 text-center md:text-right">
+                SEGURANÇA
+              </h5>
+              <div className="flex items-center gap-3 text-white/60 text-[10px]">
+                <span className="flex items-center gap-1"><ShieldCheck size={14} className="text-green-400" /> SSL 256 BITS</span>
+                <span className="flex items-center gap-1"><Check size={14} className="text-green-400" /> GOOGLE SAFE BROWSING</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-white/5 pt-6 text-center text-[10px] text-white/40">
+            <p>GRUPO SANDRINI COMÉRCIO DIGITAL LTDA © 2026 - Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
 
-      {/* Shopping Cart Drawer */}
+      {/* 12. FLOATING QUICK MENU MOBILE (Torx Style Mobile Bar) */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#EBEBEB] px-4 py-2 flex items-center justify-around text-[10px] font-bold uppercase">
+        <button onClick={() => navigateToCategory("Corrida")} className="flex flex-col items-center gap-1 text-black">
+          <Flame size={18} />
+          <span>Calçados</span>
+        </button>
+        <button onClick={() => navigateToCategory("Kits")} className="flex flex-col items-center gap-1 text-black">
+          <Tag size={18} />
+          <span>Clube</span>
+        </button>
+        <button onClick={() => navigateToCategory("Favoritos")} className="flex flex-col items-center gap-1 text-black relative">
+          <Heart size={18} />
+          <span>Favoritos</span>
+          {favorites.length > 0 && (
+            <span className="absolute top-0 right-3 w-3 h-3 bg-[#D94A2F] text-white text-[8px] rounded-full flex items-center justify-center">
+              {favorites.length}
+            </span>
+          )}
+        </button>
+        <button onClick={() => setCartOpen(true)} className="flex flex-col items-center gap-1 text-[#D94A2F] relative">
+          <ShoppingBag size={18} />
+          <span>Sacola ({cartCount})</span>
+        </button>
+      </div>
+
+      {/* 13. SIDE CART DRAWER (Torx / Shoppub Minha Sacola com Barra de Frete Grátis) */}
       {cartOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden animate-fade-in">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
-            onClick={() => setCartOpen(false)}
-          />
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity" onClick={() => setCartOpen(false)} />
 
           <div className="absolute inset-y-0 right-0 max-w-full flex">
-            {/* Drawer Panel */}
             <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col animate-slide-in-right">
-              {/* Header */}
-              <div className="px-6 py-5 border-b border-border flex items-center justify-between">
+              {/* Cart Header */}
+              <div className="px-6 py-4 border-b border-[#EBEBEB] flex items-center justify-between bg-white">
                 <div className="flex items-center gap-2">
-                  <ShoppingBag size={20} className="text-black" />
-                  <h2
-                    className="font-black text-black tracking-widest text-lg uppercase"
-                    style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-                  >
-                    Seu Carrinho ({cartCount})
+                  <ShoppingBag size={20} className="text-[#D94A2F]" />
+                  <h2 className="font-black text-black tracking-wider text-base uppercase font-['Barlow_Condensed',sans-serif]">
+                    MINHA SACOLA ({cartCount})
                   </h2>
                 </div>
-                <button
-                  onClick={() => setCartOpen(false)}
-                  className="p-1 hover:bg-black/5 rounded-full transition-colors cursor-pointer"
-                >
-                  <X size={20} className="text-black" />
+                <button onClick={() => setCartOpen(false)} className="p-1 text-black/60 hover:text-black cursor-pointer">
+                  <X size={20} />
                 </button>
               </div>
 
+              {/* Free Shipping Progress Bar */}
+              <div className="bg-[#FAFAFA] border-b border-[#EBEBEB] px-6 py-3.5">
+                <div className="flex justify-between items-center text-xs font-bold mb-1.5">
+                  {remainingForFreeShipping > 0 ? (
+                    <span className="text-black/80">
+                      Faltam <b className="text-[#D94A2F]">{formatPrice(remainingForFreeShipping)}</b> para <b>FRETE GRÁTIS</b>
+                    </span>
+                  ) : (
+                    <span className="text-green-600 flex items-center gap-1">
+                      <Check size={14} /> PARABÉNS! VOCÊ GANHOU FRETE GRÁTIS
+                    </span>
+                  )}
+                  <span className="text-[10px] text-black/50">{Math.round(freeShippingPercent)}%</span>
+                </div>
+                <div className="w-full h-2 bg-[#E0E0E0] rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#D94A2F] transition-all duration-500 rounded-full"
+                    style={{ width: `${freeShippingPercent}%` }}
+                  />
+                </div>
+              </div>
+
               {/* Items List */}
-              <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              <div className="flex-1 overflow-y-auto p-6 space-y-4">
                 {cartItems.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-full text-center gap-4">
-                    <ShoppingBag size={48} className="text-muted-foreground/30 stroke-[1.5]" />
-                    <p className="text-sm text-muted-foreground font-medium">
-                      Seu carrinho está vazio.
-                    </p>
+                  <div className="flex flex-col items-center justify-center h-full text-center gap-4 py-12">
+                    <ShoppingBag size={52} className="text-black/20" />
+                    <p className="text-sm font-bold text-black/70">Sua sacola está vazia.</p>
                     <button
-                      onClick={() => {
-                        setCartOpen(false);
-                        const element = document.getElementById("vitrine-produtos");
-                        if (element) element.scrollIntoView({ behavior: "smooth" });
-                      }}
-                      className="border-2 border-black text-black text-[10px] font-bold tracking-widest px-6 py-3 hover:bg-black hover:text-white transition-colors uppercase cursor-pointer"
+                      onClick={() => setCartOpen(false)}
+                      className="border-2 border-black text-black text-xs font-black tracking-widest px-6 py-3 uppercase hover:bg-black hover:text-white transition-colors cursor-pointer"
                     >
-                      Ver Produtos
+                      CONTINUAR COMPRANDO
                     </button>
                   </div>
                 ) : (
                   cartItems.map((item, idx) => {
-                    const activeColorObj = item.product.colors?.find(c => c.name === item.selectedColor);
-                    const itemImg = activeColorObj ? activeColorObj.img : item.product.img;
+                    const activeColor = item.product.colors?.find((c) => c.name === item.selectedColor);
+                    const thumb = activeColor ? activeColor.img : item.product.img;
                     return (
-                      <div key={`${item.product.id}-${item.selectedSize}-${item.selectedColor}-${idx}`} className="flex gap-4 border-b border-border/50 pb-6 last:border-0 last:pb-0">
+                      <div key={idx} className="flex gap-3 border-b border-[#EBEBEB] pb-4">
                         <img
-                          src={itemImg}
+                          src={thumb}
                           alt={item.product.name}
-                          className="w-20 h-24 object-contain bg-white border border-border/40 p-2"
+                          className="w-20 h-20 object-contain bg-[#FAFAFA] border border-[#EBEBEB] p-1 rounded-xs"
                         />
                         <div className="flex-1 flex flex-col justify-between">
                           <div>
-                            <div className="flex justify-between items-start">
-                              <h3 className="font-bold text-sm text-foreground line-clamp-2 leading-snug">
+                            <div className="flex justify-between items-start gap-2">
+                              <h4 className="font-bold text-xs text-black leading-snug line-clamp-2">
                                 {item.product.name}
-                              </h3>
+                              </h4>
                               <button
                                 onClick={() => removeFromCart(item.product.id, item.selectedSize, item.selectedColor)}
-                                className="text-muted-foreground hover:text-accent p-1 transition-colors cursor-pointer"
+                                className="text-black/40 hover:text-[#D94A2F] p-0.5"
                               >
                                 <X size={16} />
                               </button>
                             </div>
-                            <p className="text-[10px] text-muted-foreground tracking-widest uppercase mt-0.5">
-                              {item.selectedColor && `Cor: ${item.selectedColor} | `}Tamanho: {item.selectedSize}
+                            <p className="text-[10px] text-black/50 font-semibold uppercase mt-0.5">
+                              {item.selectedColor ? `Cor: ${item.selectedColor} | ` : ""}Tam: {item.selectedSize}
                             </p>
                           </div>
-                          <div className="flex items-end justify-between mt-2">
-                            {/* Quantity Selector */}
-                            <div className="flex items-center border border-border">
+
+                          <div className="flex items-center justify-between mt-2">
+                            <div className="flex items-center border border-[#D0D0D0] rounded-xs">
                               <button
                                 onClick={() => updateQuantity(item.product.id, item.selectedSize, item.selectedColor, -1)}
-                                className="px-2.5 py-1 text-black/60 hover:text-black hover:bg-black/5 transition-colors cursor-pointer"
+                                className="px-2 py-0.5 text-black/70 hover:bg-black/5"
                               >
                                 -
                               </button>
-                              <span className="px-3 text-xs font-bold text-black select-none">
-                                {item.quantity}
-                              </span>
+                              <span className="px-2 text-xs font-bold">{item.quantity}</span>
                               <button
                                 onClick={() => updateQuantity(item.product.id, item.selectedSize, item.selectedColor, 1)}
-                                className="px-2.5 py-1 text-black/60 hover:text-black hover:bg-black/5 transition-colors cursor-pointer"
+                                className="px-2 py-0.5 text-black/70 hover:bg-black/5"
                               >
                                 +
                               </button>
                             </div>
-                            <span className="font-bold text-sm text-foreground">
+                            <span className="font-extrabold text-sm text-black">
                               {formatPrice(item.product.price * item.quantity)}
                             </span>
                           </div>
@@ -1438,34 +1567,93 @@ export default function App() {
                 )}
               </div>
 
-              {/* Footer */}
+              {/* Cart Footer com Cupom, Frete e Total */}
               {cartItems.length > 0 && (
-                <div className="border-t border-border p-6 bg-secondary/30">
-                  <div className="flex justify-between items-center mb-6">
-                    <span className="text-xs tracking-wider text-muted-foreground font-bold uppercase">Subtotal</span>
-                    <span className="text-xl font-bold text-black">{formatPrice(cartSubtotal)}</span>
+                <div className="border-t border-[#EBEBEB] p-6 bg-[#FAFAFA] space-y-4">
+                  {/* Cupom */}
+                  <div>
+                    {appliedCoupon ? (
+                      <div className="flex items-center justify-between bg-green-50 border border-green-200 text-green-800 px-3 py-2 text-xs rounded-xs font-bold">
+                        <span>Cupom BEMVINDOSANDRINI (-7%)</span>
+                        <button onClick={removeCoupon} className="text-red-600 hover:underline cursor-pointer">
+                          Remover
+                        </button>
+                      </div>
+                    ) : (
+                      <form onSubmit={handleApplyCoupon} className="flex gap-2">
+                        <input
+                          type="text"
+                          value={couponInput}
+                          onChange={(e) => setCouponInput(e.target.value)}
+                          placeholder="Cupom de Desconto"
+                          className="flex-1 bg-white border border-[#D0D0D0] px-3 py-2 text-xs uppercase outline-none rounded-xs"
+                        />
+                        <button
+                          type="submit"
+                          className="bg-[#0B0B0B] text-white text-xs font-bold px-4 py-2 uppercase hover:bg-[#D94A2F] transition-colors rounded-xs cursor-pointer"
+                        >
+                          Usar
+                        </button>
+                      </form>
+                    )}
+                    {couponError && <p className="text-[10px] text-red-600 mt-1 font-semibold">{couponError}</p>}
                   </div>
-                  <div className="flex flex-col gap-2">
+
+                  {/* Cálculo de CEP */}
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      maxLength={9}
+                      value={cepInput}
+                      onChange={(e) => setCepInput(e.target.value)}
+                      placeholder="Calcular CEP (ex: 01001-000)"
+                      className="flex-1 bg-white border border-[#D0D0D0] px-3 py-2 text-xs outline-none rounded-xs"
+                    />
                     <button
-                      onClick={() => {
-                        setCartItems([]);
-                        setCartOpen(false);
-                        setCheckoutSuccess(true);
-                      }}
-                      className="w-full bg-accent text-white text-xs font-bold tracking-widest py-4 hover:bg-red-700 transition-colors uppercase cursor-pointer text-center"
+                      onClick={() => setShippingCalculated(true)}
+                      className="bg-white border border-black text-black text-xs font-bold px-4 py-2 uppercase hover:bg-black hover:text-white transition-colors rounded-xs cursor-pointer"
                     >
-                      Finalizar Compra
-                    </button>
-                    <button
-                      onClick={() => setCartItems([])}
-                      className="w-full bg-white text-black border border-border text-xs font-bold tracking-widest py-3 hover:bg-black hover:text-white hover:border-black transition-colors uppercase cursor-pointer text-center"
-                    >
-                      Limpar Carrinho
+                      Calcular
                     </button>
                   </div>
-                  <p className="text-[10px] text-muted-foreground/60 text-center mt-3">
-                    Frete grátis e devolução garantida inclusos.
-                  </p>
+                  {shippingCalculated && (
+                    <div className="text-[11px] bg-white border border-[#EBEBEB] p-2.5 rounded-xs space-y-1">
+                      <div className="flex justify-between font-semibold">
+                        <span>Sedex Expresso (2-3 dias úteis):</span>
+                        <span className="text-green-600 font-bold">{remainingForFreeShipping === 0 ? "GRÁTIS" : "R$ 14,90"}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Resumo de Valores */}
+                  <div className="pt-2 border-t border-[#EBEBEB] space-y-1 text-xs">
+                    {couponDiscount > 0 && (
+                      <div className="flex justify-between text-green-700 font-bold">
+                        <span>Desconto Cupom (7%):</span>
+                        <span>-{formatPrice(couponDiscount)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between items-baseline pt-1">
+                      <span className="font-extrabold text-sm text-black">Subtotal:</span>
+                      <span className="font-black text-xl text-black">{formatPrice(finalSubtotal)}</span>
+                    </div>
+                    <div className="flex justify-between text-[11px] text-[#D94A2F] font-bold">
+                      <span>Preço no PIX (-5% extra):</span>
+                      <span>{formatPrice(calculatePixPrice(finalSubtotal))}</span>
+                    </div>
+                  </div>
+
+                  {/* CTA Finalizar */}
+                  <button
+                    onClick={() => {
+                      setCartItems([]);
+                      setCartOpen(false);
+                      setCheckoutSuccess(true);
+                    }}
+                    className="w-full bg-[#D94A2F] hover:bg-[#0B0B0B] text-white text-xs font-black tracking-widest py-4 uppercase transition-colors rounded-xs shadow-lg cursor-pointer text-center"
+                  >
+                    FINALIZAR COMPRA
+                  </button>
                 </div>
               )}
             </div>
@@ -1473,58 +1661,38 @@ export default function App() {
         </div>
       )}
 
-      {/* Product Details Modal */}
+      {/* 14. PRODUCT DETAILS MODAL (Torx Quickview Modal) */}
       {selectedProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden animate-fade-in">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
-            onClick={() => setSelectedProduct(null)}
-          />
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setSelectedProduct(null)} />
 
-          {/* Modal Content */}
-          <div className="relative bg-white max-w-3xl w-full shadow-2xl flex flex-col md:flex-row overflow-y-auto max-h-[90vh] md:max-h-none md:overflow-visible z-10">
-            {/* Close Button */}
+          <div className="relative bg-white max-w-3xl w-full shadow-2xl flex flex-col md:flex-row overflow-y-auto max-h-[90vh] md:max-h-none z-10 rounded-xs">
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 md:-top-4 md:-right-4 w-10 h-10 bg-white border border-border flex items-center justify-center rounded-full hover:bg-black hover:text-white hover:border-black transition-colors z-20 shadow-md cursor-pointer"
+              className="absolute top-4 right-4 z-20 w-9 h-9 bg-white border border-[#EBEBEB] rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer shadow-sm"
             >
               <X size={18} />
             </button>
 
-            {/* Product Image */}
-            <div className="md:w-1/2 bg-white p-6 flex flex-col items-center justify-center border-r border-border/40">
-              <div className="aspect-[3/4] md:aspect-auto w-full flex items-center justify-center mb-4 relative group">
-                {galleryImages.length > 1 && (
-                  <button
-                    onClick={() => setActiveImageIdx((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white border border-border text-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black hover:text-white cursor-pointer shadow-sm"
-                  >
-                    <ChevronLeft size={20} />
-                  </button>
-                )}
+            {/* Imagem do Modal */}
+            <div className="md:w-1/2 bg-[#FAFAFA] p-8 flex flex-col items-center justify-center border-r border-[#EBEBEB]">
+              <div className="aspect-square w-full flex items-center justify-center relative">
                 <img
-                  src={modalDisplayImg}
+                  src={galleryImages[activeImageIdx] || selectedProduct.img}
                   alt={selectedProduct.name}
-                  className="max-h-[400px] max-w-full object-contain"
+                  className="max-h-[340px] max-w-full object-contain"
                 />
-                {galleryImages.length > 1 && (
-                  <button
-                    onClick={() => setActiveImageIdx((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center bg-white border border-border text-black rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black hover:text-white cursor-pointer shadow-sm"
-                  >
-                    <ChevronRight size={20} />
-                  </button>
-                )}
               </div>
+
               {galleryImages.length > 1 && (
-                <div className="flex gap-2 overflow-x-auto w-full max-w-[300px] md:max-w-[400px] pb-3 snap-x delicate-scrollbar">
-                  {galleryImages.map((img, idx) => (
+                <div className="flex gap-2 mt-4">
+                  {galleryImages.map((img, i) => (
                     <button
-                      key={idx}
-                      onClick={() => setActiveImageIdx(idx)}
-                      className={`w-16 h-16 shrink-0 border p-1 transition-colors cursor-pointer snap-center ${activeImageIdx === idx ? "border-black border-2" : "border-border hover:border-black/50"
-                        }`}
+                      key={i}
+                      onClick={() => setActiveImageIdx(i)}
+                      className={`w-14 h-14 p-1 bg-white border rounded-xs cursor-pointer ${
+                        activeImageIdx === i ? "border-2 border-[#D94A2F]" : "border-[#E0E0E0]"
+                      }`}
                     >
                       <img src={img} alt="" className="w-full h-full object-contain" />
                     </button>
@@ -1533,100 +1701,89 @@ export default function App() {
               )}
             </div>
 
-            {/* Product Info */}
-            <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-between">
+            {/* Detalhes do Modal */}
+            <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] text-accent tracking-widest uppercase font-bold">
+                <span className="text-[10px] font-black tracking-widest uppercase text-[#D94A2F] bg-[#D94A2F]/10 px-2 py-0.5 rounded-xs">
                   {selectedProduct.badge || selectedProduct.category}
                 </span>
-                <h2
-                  className="font-bold text-black leading-tight text-2xl uppercase mt-2 mb-3"
-                >
+                <h2 className="text-xl sm:text-2xl font-black uppercase text-black font-['Barlow_Condensed',sans-serif] mt-2 mb-2 leading-tight">
                   {selectedProduct.name}
                 </h2>
 
-                {/* Rating */}
-                <div className="flex items-center gap-1 mb-5">
+                <div className="flex items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={14}
-                      className={
-                        i < Math.floor(selectedProduct.rating)
-                          ? "fill-amber-400 text-amber-400"
-                          : "text-gray-300"
-                      }
-                    />
+                    <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
                   ))}
-                  <span className="text-xs text-muted-foreground ml-1">
+                  <span className="text-xs text-black/60 ml-2 font-bold">
                     {selectedProduct.rating} ({selectedProduct.reviews} avaliações)
                   </span>
                 </div>
 
-                {/* Price */}
-                <div className="flex items-baseline gap-3 mb-6 border-b border-border/50 pb-5">
-                  <span className="text-2xl font-bold text-foreground">
-                    {formatPrice(selectedProduct.price)}
-                  </span>
+                {/* Bloco de Preços Modal */}
+                <div className="py-3 border-y border-[#EBEBEB] mb-5">
                   {selectedProduct.originalPrice && (
-                    <span className="text-sm text-muted-foreground line-through">
+                    <span className="text-xs text-black/40 line-through block">
                       {formatPrice(selectedProduct.originalPrice)}
                     </span>
                   )}
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-2xl font-black text-black">
+                      {formatPrice(calculatePixPrice(selectedProduct.price))}
+                    </span>
+                    <span className="text-xs font-bold text-[#D94A2F]">no PIX</span>
+                  </div>
+                  <span className="text-xs text-black/60 font-medium block mt-0.5">
+                    ou {formatPrice(selectedProduct.price)} em até 6x de {formatPrice(selectedProduct.price / 6)} sem juros
+                  </span>
                 </div>
 
-                <p className="text-xs text-muted-foreground leading-relaxed mb-6">
-                  {selectedProduct.category === "Calçados"
-                    ? "Tênis masculino esportivo e casual Sandrini, unindo amortecimento leve de alta performance com design moderno e anatômico. Cabedal respirável de alta costura que garante durabilidade."
-                    : selectedProduct.category === "Acessórios" && selectedProduct.sizes
-                      ? "Kit cueca boxer em algodão macio e elastano premium de alta elasticidade. Proporciona ajuste anatômico perfeito ao corpo com elástico firme personalizado."
-                      : "Produto premium Sandrini, confeccionado com matéria-prima selecionada para máximo conforto, ajuste impecável e alta durabilidade no uso diário."}
-                </p>
-
-                {/* Color Selector */}
+                {/* Cores */}
                 {selectedProduct.colors && (
-                  <div className="mb-6">
-                    <span className="text-xs font-bold text-black tracking-widest uppercase block mb-3">
-                      Selecione a Cor: {chosenColor}
+                  <div className="mb-4">
+                    <span className="text-xs font-bold text-black uppercase block mb-2">
+                      Cor: {chosenColor}
                     </span>
                     <div className="flex flex-wrap gap-2">
-                      {selectedProduct.colors.map((col) => (
+                      {selectedProduct.colors.map((c) => (
                         <button
-                          key={col.name}
+                          key={c.name}
                           onClick={() => {
-                            setChosenColor(col.name);
+                            setChosenColor(c.name);
                             setActiveImageIdx(0);
                           }}
-                          className={`px-3 py-1.5 border text-xs font-medium tracking-wide uppercase transition-colors flex items-center gap-2 cursor-pointer ${chosenColor === col.name
-                            ? "bg-black text-white border-black"
-                            : "bg-white text-black border-border hover:border-black"
-                            }`}
+                          className={`px-3 py-1.5 border text-xs font-semibold uppercase rounded-xs flex items-center gap-2 cursor-pointer ${
+                            chosenColor === c.name
+                              ? "bg-[#0B0B0B] text-white border-black"
+                              : "bg-white text-black border-[#D0D0D0] hover:border-black"
+                          }`}
                         >
-                          <span className="w-3.5 h-3.5 rounded-full border border-black/10" style={{ backgroundColor: col.hex }} />
-                          {col.name}
+                          <span className="w-3 h-3 rounded-full border border-black/20" style={{ backgroundColor: c.hex }} />
+                          {c.name}
                         </button>
                       ))}
                     </div>
                   </div>
                 )}
 
-                {/* Size Selector */}
-                {getProductSizes(selectedProduct).length > 0 && (
-                  <div className="mb-8">
-                    <span className="text-xs font-bold text-black tracking-widest uppercase block mb-3">
+                {/* Tamanhos */}
+                {selectedProduct.sizes.length > 0 && (
+                  <div className="mb-6">
+                    <span className="text-xs font-bold text-black uppercase block mb-2">
                       Selecione o Tamanho
                     </span>
-                    <div className="flex gap-2">
-                      {getProductSizes(selectedProduct).map((size) => (
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProduct.sizes.map((s) => (
                         <button
-                          key={size}
-                          onClick={() => setChosenSize(size)}
-                          className={`w-11 h-11 border flex items-center justify-center text-xs font-medium transition-colors cursor-pointer ${chosenSize === size
-                            ? "bg-black text-white border-black"
-                            : "bg-white text-black border-border hover:border-black"
-                            }`}
+                          key={s}
+                          onClick={() => setChosenSize(s)}
+                          className={`min-w-[40px] h-10 px-2.5 border text-xs font-bold uppercase rounded-xs cursor-pointer transition-colors ${
+                            chosenSize === s
+                              ? "bg-[#D94A2F] text-white border-[#D94A2F]"
+                              : "bg-white text-black border-[#D0D0D0] hover:border-black"
+                          }`}
                         >
-                          {size}
+                          {s}
                         </button>
                       ))}
                     </div>
@@ -1634,66 +1791,62 @@ export default function App() {
                 )}
               </div>
 
-              {/* Actions */}
-              <div className="flex flex-col gap-2">
-                <button
-                  onClick={() => {
-                    addToCart(selectedProduct, chosenSize, chosenColor);
-                    setSelectedProduct(null);
-                    setCartOpen(true);
-                  }}
-                  className="w-full bg-black text-white text-xs font-bold tracking-widest py-4 hover:bg-accent transition-colors uppercase cursor-pointer"
-                >
-                  Adicionar ao Carrinho
-                </button>
-                <div className="text-[10px] text-center text-muted-foreground">
-                  Garantia de Entrega Rápida e Troca Grátis.
-                </div>
-              </div>
+              <button
+                onClick={() => {
+                  addToCart(selectedProduct, chosenSize, chosenColor);
+                  setSelectedProduct(null);
+                }}
+                className="w-full bg-[#D94A2F] hover:bg-[#0B0B0B] text-white text-xs font-black tracking-widest py-4 uppercase transition-colors rounded-xs shadow-md cursor-pointer flex items-center justify-center gap-2"
+              >
+                <ShoppingBag size={16} />
+                ADICIONAR À SACOLA
+              </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Checkout Success Modal */}
+      {/* 15. CHECKOUT SUCCESS MODAL */}
       {checkoutSuccess && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
-            onClick={() => setCheckoutSuccess(false)}
-          />
-
-          {/* Modal Content */}
-          <div className="relative bg-white max-w-md w-full p-8 shadow-2xl text-center flex flex-col items-center gap-5 z-10 animate-fade-in">
-            <button
-              onClick={() => setCheckoutSuccess(false)}
-              className="absolute top-4 right-4 p-1 hover:bg-black/5 rounded-full transition-colors cursor-pointer"
-            >
-              <X size={20} className="text-black" />
-            </button>
-
-            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-2xl font-bold mb-2">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setCheckoutSuccess(false)} />
+          <div className="relative bg-white max-w-md w-full p-8 shadow-2xl text-center flex flex-col items-center gap-4 z-10 rounded-xs animate-fade-in">
+            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl font-black">
               ✓
             </div>
-
-            <h2
-              className="font-black text-black tracking-widest text-2xl uppercase"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-            >
-              Pedido Finalizado!
+            <h2 className="text-2xl font-black uppercase text-black font-['Barlow_Condensed',sans-serif]">
+              PEDIDO CONCLUÍDO COM SUCESSO!
             </h2>
-
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              Obrigado por comprar na Loja Sandrini! Seu pedido foi recebido e está em processamento. Enviaremos um e-mail de confirmação em breve.
+            <p className="text-xs text-black/60 leading-relaxed">
+              Obrigado por comprar na Sandrini! Enviamos todos os detalhes do pedido e o código de rastreamento para o seu e-mail.
             </p>
-
             <button
               onClick={() => setCheckoutSuccess(false)}
-              className="mt-2 w-full bg-accent text-white text-xs font-bold tracking-widest py-3.5 hover:bg-red-700 transition-colors uppercase cursor-pointer"
+              className="mt-2 w-full bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-black tracking-widest py-3.5 uppercase transition-colors rounded-xs cursor-pointer"
             >
-              Continuar Navegando
+              CONTINUAR COMPRANDO
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* 16. VIDEO MODAL INSTITUCIONAL */}
+      {videoModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+          <div className="relative w-full max-w-4xl aspect-video bg-black rounded-xs overflow-hidden shadow-2xl">
+            <button
+              onClick={() => setVideoModalOpen(false)}
+              className="absolute top-4 right-4 z-20 w-10 h-10 bg-black/80 text-white rounded-full flex items-center justify-center hover:bg-[#D94A2F] transition-colors cursor-pointer"
+            >
+              <X size={20} />
+            </button>
+            <iframe
+              className="w-full h-full border-0"
+              src="https://www.youtube.com/embed/67EMFQhCpc4?autoplay=1"
+              title="Torx / Sandrini Performance"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
           </div>
         </div>
       )}
