@@ -35,11 +35,9 @@ import logoFooterImg from "@/imports/logo_cortado.png";
 const globImages = import.meta.glob('@/imports/**/*.{jpg,png,webp}', { eager: true, import: 'default' }) as Record<string, string>;
 import heroBanner1Img from "@/imports/BANNERS PRINCIPAIS 1400X900/1/1400x900.jpg";
 import heroBanner2Img from "@/imports/BANNERS PRINCIPAIS 1400X900/2/1400x900.jpg";
-import banner1400x400Img from "@/imports/BANNER 1400X400/1400X400.jpg";
-
-import bannerRunningVermelhoImg from "@/imports/Tênis Aero Run - Sandrini/PRETO PRETO E VERMELHO/TSSF1801012PTOPTOVERMELHO-AMB01.jpg";
-import bannerRunningAmareloImg from "@/imports/Tênis Aero Run - Sandrini/BRANCO PRETO E AMARELO/TSSF1801118BCOPTOAMARELO-AMB01.jpg";
-import bannerRunningCinzaImg from "@/imports/Tênis Aero Run - Sandrini/PRETO E CINZA/TSSF1801005PTOCINZA-AMB01.jpg";
+import bannerRunning1 from "@/imports/banner_running_1.jpg";
+import bannerRunning2 from "@/imports/banner_running_2.jpg";
+import bannerRunning3 from "@/imports/banner_running_3.jpg";
 
 import tenisCasualCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/TÊNIS CASUAL/TÊNIS-CASUAL-500X500.jpg";
 import undewearCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/UNDERWEAR/UNDERWEAR-500X500.jpg";
@@ -594,37 +592,37 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // 3 Banners Principais Inspirados em Alta Performance / Corrida com Tênis Sandrini
+  // 3 Banners Principais Inspirados em Alta Performance / Corrida Torx Brasil
   const heroSlides = [
     {
       title: "SANDRINI AERO RUN",
-      subtitle: "MÁXIMA VELOCIDADE, RETORNO & PROPULSÃO",
-      desc: "Projetado com amortecimento responsivo e tecnologia de absorção de impacto para corredores que buscam superar seus recordes.",
-      image: bannerRunningVermelhoImg,
-      badge: "ALTA PERFORMANCE 2026",
+      subtitle: "ALTA VELOCIDADE NO ASFALTO & PROPULSÃO",
+      desc: "Amortecimento E-TPU com máxima tração e resposta imediata para superar seus recordes na corrida urbana.",
+      image: bannerRunning1,
+      badge: "CORRIDA DE RUA",
       cta: "EXPLORAR AERO RUN",
       category: "Corrida",
-      techSpecs: ["Amortecimento E-TPU", "Drop 8mm", "Ultra Leve"],
+      techSpecs: ["Amortecimento E-TPU", "Drop 8mm", "Grip Antiderrapante"],
     },
     {
-      title: "AERO SPARK SPEED",
-      subtitle: "ESTABILIDADE, GRIP & LEVEZA DINÂMICA",
-      desc: "Desenvolvido para treinos diários e maratonas com solado de máxima tração e cabedal aerodinâmico sem costuras.",
-      image: bannerRunningAmareloImg,
+      title: "MARATONA & PISTA",
+      subtitle: "LEVEZA EXTREMA & PISADA EFICIENTE",
+      desc: "Construído em mesh respirável ultraleve e suporte dinâmico para treinos intensos em pista e asfalto.",
+      image: bannerRunning2,
+      badge: "COLEÇÃO SPEED 2026",
+      cta: "VER TÊNIS DE PISTA",
+      category: "Corrida",
+      techSpecs: ["Ultra Leve", "Mesh Respirável", "Pisada Neutra"],
+    },
+    {
+      title: "CARBON SPEED NITRO",
+      subtitle: "ESTRUTURA AERODINÂMICA & IMPULSÃO",
+      desc: "Engenharia de precisão com suporte anti-impacto e distribuição contínua de força a cada passada.",
+      image: bannerRunning3,
       badge: "LANÇAMENTO EXCLUSIVO",
-      cta: "VER COLEÇÃO NITRO",
+      cta: "GARANTIR O SEU",
       category: "Corrida",
-      techSpecs: ["Grip Antiderrapante", "Mesh Respirável", "Pisada Neutra"],
-    },
-    {
-      title: "SANDRINI PRO SPEED",
-      subtitle: "DOMINE O ASFALTO E A ESTEIRA",
-      desc: "Conforto anatômico e amortecimento contínuo criado para atletas exigentes que não aceitam limites.",
-      image: bannerRunningCinzaImg,
-      badge: "TECNOLOGIA RUNNING",
-      cta: "COMPRAR CORRIDA",
-      category: "Corrida",
-      techSpecs: ["Absorção de Impacto", "Cabedal Anatômico", "Até 6x Sem Juros"],
+      techSpecs: ["Placa Estabilizadora", "Conforto Anatômico", "Até 6x Sem Juros"],
     },
   ];
 
