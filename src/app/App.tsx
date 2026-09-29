@@ -891,34 +891,6 @@ export default function App() {
         )}
       </header>
 
-      {/* 3. FAIXA CUPOM (Torx .faixa-cupom) */}
-      <div className="bg-[#FFFFFF] border-b border-[#EBEBEB] py-3 px-4 text-center">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-semibold">
-          <span className="text-[#0B0B0B]">
-            Ganhe <b>7% OFF</b> com Cupom:
-          </span>
-          <div className="inline-flex items-center gap-2 bg-[#F9F9F9] border border-[#D94A2F] px-3 py-1 rounded-none">
-            <span className="font-extrabold text-[#D94A2F] tracking-wider uppercase">
-              BEMVINDOSANDRINI
-            </span>
-            <button
-              onClick={copyCouponCode}
-              className="text-[11px] font-bold bg-[#D94A2F] text-white px-2.5 py-0.5 hover:bg-black transition-colors flex items-center gap-1 cursor-pointer"
-            >
-              {couponCopied ? (
-                <>
-                  <Check size={12} /> Copiado!
-                </>
-              ) : (
-                <>
-                  <Copy size={12} /> Copiar
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
       {currentPage === "home" ? (
         <>
           {/* 4. HERO BANNER PRINCIPAL (Showcase Torx de Alta Performance com Fotos Reais Sandrini) */}
@@ -1052,6 +1024,34 @@ export default function App() {
               ))}
             </div>
           </section>
+
+          {/* 3. FAIXA CUPOM (Torx .faixa-cupom - Abaixo do Banner) */}
+          <div className="bg-[#FFFFFF] border-b border-[#EBEBEB] py-3.5 px-4 text-center shadow-xs">
+            <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-semibold">
+              <span className="text-[#0B0B0B]">
+                Ganhe <b>7% OFF</b> com Cupom:
+              </span>
+              <div className="inline-flex items-center gap-2 bg-[#F9F9F9] border border-[#D94A2F] px-3 py-1 rounded-none">
+                <span className="font-extrabold text-[#D94A2F] tracking-wider uppercase">
+                  BEMVINDOSANDRINI
+                </span>
+                <button
+                  onClick={copyCouponCode}
+                  className="text-[11px] font-bold bg-[#D94A2F] text-white px-2.5 py-0.5 hover:bg-black transition-colors flex items-center gap-1 cursor-pointer"
+                >
+                  {couponCopied ? (
+                    <>
+                      <Check size={12} /> Copiado!
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={12} /> Copiar
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
 
           {/* 5. GRADE DE 3 BANNERS DE CATEGORIAS (Torx .banner-grid com proporção vertical 4:5) */}
           <section className="py-8 sm:py-12 bg-[#FFFFFF]">
