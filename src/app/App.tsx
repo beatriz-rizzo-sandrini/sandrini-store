@@ -28,7 +28,7 @@ import {
   Percent,
   SlidersHorizontal,
 } from "lucide-react";
-import logoImg from "@/imports/logo_cortado.png";
+import logoImg from "@/imports/logonew-v1-01.png";
 import logoFooterImg from "@/imports/logo_cortado.png";
 
 // Import imagens do repositório
