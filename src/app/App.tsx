@@ -35,6 +35,7 @@ import logoFooterImg from "@/imports/logo_cortado.png";
 const globImages = import.meta.glob('@/imports/**/*.{jpg,png,webp}', { eager: true, import: 'default' }) as Record<string, string>;
 import heroBanner1Img from "@/imports/BANNERS PRINCIPAIS 1400X900/1/1400x900.jpg";
 import heroBanner2Img from "@/imports/BANNERS PRINCIPAIS 1400X900/2/1400x900.jpg";
+import bannerMaster1 from "@/imports/1.jpg";
 import bannerAeroRunVermelho from "@/imports/Tênis Aero Run - Sandrini/PRETO PRETO E VERMELHO/ambientada 2 ajuste pequeno no logo.png";
 import bannerAeroSparkBranco from "@/imports/Tênis Aero Spark - Sandrini/BRANCO CINZA E LARANJA/TênisMasculinoSandriniAeroSparkBranco408-CAPA2.jpg";
 import bannerSprytePreto from "@/imports/Tênis Spryte - Sandrini/PRETO/TenisSandriniSpryteMasculinoPretoBranco-CAPA.jpg";
@@ -592,46 +593,38 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // 3 Banners Principais com Fotos Reais dos Tênis Sandrini (Inspirados na Torx Brasil)
+  // 3 Banners Principais Inspirados em 1.jpg e Alta Performance da Sandrini
   const heroSlides = [
     {
+      title: "SANDRINI AERO SPARK",
+      fullBannerImg: bannerMaster1,
+      category: "Corrida",
+    },
+    {
       title: "SANDRINI AERO RUN",
-      subtitle: "MÁXIMA VELOCIDADE & PROPULSÃO NO ASFALTO",
-      desc: "Amortecimento E-TPU com resposta imediata e tecnologia de absorção de impacto para superar seus recordes.",
+      subtitle: "IMPULSÃO, RESPOSTA & MÁXIMA PERFORMANCE",
+      desc: "O Sandrini Aero Run entrega alta absorção de impacto e transição fluida para acompanhar seu ritmo nos treinos e corridas.",
       shoeImage: bannerAeroRunVermelho,
-      badge: "ALTA PERFORMANCE 2026",
+      badge: "LINHA AERO • PERFORMANCE RUNNING",
       pixPrice: "R$ 332,41",
       normalPrice: "R$ 349,90",
       cta: "EXPLORAR AERO RUN",
       category: "Corrida",
       glowColor: "#D94A2F",
-      techSpecs: ["Amortecimento E-TPU", "Drop 8mm", "Ultra Leve"],
+      techSpecs: ["Amortecimento E-TPU", "Drop 8mm", "Respirabilidade", "Performance Running"],
     },
     {
       title: "AERO SPARK NITRO",
       subtitle: "ESTABILIDADE, GRIP & LEVEZA DINÂMICA",
-      desc: "Desenvolvido para treinos diários e maratonas com solado de máxima tração e cabedal aerodinâmico sem costuras.",
+      desc: "Desenvolvido com solado tracionado e cabedal respirável sem costuras para máxima estabilidade em asfalto e esteira.",
       shoeImage: bannerAeroSparkBranco,
-      badge: "LANÇAMENTO EXCLUSIVO",
+      badge: "LINHA SPEED • ALTA PERFORMANCE",
       pixPrice: "R$ 284,91",
       normalPrice: "R$ 299,90",
-      cta: "VER AERO SPARK",
+      cta: "CONHECER AERO SPARK",
       category: "Corrida",
       glowColor: "#F97316",
-      techSpecs: ["Grip Antiderrapante", "Mesh Respirável", "Pisada Neutra"],
-    },
-    {
-      title: "SANDRINI SPRYTE",
-      subtitle: "ADERÊNCIA, FLEXIBILIDADE & CONFORTO",
-      desc: "Solado de alta tração multidirecional e ajuste anatômico para máxima estabilidade em treinos e corridas.",
-      shoeImage: bannerSprytePreto,
-      badge: "MAIS VENDIDO",
-      pixPrice: "R$ 218,40",
-      normalPrice: "R$ 229,90",
-      cta: "VER SANDRINI SPRYTE",
-      category: "Fitness",
-      glowColor: "#DC2626",
-      techSpecs: ["Solado Tracionado", "Cabedal Flexível", "Até 6x Sem Juros"],
+      techSpecs: ["Amortecimento", "Conforto Anatômico", "Respirabilidade", "Grip Total"],
     },
   ];
 
@@ -929,7 +922,7 @@ export default function App() {
       {currentPage === "home" ? (
         <>
           {/* 4. HERO BANNER PRINCIPAL (Showcase Torx de Alta Performance com Fotos Reais Sandrini) */}
-          <section className="relative w-full overflow-hidden bg-[#0B0B0B] min-h-[500px] sm:min-h-0 sm:aspect-[150/61] flex items-center group">
+          <section className="relative w-full overflow-hidden bg-[#0B0B0B] min-h-[380px] sm:min-h-0 sm:aspect-[150/61] flex items-center group">
             {heroSlides.map((slide, idx) => (
               <div
                 key={idx}
@@ -937,83 +930,98 @@ export default function App() {
                   idx === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
                 } bg-[#0B0B0B] flex items-center`}
               >
-                {/* Fundo Gradiente com Efeito de Luz / Aura Atlética */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#060606] via-[#0D0D0D] to-[#120806]" />
-                
-                {/* Aura de Luz Dinâmica com a cor do modelo */}
-                <div
-                  className="absolute right-4 sm:right-16 top-1/2 -translate-y-1/2 w-64 sm:w-[500px] h-64 sm:h-[500px] rounded-full blur-[100px] opacity-25 pointer-events-none transition-colors duration-1000"
-                  style={{ backgroundColor: slide.glowColor || "#D94A2F" }}
-                />
+                {slide.fullBannerImg ? (
+                  <div
+                    className="relative w-full h-full cursor-pointer flex items-center justify-center bg-black group/master"
+                    onClick={() => navigateToCategory(slide.category)}
+                  >
+                    <img
+                      src={slide.fullBannerImg}
+                      alt={slide.title}
+                      className="w-full h-full object-cover sm:object-cover object-center transition-transform duration-700 group-hover/master:scale-[1.01]"
+                    />
+                  </div>
+                ) : (
+                  <>
+                    {/* Fundo Gradiente com Efeito de Luz / Aura Atlética */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#060606] via-[#0D0D0D] to-[#120806]" />
+                    
+                    {/* Aura de Luz Dinâmica com a cor do modelo */}
+                    <div
+                      className="absolute right-4 sm:right-16 top-1/2 -translate-y-1/2 w-64 sm:w-[500px] h-64 sm:h-[500px] rounded-full blur-[100px] opacity-25 pointer-events-none transition-colors duration-1000"
+                      style={{ backgroundColor: slide.glowColor || "#D94A2F" }}
+                    />
 
-                {/* Grid Sutil de Performance */}
-                <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
+                    {/* Grid Sutil de Performance */}
+                    <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
 
-                <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 w-full h-full flex flex-col-reverse sm:flex-row items-center justify-between gap-6 sm:gap-12 py-12 sm:py-0">
-                  {/* Coluna da Esquerda: Textos, Badges, Tech Specs & CTA */}
-                  <div className="max-w-xl text-white text-center sm:text-left z-10">
-                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-2 sm:mb-3">
-                      <span className="inline-block bg-[#D94A2F] text-white text-[10px] sm:text-[11px] font-black tracking-widest uppercase px-3 py-1">
-                        {slide.badge}
-                      </span>
-                      {slide.pixPrice && (
-                        <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-[#FAFAFA] text-[10px] sm:text-[11px] font-extrabold uppercase px-2.5 py-1">
-                          À VISTA <b className="text-[#D94A2F]">{slide.pixPrice}</b> NO PIX
-                        </span>
-                      )}
-                    </div>
-
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none mb-2 sm:mb-3 font-['Montserrat',sans-serif]">
-                      {slide.title}
-                    </h1>
-
-                    <p className="text-xs sm:text-sm font-bold tracking-wider text-[#D94A2F] uppercase mb-2">
-                      {slide.subtitle}
-                    </p>
-
-                    <p className="text-xs sm:text-sm text-white/75 mb-4 line-clamp-2 max-w-md font-medium hidden sm:block">
-                      {slide.desc}
-                    </p>
-
-                    {/* Chips de Tecnologia Torx */}
-                    {slide.techSpecs && (
-                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-4 sm:mb-6">
-                        {slide.techSpecs.map((spec) => (
-                          <span
-                            key={spec}
-                            className="inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-md border border-white/15 text-white text-[10px] sm:text-[11px] font-bold tracking-wider uppercase px-2.5 py-1 shadow-sm"
-                          >
-                            <Sparkles size={11} className="text-[#D94A2F]" />
-                            {spec}
+                    <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 w-full h-full flex flex-col-reverse sm:flex-row items-center justify-between gap-6 sm:gap-12 py-8 sm:py-0">
+                      {/* Coluna da Esquerda: Textos, Badges, Tech Specs & CTA */}
+                      <div className="max-w-xl text-white text-center sm:text-left z-10">
+                        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-2 sm:mb-3">
+                          <span className="inline-block bg-[#D94A2F] text-white text-[10px] sm:text-[11px] font-black tracking-widest uppercase px-3 py-1">
+                            {slide.badge}
                           </span>
-                        ))}
+                          {slide.pixPrice && (
+                            <span className="inline-block bg-white/10 backdrop-blur-md border border-white/20 text-[#FAFAFA] text-[10px] sm:text-[11px] font-extrabold uppercase px-2.5 py-1">
+                              À VISTA <b className="text-[#D94A2F]">{slide.pixPrice}</b> NO PIX
+                            </span>
+                          )}
+                        </div>
+
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none mb-2 sm:mb-3 font-['Montserrat',sans-serif]">
+                          {slide.title}
+                        </h1>
+
+                        <p className="text-xs sm:text-sm font-bold tracking-wider text-[#D94A2F] uppercase mb-2">
+                          {slide.subtitle}
+                        </p>
+
+                        <p className="text-xs sm:text-sm text-white/75 mb-4 line-clamp-2 max-w-md font-medium hidden sm:block">
+                          {slide.desc}
+                        </p>
+
+                        {/* Chips de Tecnologia Torx */}
+                        {slide.techSpecs && (
+                          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-4 sm:mb-6">
+                            {slide.techSpecs.map((spec) => (
+                              <span
+                                key={spec}
+                                className="inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-md border border-white/15 text-white text-[10px] sm:text-[11px] font-bold tracking-wider uppercase px-2.5 py-1 shadow-sm"
+                              >
+                                <Sparkles size={11} className="text-[#D94A2F]" />
+                                {spec}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+
+                        <div className="flex items-center justify-center sm:justify-start gap-4">
+                          <button
+                            onClick={() => navigateToCategory(slide.category)}
+                            className="bg-[#D94A2F] hover:bg-white hover:text-black text-white text-xs font-extrabold tracking-widest px-8 py-3.5 uppercase transition-all duration-300 shadow-xl cursor-pointer inline-flex items-center gap-2 group/btn"
+                          >
+                            {slide.cta}
+                            <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
+                          </button>
+                        </div>
                       </div>
-                    )}
 
-                    <div className="flex items-center justify-center sm:justify-start gap-4">
-                      <button
-                        onClick={() => navigateToCategory(slide.category)}
-                        className="bg-[#D94A2F] hover:bg-white hover:text-black text-white text-xs font-extrabold tracking-widest px-8 py-3.5 uppercase transition-all duration-300 shadow-xl cursor-pointer inline-flex items-center gap-2 group/btn"
-                      >
-                        {slide.cta}
-                        <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
-                      </button>
+                      {/* Coluna da Direita: Foto Real do Tênis Sandrini (100% visível, sem cortes!) */}
+                      <div className="w-full sm:w-1/2 flex items-center justify-center relative select-none py-2 sm:py-0">
+                        <div className="relative group/shoe flex flex-col items-center">
+                          <img
+                            src={slide.shoeImage}
+                            alt={slide.title}
+                            className="max-h-[200px] sm:max-h-[300px] md:max-h-[360px] w-auto max-w-[90%] sm:max-w-full object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.95)] transition-all duration-700 hover:scale-105 hover:-translate-y-1"
+                          />
+                          {/* Sombra de apoio no chão */}
+                          <div className="w-3/4 h-3.5 bg-black/90 blur-md rounded-full mt-1 sm:mt-2" />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Coluna da Direita: Foto Real do Tênis Sandrini (100% visível, sem cortes!) */}
-                  <div className="w-full sm:w-1/2 flex items-center justify-center relative select-none py-2 sm:py-0">
-                    <div className="relative group/shoe flex flex-col items-center">
-                      <img
-                        src={slide.shoeImage}
-                        alt={slide.title}
-                        className="max-h-[220px] sm:max-h-[320px] md:max-h-[380px] w-auto max-w-[90%] sm:max-w-full object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.95)] transition-all duration-700 hover:scale-105 hover:-translate-y-1"
-                      />
-                      {/* Sombra de apoio no chão */}
-                      <div className="w-3/4 h-3.5 bg-black/90 blur-md rounded-full mt-1 sm:mt-2" />
-                    </div>
-                  </div>
-                </div>
+                  </>
+                )}
               </div>
             ))}
 
