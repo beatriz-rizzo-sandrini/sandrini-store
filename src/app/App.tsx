@@ -37,6 +37,10 @@ import heroBanner1Img from "@/imports/BANNERS PRINCIPAIS 1400X900/1/1400x900.jpg
 import heroBanner2Img from "@/imports/BANNERS PRINCIPAIS 1400X900/2/1400x900.jpg";
 import banner1400x400Img from "@/imports/BANNER 1400X400/1400X400.jpg";
 
+import bannerRunningVermelhoImg from "@/imports/Tênis Aero Run - Sandrini/PRETO PRETO E VERMELHO/TSSF1801012PTOPTOVERMELHO-AMB01.jpg";
+import bannerRunningAmareloImg from "@/imports/Tênis Aero Run - Sandrini/BRANCO PRETO E AMARELO/TSSF1801118BCOPTOAMARELO-AMB01.jpg";
+import bannerRunningCinzaImg from "@/imports/Tênis Aero Run - Sandrini/PRETO E CINZA/TSSF1801005PTOCINZA-AMB01.jpg";
+
 import tenisCasualCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/TÊNIS CASUAL/TÊNIS-CASUAL-500X500.jpg";
 import undewearCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/UNDERWEAR/UNDERWEAR-500X500.jpg";
 import fitnessCategoriaImg from "@/imports/FOTOS DE CAPA DAS CATEGORIAS/FITNESS/FITNESS-500X500.jpg";
@@ -590,34 +594,37 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Hero Slides com dimensões exatas da Torx (aspect 150/61 no desktop e 96/145 no mobile)
+  // 3 Banners Principais Inspirados em Alta Performance / Corrida com Tênis Sandrini
   const heroSlides = [
     {
-      title: "SANDRINI ULTRA RUN",
-      subtitle: "PERFORMANCE, AMORTECIMENTO & VELOCIDADE",
-      desc: "Desenvolvido com tecnologia de absorção de impacto para impulsionar seus treinos e corridas.",
-      image: heroBanner1Img,
-      badge: "LANÇAMENTO 2026",
-      cta: "EXPLORAR CORRIDA",
+      title: "SANDRINI AERO RUN",
+      subtitle: "MÁXIMA VELOCIDADE, RETORNO & PROPULSÃO",
+      desc: "Projetado com amortecimento responsivo e tecnologia de absorção de impacto para corredores que buscam superar seus recordes.",
+      image: bannerRunningVermelhoImg,
+      badge: "ALTA PERFORMANCE 2026",
+      cta: "EXPLORAR AERO RUN",
       category: "Corrida",
+      techSpecs: ["Amortecimento E-TPU", "Drop 8mm", "Ultra Leve"],
     },
     {
-      title: "COLEÇÃO TREINO & ACADEMIA",
-      subtitle: "MÁXIMA RESISTÊNCIA E RESPIRABILIDADE",
-      desc: "Camisetas Dry Fit, bermudas de compressão e tênis leves para elevar sua rotina fitness.",
-      image: heroBanner2Img,
-      badge: "ALTA PERFORMANCE",
-      cta: "VER TREINO & ACADEMIA",
-      category: "Fitness",
+      title: "AERO SPARK SPEED",
+      subtitle: "ESTABILIDADE, GRIP & LEVEZA DINÂMICA",
+      desc: "Desenvolvido para treinos diários e maratonas com solado de máxima tração e cabedal aerodinâmico sem costuras.",
+      image: bannerRunningAmareloImg,
+      badge: "LANÇAMENTO EXCLUSIVO",
+      cta: "VER COLEÇÃO NITRO",
+      category: "Corrida",
+      techSpecs: ["Grip Antiderrapante", "Mesh Respirável", "Pisada Neutra"],
     },
     {
-      title: "KITS ESSENCIAIS SANDRINI",
-      subtitle: "MAIS ECONOMIA E PRATICIDADE",
-      desc: "Kits de cuecas boxer, meias esportivas e camisetas com descontos exclusivos de fábrica.",
-      image: banner1400x400Img,
-      badge: "CUPOM 7% OFF",
-      cta: "VER KITS COMPLETOS",
-      category: "Kits",
+      title: "SANDRINI PRO SPEED",
+      subtitle: "DOMINE O ASFALTO E A ESTEIRA",
+      desc: "Conforto anatômico e amortecimento contínuo criado para atletas exigentes que não aceitam limites.",
+      image: bannerRunningCinzaImg,
+      badge: "TECNOLOGIA RUNNING",
+      cta: "COMPRAR CORRIDA",
+      category: "Corrida",
+      techSpecs: ["Absorção de Impacto", "Cabedal Anatômico", "Até 6x Sem Juros"],
     },
   ];
 
@@ -932,18 +939,39 @@ export default function App() {
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 w-full h-full flex flex-col justify-end sm:justify-center pb-12 sm:pb-0">
                   <div className="max-w-xl text-white">
-                    <span className="inline-block bg-[#D94A2F] text-white text-[11px] font-black tracking-widest uppercase px-3 py-1 mb-3">
-                      {slide.badge}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                      <span className="inline-block bg-[#D94A2F] text-white text-[11px] font-black tracking-widest uppercase px-3 py-1">
+                        {slide.badge}
+                      </span>
+                    </div>
+
                     <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-none mb-3 font-['Montserrat',sans-serif]">
                       {slide.title}
                     </h1>
-                    <p className="text-xs sm:text-sm font-semibold tracking-wider text-white/90 uppercase mb-2">
+
+                    <p className="text-xs sm:text-sm font-bold tracking-wider text-[#FAFAFA] uppercase mb-2">
                       {slide.subtitle}
                     </p>
-                    <p className="text-xs sm:text-sm text-white/75 mb-6 line-clamp-2 max-w-md">
+
+                    <p className="text-xs sm:text-sm text-white/80 mb-4 line-clamp-2 max-w-md font-medium">
                       {slide.desc}
                     </p>
+
+                    {/* Chips de Tecnologia / Specs estilo Torx */}
+                    {slide.techSpecs && (
+                      <div className="flex flex-wrap items-center gap-2 mb-6">
+                        {slide.techSpecs.map((spec) => (
+                          <span
+                            key={spec}
+                            className="inline-flex items-center gap-1.5 bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] sm:text-[11px] font-bold tracking-wider uppercase px-2.5 py-1 shadow-sm"
+                          >
+                            <Sparkles size={11} className="text-[#D94A2F]" />
+                            {spec}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
                     <button
                       onClick={() => navigateToCategory(slide.category)}
                       className="bg-[#D94A2F] hover:bg-white hover:text-black text-white text-xs font-extrabold tracking-widest px-8 py-3.5 uppercase transition-all duration-300 shadow-md cursor-pointer inline-flex items-center gap-2"
