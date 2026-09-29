@@ -28,8 +28,7 @@ import {
   Percent,
   SlidersHorizontal,
 } from "lucide-react";
-import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
-import logoImg from "@/imports/logo_transp.png";
+import logoImg from "@/imports/logo_cortado.png";
 import logoFooterImg from "@/imports/logo_cortado.png";
 
 // Import imagens do repositório
@@ -361,13 +360,13 @@ const PRODUCTS: Product[] = [
 
 const INSTAGRAM_POSTS = [
   { img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1483721074573-586540da5703?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
   { img: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
   { img: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
   { img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
   { img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
 ];
 
 function formatPrice(val: number) {
@@ -736,12 +735,12 @@ export default function App() {
                 e.preventDefault();
                 navigateToCategory("home");
               }}
-              className="flex items-center gap-2 cursor-pointer group"
+              className="flex items-center gap-2 cursor-pointer group py-1"
             >
               <img
                 src={logoImg}
                 alt="Sandrini"
-                className="h-9 sm:h-11 w-auto object-contain transition-transform group-hover:scale-105"
+                className="h-11 sm:h-14 md:h-16 w-auto object-contain transition-transform group-hover:scale-105"
               />
             </a>
           </div>
@@ -1322,9 +1321,9 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 mb-12">
             {/* Logo & Redes */}
-            <div className="md:col-span-1">
-              <img src={logoFooterImg} alt="Sandrini" className="h-12 w-auto object-contain mb-4" />
-              <div className="flex gap-2 text-black/60">
+            <div className="md:col-span-1 flex flex-col items-center text-center sm:items-center sm:text-center">
+              <img src={logoFooterImg} alt="Sandrini" className="h-14 sm:h-16 w-auto object-contain mb-4 mx-auto" />
+              <div className="flex justify-center gap-2.5 text-black/60">
                 <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-8 h-8 border border-[#E0E0E0] flex items-center justify-center hover:border-black hover:text-black transition-colors">
                   <Instagram size={14} />
                 </a>
