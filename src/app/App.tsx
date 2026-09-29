@@ -708,7 +708,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#FFFFFF] text-[#0B0B0B] font-['Open_Sans',sans-serif] antialiased">
       {/* 1. TOPO ANÚNCIO ROTATIVO (Torx Header Ticker #js-texto-header) */}
-      <div className="bg-[#0B0B0B] text-white py-2 px-4 text-center text-[12px] font-bold tracking-[0.08em] uppercase overflow-hidden relative select-none">
+      <div className="bg-[#141414] border-b border-white/10 text-white py-2 px-4 text-center text-[12px] font-bold tracking-[0.08em] uppercase overflow-hidden relative select-none">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-4">
           <span className="inline-flex items-center gap-2 animate-fade-in key={currentTopNoticeIdx}">
             {TORX_TOPBAR_MESSAGES[currentTopNoticeIdx]}
@@ -716,14 +716,14 @@ export default function App() {
         </div>
       </div>
 
-      {/* 2. HEADER PRINCIPAL (Torx Header #app_header) */}
-      <header className="sticky top-0 z-40 bg-white border-b border-[#EBEBEB] transition-all duration-300">
+      {/* 2. HEADER PRINCIPAL (Dark Style com Logo Branca e Letras Brancas) */}
+      <header className="sticky top-0 z-40 bg-[#0B0B0B] border-b border-[#222222] transition-all duration-300 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
           {/* Mobile Menu Trigger & Logo */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden p-2 text-black hover:text-[#D94A2F] transition-colors cursor-pointer"
+              className="lg:hidden p-2 text-white hover:text-[#D94A2F] transition-colors cursor-pointer"
               aria-label="Abrir menu"
             >
               {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -745,7 +745,7 @@ export default function App() {
             </a>
           </div>
 
-          {/* Desktop Navigation Links (.nav-menu .main-menu) */}
+          {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
               <button
@@ -754,7 +754,7 @@ export default function App() {
                 className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${
                   currentPage === link.category
                     ? "text-[#D94A2F]"
-                    : "text-[#0B0B0B] hover:text-[#D94A2F]"
+                    : "text-white hover:text-[#D94A2F]"
                 }`}
               >
                 {link.label}
@@ -770,23 +770,23 @@ export default function App() {
             {/* Search Button / Input */}
             <div className="relative">
               {searchOpen ? (
-                <div className="flex items-center bg-[#F5F5F5] rounded-full px-3 py-1.5 border border-black/10">
+                <div className="flex items-center bg-[#1E1E1E] rounded-full px-3 py-1.5 border border-white/20">
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Pesquisar produtos..."
-                    className="bg-transparent text-xs text-black outline-none w-36 sm:w-48 placeholder:text-black/40"
+                    className="bg-transparent text-xs text-white outline-none w-36 sm:w-48 placeholder:text-white/50"
                     autoFocus
                   />
-                  <button onClick={() => setSearchOpen(false)} className="text-black/50 hover:text-black p-0.5">
+                  <button onClick={() => setSearchOpen(false)} className="text-white/60 hover:text-white p-0.5">
                     <X size={14} />
                   </button>
                 </div>
               ) : (
                 <button
                   onClick={() => setSearchOpen(true)}
-                  className="p-2 text-black hover:text-[#D94A2F] transition-colors rounded-full hover:bg-black/5 cursor-pointer"
+                  className="p-2 text-white hover:text-[#D94A2F] transition-colors rounded-full hover:bg-white/10 cursor-pointer"
                   title="Pesquisar"
                 >
                   <Search size={20} />
@@ -797,7 +797,7 @@ export default function App() {
             {/* Favoritos */}
             <button
               onClick={() => navigateToCategory("Favoritos")}
-              className="p-2 text-black hover:text-[#D94A2F] transition-colors rounded-full hover:bg-black/5 relative cursor-pointer hidden sm:flex"
+              className="p-2 text-white hover:text-[#D94A2F] transition-colors rounded-full hover:bg-white/10 relative cursor-pointer hidden sm:flex"
               title="Favoritos"
             >
               <Heart size={20} />
@@ -811,7 +811,7 @@ export default function App() {
             {/* Conta / Perfil */}
             <button
               onClick={() => alert("Área do cliente Sandrini - Login & Pedidos")}
-              className="p-2 text-black hover:text-[#D94A2F] transition-colors rounded-full hover:bg-black/5 cursor-pointer hidden sm:flex"
+              className="p-2 text-white hover:text-[#D94A2F] transition-colors rounded-full hover:bg-white/10 cursor-pointer hidden sm:flex"
               title="Minha Conta"
             >
               <User size={20} />
@@ -820,7 +820,7 @@ export default function App() {
             {/* Sacola / Cart (.header__second--tools-cart) */}
             <button
               onClick={() => setCartOpen(true)}
-              className="flex items-center gap-2 bg-[#0B0B0B] text-white px-3.5 sm:px-4 py-2.5 rounded-full hover:bg-[#D94A2F] transition-all cursor-pointer shadow-sm group"
+              className="flex items-center gap-2 bg-[#D94A2F] hover:bg-white hover:text-[#0B0B0B] text-white px-3.5 sm:px-4 py-2.5 rounded-full transition-all cursor-pointer shadow-sm group"
             >
               <ShoppingBag size={18} />
               <span className="text-xs font-bold">{cartCount}</span>
@@ -830,12 +830,12 @@ export default function App() {
 
         {/* Mobile Dropdown Menu */}
         {menuOpen && (
-          <div className="lg:hidden bg-white border-t border-[#EBEBEB] px-6 py-6 flex flex-col gap-4 shadow-xl">
+          <div className="lg:hidden bg-[#0B0B0B] border-t border-[#222222] px-6 py-6 flex flex-col gap-4 shadow-xl">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.label}
                 onClick={() => navigateToCategory(link.category)}
-                className="text-left font-bold text-sm tracking-wider uppercase text-black py-2 border-b border-black/5 hover:text-[#D94A2F]"
+                className="text-left font-bold text-sm tracking-wider uppercase text-white py-2 border-b border-white/10 hover:text-[#D94A2F]"
               >
                 {link.label}
               </button>
