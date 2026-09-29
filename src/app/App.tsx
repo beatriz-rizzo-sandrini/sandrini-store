@@ -11,7 +11,6 @@ import {
   Instagram,
   Youtube,
   Facebook,
-  Twitter,
   Check,
   Copy,
   Truck,
@@ -24,7 +23,10 @@ import {
   Play,
   Share2,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Lock,
+  Percent,
+  SlidersHorizontal,
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import logoImg from "@/imports/logo_transp.png";
@@ -95,9 +97,9 @@ const NAV_LINKS = [
 
 const TORX_TOPBAR_MESSAGES = [
   "ATÉ 6X SEM JUROS",
-  "FRETE GRÁTIS PARA O SUDESTE",
-  "FRETE GRÁTIS ACIMA DE R$ 259",
-  "USE O CUPOM BEMVINDOSANDRINI E GANHE 7% OFF",
+  "Frete Grátis para o Sudeste",
+  "Frete Grátis acima de R$ 259",
+  "Utilize o cupom BEMVINDOSANDRINI e ganhe 7% OFF",
 ];
 
 const TORX_CATEGORY_GRID = [
@@ -162,7 +164,7 @@ const PRODUCTS: Product[] = [
     rating: 4.9,
     reviews: 348,
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    brand: "Sandrini Performance",
+    brand: "SANDRINI",
     colors: [
       { name: "Preto/Cinza", img: tenisAeroRunImg, hex: "#4b5563", folderPath: "Tênis Aero Run - Sandrini/PRETO E CINZA" },
       { name: "Branco/Amarelo", img: tenisAeroRunAmareloImg, hex: "#eab308", folderPath: "Tênis Aero Run - Sandrini/BRANCO PRETO E AMARELO" },
@@ -182,7 +184,7 @@ const PRODUCTS: Product[] = [
     rating: 4.9,
     reviews: 521,
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    brand: "Sandrini Performance",
+    brand: "SANDRINI",
     colors: [
       { name: "Branco", img: tenisAeroSparkBrancoImg, hex: "#ffffff", folderPath: "Tênis Aero Spark - Sandrini/BRANCO CINZA E LARANJA" },
       { name: "Preto", img: tenisAeroSparkPretoImg, hex: "#111111", folderPath: "Tênis Aero Spark - Sandrini/PRETO E LARANJA" },
@@ -202,7 +204,7 @@ const PRODUCTS: Product[] = [
     rating: 4.8,
     reviews: 412,
     sizes: ["38", "39", "40", "41", "42", "43", "44"],
-    brand: "Sandrini Performance",
+    brand: "SANDRINI",
     colors: [
       { name: "Preto/Branco", img: tenisSprytePretoBrancoImg, hex: "#111111", folderPath: "Tênis Spryte - Sandrini/PRETO" },
       { name: "Branco/Gelo", img: tenisSpryteBrancoImg, hex: "#ffffff", folderPath: "Tênis Spryte - Sandrini/BRANCO GELO" },
@@ -222,7 +224,7 @@ const PRODUCTS: Product[] = [
     rating: 4.8,
     reviews: 188,
     sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini Active",
+    brand: "SANDRINI",
   },
   {
     id: 5,
@@ -237,7 +239,7 @@ const PRODUCTS: Product[] = [
     rating: 4.9,
     reviews: 167,
     sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini Active",
+    brand: "SANDRINI",
   },
   {
     id: 6,
@@ -252,7 +254,7 @@ const PRODUCTS: Product[] = [
     rating: 4.9,
     reviews: 645,
     sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini Underwear",
+    brand: "SANDRINI",
   },
   {
     id: 7,
@@ -267,7 +269,7 @@ const PRODUCTS: Product[] = [
     rating: 4.9,
     reviews: 312,
     sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini Casual",
+    brand: "SANDRINI",
     colors: [
       { name: "Sortido", img: kit3CamisetasSortidoImg, hex: "#9ca3af" },
       { name: "Branco", img: kit3CamisetasBrancoImg, hex: "#ffffff" },
@@ -287,7 +289,7 @@ const PRODUCTS: Product[] = [
     rating: 4.8,
     reviews: 145,
     sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini Casual",
+    brand: "SANDRINI",
     colors: [
       { name: "Bege", img: shortsLinhoBegeImg, hex: "#d6c5b3" },
       { name: "Preto", img: shortsLinhoPretoImg, hex: "#111111" },
@@ -308,7 +310,7 @@ const PRODUCTS: Product[] = [
     rating: 4.7,
     reviews: 132,
     sizes: ["Único (38-43)"],
-    brand: "Sandrini Underwear",
+    brand: "SANDRINI",
   },
   {
     id: 10,
@@ -323,7 +325,7 @@ const PRODUCTS: Product[] = [
     rating: 4.8,
     reviews: 194,
     sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini Active",
+    brand: "SANDRINI",
   },
   {
     id: 11,
@@ -338,7 +340,7 @@ const PRODUCTS: Product[] = [
     rating: 4.9,
     reviews: 167,
     sizes: ["P", "M", "G", "GG"],
-    brand: "Sandrini Active",
+    brand: "SANDRINI",
   },
   {
     id: 12,
@@ -353,7 +355,7 @@ const PRODUCTS: Product[] = [
     rating: 4.8,
     reviews: 210,
     sizes: ["Único (38-43)"],
-    brand: "Sandrini Underwear",
+    brand: "SANDRINI",
   },
 ];
 
@@ -377,7 +379,7 @@ function calculatePixPrice(val: number) {
   return val * 0.95;
 }
 
-// Card de produto estilo Torx Brasil
+// Card de produto idêntico à Torx Brasil
 function TorxProductCard({
   product,
   onAddToCart,
@@ -397,33 +399,36 @@ function TorxProductCard({
 
   return (
     <div
-      className="group flex flex-col bg-white border border-[#EBEBEB] transition-all duration-300 hover:shadow-xl hover:border-black/20 relative"
+      className="group flex flex-col bg-white border border-[#F0F0F0] hover:border-black/20 transition-all duration-300 relative rounded-none hover:shadow-md"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Imagem com Hover Flip */}
-      <div className="relative aspect-square w-full overflow-hidden bg-[#FAFAFA] cursor-pointer" onClick={() => onClickDetails(product, null)}>
+      <div
+        className="relative aspect-square w-full overflow-hidden bg-[#FAFAFA] cursor-pointer"
+        onClick={() => onClickDetails(product, null)}
+      >
         {/* Wishlist Heart */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             if (onToggleFavorite) onToggleFavorite(product.id);
           }}
-          className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-black hover:text-[#D94A2F] hover:bg-white transition-all shadow-sm cursor-pointer"
-          title="Favoritar produto"
+          className="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-black/70 hover:text-[#D94A2F] hover:bg-white transition-all shadow-xs cursor-pointer"
+          title="Favoritar"
         >
-          <Heart size={18} className={isFavorite ? "fill-[#D94A2F] text-[#D94A2F]" : "text-black/70"} />
+          <Heart size={16} className={isFavorite ? "fill-[#D94A2F] text-[#D94A2F]" : ""} />
         </button>
 
         {/* Badges Torx Style */}
-        <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5 pointer-events-none">
+        <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1 pointer-events-none">
           {product.discountBadge && (
-            <span className="bg-[#D94A2F] text-white text-[11px] font-black tracking-wider uppercase px-2.5 py-1 rounded-xs shadow-xs">
+            <span className="bg-[#D94A2F] text-white text-[11px] font-bold tracking-wider uppercase px-2 py-0.5">
               {product.discountBadge}
             </span>
           )}
           {product.badge && (
-            <span className="bg-black text-white text-[10px] font-black tracking-widest uppercase px-2 py-0.5 rounded-xs">
+            <span className="bg-[#0B0B0B] text-white text-[10px] font-bold tracking-widest uppercase px-2 py-0.5">
               {product.badge}
             </span>
           )}
@@ -433,8 +438,8 @@ function TorxProductCard({
         <img
           src={product.img}
           alt={product.name}
-          className={`absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500 ease-out ${
-            hovered && product.secondImg ? "opacity-0 scale-95" : "opacity-100 scale-100"
+          className={`absolute inset-0 w-full h-full object-contain p-3 transition-opacity duration-300 ease-in-out ${
+            hovered && product.secondImg ? "opacity-0" : "opacity-100"
           }`}
         />
 
@@ -443,22 +448,19 @@ function TorxProductCard({
           <img
             src={product.secondImg}
             alt={`${product.name} detalhe`}
-            className={`absolute inset-0 w-full h-full object-contain p-4 transition-all duration-500 ease-out ${
-              hovered ? "opacity-100 scale-105" : "opacity-0 scale-100"
+            className={`absolute inset-0 w-full h-full object-contain p-3 transition-opacity duration-300 ease-in-out ${
+              hovered ? "opacity-100" : "opacity-0"
             }`}
           />
         )}
       </div>
 
       {/* Info do Produto Torx */}
-      <div className="p-4 flex flex-col flex-1 justify-between gap-3">
+      <div className="p-3 sm:p-4 flex flex-col flex-1 justify-between gap-2.5">
         <div>
-          <span className="text-[10px] tracking-[0.15em] uppercase font-bold text-black/40 block mb-1">
-            {product.brand}
-          </span>
           <h3
             onClick={() => onClickDetails(product, null)}
-            className="font-bold text-[14px] text-black leading-snug line-clamp-2 cursor-pointer hover:text-[#D94A2F] transition-colors"
+            className="font-semibold text-[13px] sm:text-[14px] text-[#0B0B0B] leading-snug line-clamp-2 cursor-pointer hover:text-[#D94A2F] transition-colors"
           >
             {product.name}
           </h3>
@@ -495,14 +497,17 @@ function TorxProductCard({
             <span className="text-xs font-bold text-[#D94A2F]">no PIX</span>
           </div>
           <p className="text-[11px] text-black/60 font-medium">
-            ou {formatPrice(product.price)} em até <b className="text-black">6x de {formatPrice(installmentValue)}</b> sem juros
+            ou {formatPrice(product.price)} em outros meios
+          </p>
+          <p className="text-[11px] text-black/60 font-medium">
+            <b className="text-black">6x de {formatPrice(installmentValue)}</b> sem juros
           </p>
         </div>
 
-        {/* Botão de Compra Rápida */}
+        {/* Botão de Compra Torx */}
         <button
           onClick={() => onAddToCart(product, product.sizes[0] || "M")}
-          className="w-full bg-[#0B0B0B] text-white text-xs font-bold tracking-widest py-3 uppercase hover:bg-[#D94A2F] transition-colors cursor-pointer flex items-center justify-center gap-2 mt-1 shadow-sm"
+          className="w-full bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold tracking-widest py-2.5 uppercase transition-colors cursor-pointer flex items-center justify-center gap-2 mt-1"
         >
           <ShoppingBag size={14} />
           COMPRAR
@@ -538,8 +543,6 @@ export default function App() {
   const [newsletterSent, setNewsletterSent] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
 
-  const vitrineScrollRef = useRef<HTMLDivElement>(null);
-
   // Topbar Notice Rotation
   useEffect(() => {
     const timer = setInterval(() => {
@@ -548,7 +551,7 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Hero Slides
+  // Hero Slides com dimensões exatas da Torx (aspect 150/61 no desktop e 96/145 no mobile)
   const heroSlides = [
     {
       title: "SANDRINI ULTRA RUN",
@@ -583,7 +586,7 @@ export default function App() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 7000);
+    }, 6500);
     return () => clearInterval(timer);
   }, [heroSlides.length]);
 
@@ -704,20 +707,19 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFFFF] text-[#0B0B0B] font-['Open_Sans',sans-serif]">
-      {/* 1. TOPO ANÚNCIO ROTATIVO (Torx Header Ticker) */}
-      <div className="bg-[#0B0B0B] text-white py-2 px-4 text-center text-[11px] sm:text-[12px] font-bold tracking-[0.12em] uppercase overflow-hidden relative">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-6">
+    <div className="min-h-screen bg-[#FFFFFF] text-[#0B0B0B] font-['Open_Sans',sans-serif] antialiased">
+      {/* 1. TOPO ANÚNCIO ROTATIVO (Torx Header Ticker #js-texto-header) */}
+      <div className="bg-[#0B0B0B] text-white py-2 px-4 text-center text-[12px] font-bold tracking-[0.08em] uppercase overflow-hidden relative select-none">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-4">
           <span className="inline-flex items-center gap-2 animate-fade-in key={currentTopNoticeIdx}">
-            <Sparkles size={14} className="text-[#D94A2F]" />
             {TORX_TOPBAR_MESSAGES[currentTopNoticeIdx]}
           </span>
         </div>
       </div>
 
-      {/* 2. HEADER PRINCIPAL (Torx Clean Header) */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#EBEBEB] transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-20 flex items-center justify-between gap-4">
+      {/* 2. HEADER PRINCIPAL (Torx Header #app_header) */}
+      <header className="sticky top-0 z-40 bg-white border-b border-[#EBEBEB] transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
           {/* Mobile Menu Trigger & Logo */}
           <div className="flex items-center gap-3">
             <button
@@ -739,12 +741,12 @@ export default function App() {
               <img
                 src={logoImg}
                 alt="Sandrini"
-                className="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105"
+                className="h-9 sm:h-11 w-auto object-contain transition-transform group-hover:scale-105"
               />
             </a>
           </div>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation Links (.nav-menu .main-menu) */}
           <nav className="hidden lg:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
               <button
@@ -774,7 +776,7 @@ export default function App() {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Buscar produtos..."
+                    placeholder="Pesquisar produtos..."
                     className="bg-transparent text-xs text-black outline-none w-36 sm:w-48 placeholder:text-black/40"
                     autoFocus
                   />
@@ -801,7 +803,7 @@ export default function App() {
             >
               <Heart size={20} />
               {favorites.length > 0 && (
-                <span className="absolute 0 top-1 right-1 w-4 h-4 bg-[#D94A2F] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute top-1 right-1 w-4 h-4 bg-[#D94A2F] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
                   {favorites.length}
                 </span>
               )}
@@ -816,10 +818,10 @@ export default function App() {
               <User size={20} />
             </button>
 
-            {/* Sacola / Cart */}
+            {/* Sacola / Cart (.header__second--tools-cart) */}
             <button
               onClick={() => setCartOpen(true)}
-              className="flex items-center gap-2.5 bg-[#0B0B0B] text-white px-3.5 sm:px-4 py-2.5 rounded-full hover:bg-[#D94A2F] transition-all cursor-pointer shadow-sm group"
+              className="flex items-center gap-2 bg-[#0B0B0B] text-white px-3.5 sm:px-4 py-2.5 rounded-full hover:bg-[#D94A2F] transition-all cursor-pointer shadow-sm group"
             >
               <ShoppingBag size={18} />
               <span className="text-xs font-bold">{cartCount}</span>
@@ -843,19 +845,19 @@ export default function App() {
         )}
       </header>
 
-      {/* 3. FAIXA CUPOM (Torx Style Coupon Bar) */}
-      <div className="bg-[#F7F7F7] border-b border-[#EBEBEB] py-2.5 px-4 text-center">
+      {/* 3. FAIXA CUPOM (Torx .faixa-cupom) */}
+      <div className="bg-[#FFFFFF] border-b border-[#EBEBEB] py-3 px-4 text-center">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-semibold">
-          <span className="text-black/80">
-            Ganhe <b>7% OFF</b> na sua 1ª Compra com Cupom:
+          <span className="text-[#0B0B0B]">
+            Ganhe <b>7% OFF</b> com Cupom:
           </span>
-          <div className="inline-flex items-center gap-2 bg-white border border-[#D94A2F] px-3 py-1 rounded-sm shadow-2xs">
-            <span className="font-extrabold text-[#D94A2F] tracking-widest uppercase">
+          <div className="inline-flex items-center gap-2 bg-[#F9F9F9] border border-[#D94A2F] px-3 py-1 rounded-none">
+            <span className="font-extrabold text-[#D94A2F] tracking-wider uppercase">
               BEMVINDOSANDRINI
             </span>
             <button
               onClick={copyCouponCode}
-              className="text-[11px] font-bold bg-[#D94A2F] text-white px-2 py-0.5 rounded-xs hover:bg-black transition-colors flex items-center gap-1 cursor-pointer"
+              className="text-[11px] font-bold bg-[#D94A2F] text-white px-2.5 py-0.5 hover:bg-black transition-colors flex items-center gap-1 cursor-pointer"
             >
               {couponCopied ? (
                 <>
@@ -873,8 +875,8 @@ export default function App() {
 
       {currentPage === "home" ? (
         <>
-          {/* 4. HERO BANNER PRINCIPAL (Torx Hero Banner Slider / Video Feel) */}
-          <section className="relative w-full overflow-hidden bg-black aspect-[9/14] sm:aspect-[150/61] flex items-center group">
+          {/* 4. HERO BANNER PRINCIPAL (Torx .home__banner com aspect-ratio 150/61 desktop e 96/145 mobile) */}
+          <section className="relative w-full overflow-hidden bg-black aspect-[96/145] sm:aspect-[150/61] flex items-center group">
             {heroSlides.map((slide, idx) => (
               <div
                 key={idx}
@@ -885,27 +887,27 @@ export default function App() {
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-full h-full object-cover opacity-75 object-center"
+                  className="w-full h-full object-cover opacity-80 object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent sm:bg-gradient-to-r sm:from-black/85 sm:via-black/40 sm:to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent sm:bg-gradient-to-r sm:from-black/80 sm:via-black/35 sm:to-transparent" />
 
                 <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-12 w-full h-full flex flex-col justify-end sm:justify-center pb-12 sm:pb-0">
                   <div className="max-w-xl text-white">
-                    <span className="inline-block bg-[#D94A2F] text-white text-[10px] sm:text-xs font-black tracking-widest uppercase px-3 py-1 mb-3 rounded-xs">
+                    <span className="inline-block bg-[#D94A2F] text-white text-[11px] font-black tracking-widest uppercase px-3 py-1 mb-3">
                       {slide.badge}
                     </span>
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-none mb-3 font-['Barlow_Condensed',sans-serif]">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-none mb-3 font-['Montserrat',sans-serif]">
                       {slide.title}
                     </h1>
                     <p className="text-xs sm:text-sm font-semibold tracking-wider text-white/90 uppercase mb-2">
                       {slide.subtitle}
                     </p>
-                    <p className="text-xs sm:text-sm text-white/70 mb-6 line-clamp-2 max-w-md">
+                    <p className="text-xs sm:text-sm text-white/75 mb-6 line-clamp-2 max-w-md">
                       {slide.desc}
                     </p>
                     <button
                       onClick={() => navigateToCategory(slide.category)}
-                      className="bg-[#D94A2F] hover:bg-white hover:text-black text-white text-xs font-extrabold tracking-widest px-8 py-3.5 uppercase transition-all duration-300 rounded-xs shadow-lg cursor-pointer inline-flex items-center gap-2"
+                      className="bg-[#D94A2F] hover:bg-white hover:text-black text-white text-xs font-extrabold tracking-widest px-8 py-3.5 uppercase transition-all duration-300 shadow-md cursor-pointer inline-flex items-center gap-2"
                     >
                       {slide.cta}
                       <ArrowRight size={16} />
@@ -918,15 +920,15 @@ export default function App() {
             {/* Slider Arrows */}
             <button
               onClick={() => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-white/80 hover:bg-white text-black rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 hover:bg-[#D94A2F] hover:text-white text-black rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-md cursor-pointer"
             >
-              <ChevronLeft size={22} />
+              <ChevronLeft size={20} />
             </button>
             <button
               onClick={() => setCurrentSlide((prev) => (prev + 1) % heroSlides.length)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 bg-white/80 hover:bg-white text-black rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md cursor-pointer"
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 hover:bg-[#D94A2F] hover:text-white text-black rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all shadow-md cursor-pointer"
             >
-              <ChevronRight size={22} />
+              <ChevronRight size={20} />
             </button>
 
             {/* Slider Dots */}
@@ -943,34 +945,34 @@ export default function App() {
             </div>
           </section>
 
-          {/* 5. CATEGORY 3-GRID (Torx Banner Grid) */}
-          <section className="py-10 sm:py-16 bg-[#FFFFFF]">
+          {/* 5. GRADE DE 3 BANNERS DE CATEGORIAS (Torx .banner-grid com proporção vertical 4:5) */}
+          <section className="py-8 sm:py-12 bg-[#FFFFFF]">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 {TORX_CATEGORY_GRID.map((item) => (
                   <div
                     key={item.title}
                     onClick={() => navigateToCategory(item.category)}
-                    className="group relative overflow-hidden bg-black aspect-[4/5] rounded-xs cursor-pointer shadow-md"
+                    className="group relative overflow-hidden bg-black aspect-[4/5] cursor-pointer shadow-sm"
                   >
                     <img
                       src={item.img}
                       alt={item.title}
-                      className="w-full h-full object-cover opacity-80 transition-transform duration-700 ease-out group-hover:scale-110"
+                      className="w-full h-full object-cover opacity-85 transition-transform duration-700 ease-out group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
                     <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
                       <span className="text-[10px] font-black tracking-widest text-[#D94A2F] uppercase mb-1">
                         {item.badge}
                       </span>
-                      <h3 className="text-3xl font-black uppercase tracking-tight font-['Barlow_Condensed',sans-serif] leading-tight mb-1">
+                      <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight font-['Montserrat',sans-serif] leading-tight mb-1">
                         {item.title}
                       </h3>
-                      <p className="text-xs text-white/70 mb-4 line-clamp-2">
+                      <p className="text-xs text-white/75 mb-3 line-clamp-2">
                         {item.subtitle}
                       </p>
-                      <div className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-white group-hover:text-[#D94A2F] transition-colors">
-                        CONFERIR PRODUTOS <ChevronRight size={16} />
+                      <div className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-white group-hover:text-[#D94A2F] transition-colors">
+                        CONFERIR <ChevronRight size={14} />
                       </div>
                     </div>
                   </div>
@@ -979,17 +981,14 @@ export default function App() {
             </div>
           </section>
 
-          {/* 6. VITRINES ROTATIVAS (Torx Rotation Vitrine) */}
-          <section className="py-12 sm:py-16 bg-[#FAFAFA] border-y border-[#EBEBEB]">
+          {/* 6. VITRINES ROTATIVAS (Torx .rotation-vitrine) */}
+          <section className="py-10 sm:py-14 bg-[#FAFAFA] border-y border-[#EBEBEB]">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
               {/* Vitrine Tabs */}
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 border-b border-[#EBEBEB] pb-4">
                 <div>
-                  <span className="text-xs font-black tracking-[0.2em] text-[#D94A2F] uppercase block mb-1">
-                    SELEÇÃO DE PERFORMANCE
-                  </span>
-                  <h2 className="text-3xl sm:text-4xl font-black uppercase font-['Barlow_Condensed',sans-serif] tracking-tight">
-                    DESTAQUES EM ALTA
+                  <h2 className="text-2xl sm:text-3xl font-black uppercase font-['Montserrat',sans-serif] tracking-tight text-[#0B0B0B]">
+                    {activeVitrineTab}
                   </h2>
                 </div>
 
@@ -998,9 +997,9 @@ export default function App() {
                     <button
                       key={tab}
                       onClick={() => setActiveVitrineTab(tab)}
-                      className={`text-xs font-extrabold tracking-wider px-5 py-2.5 uppercase transition-all rounded-xs cursor-pointer ${
+                      className={`text-xs font-bold tracking-wider px-4 py-2 uppercase transition-all cursor-pointer ${
                         activeVitrineTab === tab
-                          ? "bg-[#0B0B0B] text-white shadow-sm"
+                          ? "bg-[#0B0B0B] text-white"
                           : "bg-white text-black/70 border border-[#E0E0E0] hover:border-black hover:text-black"
                       }`}
                     >
@@ -1011,7 +1010,7 @@ export default function App() {
               </div>
 
               {/* Vitrine Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
                 {vitrineProducts.slice(0, 8).map((p) => (
                   <TorxProductCard
                     key={p.id}
@@ -1025,74 +1024,74 @@ export default function App() {
               </div>
 
               {/* Ver Todos Button */}
-              <div className="text-center mt-10">
+              <div className="text-center mt-8">
                 <button
                   onClick={() => navigateToCategory(activeVitrineTab === "KITS" ? "Kits" : "Todos")}
-                  className="inline-flex items-center gap-2 border-2 border-black text-black hover:bg-black hover:text-white font-extrabold text-xs tracking-widest px-8 py-3.5 uppercase transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2 border border-black text-black hover:bg-black hover:text-white font-extrabold text-xs tracking-widest px-8 py-3.5 uppercase transition-all cursor-pointer"
                 >
-                  VER TODA A LINHA ({vitrineProducts.length} PRODUTOS)
-                  <ArrowRight size={16} />
+                  VER MAIS PRODUTOS ({vitrineProducts.length})
+                  <ArrowRight size={14} />
                 </button>
               </div>
             </div>
           </section>
 
-          {/* 7. FAIXA COMUNICADO / BENEFÍCIOS (Torx 4 Pillars) */}
-          <section className="py-12 bg-white border-b border-[#EBEBEB]">
+          {/* 7. FAIXA COMUNICADO / 4 PILARES (Torx .faixa-comunicado) */}
+          <section className="py-10 bg-white border-b border-[#EBEBEB]">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-                <div className="flex items-start gap-4 p-4 border border-[#F0F0F0] rounded-xs bg-[#FAFAFA]/50">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="flex items-center gap-4 p-4 border border-[#EBEBEB] bg-[#FAFAFA]">
                   <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
                     <RotateCcw size={22} />
                   </div>
                   <div>
-                    <h4 className="font-black text-sm uppercase tracking-wide text-black">
+                    <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wider text-black">
                       TROCA FACILITADA
                     </h4>
-                    <p className="text-xs text-black/60 mt-1 leading-relaxed">
-                      Você tem até 30 dias para realizar a troca sem burocracia.
+                    <p className="text-xs text-black/60 mt-0.5 leading-snug">
+                      Você tem 30 dias para realizar a troca de qualquer produto
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 border border-[#F0F0F0] rounded-xs bg-[#FAFAFA]/50">
+                <div className="flex items-center gap-4 p-4 border border-[#EBEBEB] bg-[#FAFAFA]">
                   <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
                     <Truck size={22} />
                   </div>
                   <div>
-                    <h4 className="font-black text-sm uppercase tracking-wide text-black">
+                    <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wider text-black">
                       FRETE GRÁTIS
                     </h4>
-                    <p className="text-xs text-black/60 mt-1 leading-relaxed">
-                      Para todo o Brasil em compras a partir de R$ 259,00.
+                    <p className="text-xs text-black/60 mt-0.5 leading-snug">
+                      Para todo Brasil em compras a partir de R$ 259,00
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 border border-[#F0F0F0] rounded-xs bg-[#FAFAFA]/50">
+                <div className="flex items-center gap-4 p-4 border border-[#EBEBEB] bg-[#FAFAFA]">
                   <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
                     <Tag size={22} />
                   </div>
                   <div>
-                    <h4 className="font-black text-sm uppercase tracking-wide text-black">
+                    <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wider text-black">
                       GANHE 7% OFF
                     </h4>
-                    <p className="text-xs text-black/60 mt-1 leading-relaxed">
-                      Utilize o cupom <b>BEMVINDOSANDRINI</b> em sua 1ª compra.
+                    <p className="text-xs text-black/60 mt-0.5 leading-snug">
+                      Utilize o cupom BEMVINDOSANDRINI em sua 1ª Compra
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4 p-4 border border-[#F0F0F0] rounded-xs bg-[#FAFAFA]/50">
+                <div className="flex items-center gap-4 p-4 border border-[#EBEBEB] bg-[#FAFAFA]">
                   <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
                     <Flame size={22} />
                   </div>
                   <div>
-                    <h4 className="font-black text-sm uppercase tracking-wide text-black">
-                      CLUBE SANDRINI
+                    <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wider text-black">
+                      CLUBE
                     </h4>
-                    <p className="text-xs text-black/60 mt-1 leading-relaxed">
-                      Seja membro do clube e receba lançamentos e ofertas VIP.
+                    <p className="text-xs text-black/60 mt-0.5 leading-snug">
+                      Seja membro de nosso club e receba ofertas exclusivas
                     </p>
                   </div>
                 </div>
@@ -1100,121 +1099,93 @@ export default function App() {
             </div>
           </section>
 
-          {/* 8. QUEM SOMOS / BRAND VIDEO SECTION (Torx About Section) */}
-          <section className="py-16 bg-[#0B0B0B] text-white">
+          {/* 8. QUEM SOMOS / BRAND VIDEO SECTION (Torx .about-me-home) */}
+          <section className="py-14 bg-[#FFFFFF]">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
-              <div className="text-center max-w-2xl mx-auto mb-10">
-                <span className="text-[#D94A2F] text-xs font-black tracking-[0.25em] uppercase">
-                  NOSSA HISTÓRIA & PROPÓSITO
-                </span>
-                <h2 className="text-3xl sm:text-5xl font-black uppercase font-['Barlow_Condensed',sans-serif] tracking-tight mt-1">
+              <div className="mb-6">
+                <h2 className="text-2xl sm:text-3xl font-black uppercase font-['Montserrat',sans-serif] tracking-tight text-[#0B0B0B]">
                   QUEM SOMOS
                 </h2>
-                <p className="text-xs sm:text-sm text-white/70 mt-2">
-                  Criamos produtos esportivos e casuais com design inovador, tecnologia anatômica e conforto absoluto para o seu dia a dia.
-                </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-                {/* Video Card */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
+                {/* Responsive Video Container com Play Button */}
                 <div
                   onClick={() => setVideoModalOpen(true)}
-                  className="lg:col-span-2 relative aspect-video bg-black rounded-xs overflow-hidden group cursor-pointer border border-white/10"
+                  className="relative aspect-video lg:aspect-auto lg:h-[380px] bg-black overflow-hidden group cursor-pointer"
                 >
                   <img
                     src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1200&h=700&fit=crop&auto=format"
                     alt="Vídeo Institucional Sandrini"
-                    className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D94A2F] text-white flex items-center justify-center pl-1 shadow-2xl group-hover:scale-110 group-hover:bg-white group-hover:text-[#D94A2F] transition-all">
-                      <Play size={28} />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-6 left-6 right-6">
-                    <span className="bg-black/80 text-white text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest">
-                      VÍDEO DE PERFORMANCE
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-black uppercase font-['Barlow_Condensed',sans-serif] mt-2">
-                      A tecnologia por trás de cada passo
-                    </h3>
+                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                    <button
+                      type="button"
+                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/90 text-[#D94A2F] text-xl flex items-center justify-center shadow-lg group-hover:bg-[#D94A2F] group-hover:text-white transition-all cursor-pointer"
+                    >
+                      ▶
+                    </button>
                   </div>
                 </div>
 
-                {/* Side Lifestyle Cards */}
-                <div className="flex flex-col gap-6">
-                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-xs flex flex-col justify-between">
-                    <div>
-                      <span className="text-[#D94A2F] text-xs font-black tracking-widest uppercase">
-                        QUALIDADE COMPROVADA
-                      </span>
-                      <h4 className="text-xl font-bold uppercase mt-1 mb-2">
-                        Mais de 500.000 clientes satisfeitos
-                      </h4>
-                      <p className="text-xs text-white/60 leading-relaxed">
-                        Foco em matérias-primas nobres, amortecimento durável e corte anatômico com padrão internacional.
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-1 text-amber-400 mt-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={14} className="fill-amber-400" />
-                      ))}
-                      <span className="text-xs text-white/80 ml-2 font-bold">4.9 / 5.0</span>
-                    </div>
+                {/* 2 Lifestyle Banners */}
+                <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[380px] overflow-hidden group cursor-pointer bg-black">
+                  <img
+                    src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=800&fit=crop&auto=format"
+                    alt="Performance & Tecnologia"
+                    className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                    <span className="text-[10px] font-black text-[#D94A2F] uppercase tracking-widest">
+                      TECNOLOGIA
+                    </span>
+                    <h3 className="text-xl font-bold uppercase">Amortecimento e leveza extrema</h3>
                   </div>
+                </div>
 
-                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-xs flex flex-col justify-between">
-                    <div>
-                      <span className="text-[#D94A2F] text-xs font-black tracking-widest uppercase">
-                        PRODUÇÃO NACIONAL
-                      </span>
-                      <h4 className="text-xl font-bold uppercase mt-1 mb-2">
-                        Direto da fábrica para sua casa
-                      </h4>
-                      <p className="text-xs text-white/60 leading-relaxed">
-                        Preço justo, entrega rastreada e suporte dedicado de segunda a sexta para você comprar com tranquilidade.
-                      </p>
-                    </div>
-                    <a
-                      href="#newsletter"
-                      className="text-xs font-bold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 mt-3"
-                    >
-                      FAÇA PARTE DO CLUBE <ChevronRight size={14} />
-                    </a>
+                <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[380px] overflow-hidden group cursor-pointer bg-black">
+                  <img
+                    src="https://images.unsplash.com/photo-1483721074573-586540da5703?w=800&h=800&fit=crop&auto=format"
+                    alt="Design & Durabilidade"
+                    className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                    <span className="text-[10px] font-black text-[#D94A2F] uppercase tracking-widest">
+                      DURABILIDADE
+                    </span>
+                    <h3 className="text-xl font-bold uppercase">Design anatômico para alta rotação</h3>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* 9. INSTAGRAM GRID (Torx Banner Instagram) */}
-          <section className="py-14 bg-white">
+          {/* 9. INSTAGRAM GRID (Torx .banner-instagram) */}
+          <section className="py-10 bg-[#FFFFFF] border-t border-[#EBEBEB]">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
-              <div className="text-center mb-8">
-                <span className="text-xs font-black tracking-[0.2em] text-[#D94A2F] uppercase">
-                  SIGA NOSSO FEED
-                </span>
-                <h2 className="text-3xl font-black uppercase font-['Barlow_Condensed',sans-serif] tracking-tight">
-                  INSTAGRAM @SANDRINI.OFICIAL
+              <div className="mb-5">
+                <h2 className="text-xl sm:text-2xl font-normal uppercase text-[#0B0B0B]">
+                  INSTAGRAM <b className="font-extrabold text-black">@SANDRINI.OFICIAL</b>
                 </h2>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
                 {INSTAGRAM_POSTS.map((post, i) => (
                   <a
                     key={i}
                     href={post.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="relative aspect-square overflow-hidden group bg-black/10 rounded-xs"
+                    className="relative aspect-square overflow-hidden group bg-black/10"
                   >
                     <img
                       src={post.img}
                       alt={`Instagram Sandrini ${i + 1}`}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                      <Instagram size={24} />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                      <Instagram size={22} />
                     </div>
                   </a>
                 ))}
@@ -1236,13 +1207,13 @@ export default function App() {
 
           <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-black/10 pb-6 mb-8 gap-4">
             <div>
-              <h1 className="text-4xl sm:text-5xl font-black uppercase font-['Barlow_Condensed',sans-serif]">
+              <h1 className="text-3xl sm:text-4xl font-black uppercase font-['Montserrat',sans-serif]">
                 {currentPage === "Favoritos" ? "Meus Favoritos" : currentPage}
               </h1>
               <p className="text-xs text-black/60 mt-1">
                 {currentPage === "Favoritos"
                   ? `${favorites.length} itens salvos`
-                  : "Produtos com garantia de qualidade e troca fácil"}
+                  : "Produtos com tecnologia de ponta e entrega expressa"}
               </p>
             </div>
             <button
@@ -1254,7 +1225,7 @@ export default function App() {
           </div>
 
           {/* Grid de Produtos da Categoria */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
             {PRODUCTS.filter((p) => {
               if (currentPage === "Favoritos") return favorites.includes(p.id);
               if (currentPage === "Corrida") return p.category === "Corrida";
@@ -1280,23 +1251,19 @@ export default function App() {
         </div>
       )}
 
-      {/* 10. NEWSLETTER STRIP (Torx Newsletter) */}
-      <section id="newsletter" className="py-14 bg-[#0B0B0B] text-white border-t border-white/10">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <span className="text-[#D94A2F] text-xs font-black tracking-[0.25em] uppercase block mb-1">
-            NEWSLETTER
+      {/* 10. NEWSLETTER (Torx #newsletter .newsletter) */}
+      <div id="newsletter" className="bg-[#FFFFFF] border-t border-[#EBEBEB] py-12 px-4 text-center">
+        <div className="max-w-2xl mx-auto">
+          <span className="text-xs font-bold uppercase text-black/50 tracking-widest block mb-1">
+            Newsletter
           </span>
-          <h2 className="text-2xl sm:text-4xl font-black uppercase font-['Barlow_Condensed',sans-serif] tracking-tight mb-2">
+          <span className="text-base sm:text-lg font-bold uppercase text-[#0B0B0B] block mb-4">
             CADASTRE-SE E GANHE ATÉ 7% OFF EM SUA PRIMEIRA COMPRA!
-          </h2>
-          <p className="text-xs text-white/60 mb-6 max-w-md mx-auto">
-            Receba lançamentos antecipados, promoções relâmpago e cupons exclusivos direto no seu e-mail.
-          </p>
+          </span>
 
           {newsletterSent ? (
-            <div className="bg-[#D94A2F]/20 border border-[#D94A2F] text-white p-4 rounded-xs text-xs font-bold inline-flex items-center gap-2">
-              <Check size={16} className="text-[#D94A2F]" />
-              E-mail cadastrado com sucesso! Use o cupom BEMVINDOSANDRINI no checkout.
+            <div className="bg-green-50 border border-green-200 text-green-800 p-3 text-xs font-bold">
+              ✓ E-mail cadastrado! Utilize o cupom BEMVINDOSANDRINI na sua primeira compra.
             </div>
           ) : (
             <form
@@ -1311,38 +1278,35 @@ export default function App() {
                 required
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                placeholder="Digite seu melhor e-mail"
-                className="flex-1 bg-white/10 text-white placeholder:text-white/40 border border-white/20 px-4 py-3 text-xs outline-none focus:border-[#D94A2F] rounded-xs"
+                placeholder="E-mail"
+                className="flex-1 bg-[#F9F9F9] text-black placeholder:text-black/40 border border-[#E0E0E0] px-4 py-3 text-xs outline-none focus:border-black"
               />
               <button
                 type="submit"
-                className="bg-[#D94A2F] text-white text-xs font-black tracking-widest px-8 py-3 uppercase hover:bg-white hover:text-black transition-colors rounded-xs cursor-pointer"
+                className="bg-[#D94A2F] hover:bg-black text-white text-xs font-bold tracking-widest px-8 py-3 uppercase transition-colors cursor-pointer"
               >
                 ENVIAR
               </button>
             </form>
           )}
         </div>
-      </section>
+      </div>
 
-      {/* 11. FOOTER COMPLETO ESTILO TORX BRASIL */}
-      <footer className="bg-[#111111] text-white/70 text-xs border-t border-white/5 pt-14 pb-24 sm:pb-12">
+      {/* 11. FOOTER COMPLETO (Torx .footer #footer) */}
+      <footer className="bg-[#FFFFFF] text-[#0B0B0B] text-xs border-t border-[#EBEBEB] pt-12 pb-24 sm:pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 mb-12">
             {/* Logo & Redes */}
             <div className="md:col-span-1">
-              <img src={logoFooterImg} alt="Sandrini" className="h-14 w-auto object-contain mb-4" />
-              <p className="text-xs text-white/50 leading-relaxed mb-4">
-                Performance, estilo e durabilidade para acompanhar sua rotina esportiva e casual.
-              </p>
-              <div className="flex gap-3">
-                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D94A2F] hover:text-white transition-colors">
+              <img src={logoFooterImg} alt="Sandrini" className="h-12 w-auto object-contain mb-4" />
+              <div className="flex gap-2 text-black/60">
+                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-8 h-8 border border-[#E0E0E0] flex items-center justify-center hover:border-black hover:text-black transition-colors">
                   <Instagram size={14} />
                 </a>
-                <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D94A2F] hover:text-white transition-colors">
+                <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-8 h-8 border border-[#E0E0E0] flex items-center justify-center hover:border-black hover:text-black transition-colors">
                   <Youtube size={14} />
                 </a>
-                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#D94A2F] hover:text-white transition-colors">
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-8 h-8 border border-[#E0E0E0] flex items-center justify-center hover:border-black hover:text-black transition-colors">
                   <Facebook size={14} />
                 </a>
               </div>
@@ -1350,102 +1314,103 @@ export default function App() {
 
             {/* Sua Conta */}
             <div>
-              <h4 className="text-white font-extrabold text-sm uppercase tracking-wider mb-4 font-['Barlow_Condensed',sans-serif]">
-                SUA CONTA
+              <h4 className="font-bold text-sm uppercase tracking-wide mb-3 text-black">
+                Sua Conta
               </h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white transition-colors">Acesso ao Painel</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Meus Pedidos</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Meus Dados</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Meus Favoritos</a></li>
+              <ul className="space-y-2 text-black/70">
+                <li><a href="#" className="hover:text-black">Acesso ao Painel</a></li>
+                <li><a href="#" className="hover:text-black">Meus Pedidos</a></li>
+                <li><a href="#" className="hover:text-black">Meus Dados</a></li>
               </ul>
             </div>
 
             {/* Institucional */}
             <div>
-              <h4 className="text-white font-extrabold text-sm uppercase tracking-wider mb-4 font-['Barlow_Condensed',sans-serif]">
-                INSTITUCIONAL
+              <h4 className="font-bold text-sm uppercase tracking-wide mb-3 text-black">
+                Institucional
               </h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white transition-colors">Política de Privacidade</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Quem Somos</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Garantia e Reembolso</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Como cuidar do seu produto</a></li>
+              <ul className="space-y-2 text-black/70">
+                <li><a href="#" className="hover:text-black">Política de Privacidade</a></li>
+                <li><a href="#" className="hover:text-black">Quem Somos</a></li>
+                <li><a href="#" className="hover:text-black">Garantia e Reembolso</a></li>
+                <li><a href="#" className="hover:text-black">Como cuidar do seu produto</a></li>
               </ul>
             </div>
 
             {/* Dúvidas */}
             <div>
-              <h4 className="text-white font-extrabold text-sm uppercase tracking-wider mb-4 font-['Barlow_Condensed',sans-serif]">
-                DÚVIDAS
+              <h4 className="font-bold text-sm uppercase tracking-wide mb-3 text-black">
+                Dúvidas
               </h4>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white transition-colors">Fale Conosco</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Dúvidas Frequentes (FAQ)</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Troca e Devoluções (30 Dias)</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Rastreamento de Pedido</a></li>
+              <ul className="space-y-2 text-black/70">
+                <li><a href="#" className="hover:text-black">Fale Conosco</a></li>
+                <li><a href="#" className="hover:text-black">Dúvidas Frequentes</a></li>
+                <li><a href="#" className="hover:text-black">Troca e Devoluções</a></li>
               </ul>
             </div>
 
             {/* Atendimento */}
             <div>
-              <h4 className="text-white font-extrabold text-sm uppercase tracking-wider mb-4 font-['Barlow_Condensed',sans-serif]">
-                ATENDIMENTO
+              <h4 className="font-bold text-sm uppercase tracking-wide mb-3 text-black">
+                Atendimento
               </h4>
-              <p className="text-xs text-white/50 mb-2">Segunda à Sexta: 08h às 17h</p>
-              <p className="text-xs text-white/80 font-bold mb-1">WhatsApp: (11) 98765-4321</p>
-              <p className="text-xs text-white/80 font-bold">contato@sandrini.com.br</p>
+              <p className="text-black/70">Seg à Sex das 8h às 17h</p>
+              <p className="text-black font-bold mt-2">contato@sandrini.com.br</p>
             </div>
           </div>
 
-          {/* Formas de Pagamento e Segurança */}
-          <div className="border-t border-white/10 pt-8 pb-4 flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Formas de Pagamento e Segurança (Torx .bottom) */}
+          <div className="border-t border-[#EBEBEB] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <div>
-              <h5 className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-2 text-center md:text-left">
-                PAGAMENTO
+              <h5 className="text-[11px] font-bold text-black/50 uppercase tracking-widest mb-1.5 text-center md:text-left">
+                Pagamento
               </h5>
-              <div className="flex items-center gap-2 flex-wrap justify-center md:justify-start">
-                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">PIX (5% OFF)</span>
-                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">VISA</span>
-                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">MASTERCARD</span>
-                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">ELO</span>
-                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">HIPERCARD</span>
-                <span className="bg-white/10 px-2 py-1 text-[10px] font-bold text-white rounded-xs">BOLETO</span>
+              <div className="flex items-center gap-2 flex-wrap justify-center md:justify-start text-[10px] font-bold text-black/70">
+                <span className="border border-[#E0E0E0] px-2 py-1">PIX</span>
+                <span className="border border-[#E0E0E0] px-2 py-1">VISA</span>
+                <span className="border border-[#E0E0E0] px-2 py-1">MASTERCARD</span>
+                <span className="border border-[#E0E0E0] px-2 py-1">ELO</span>
+                <span className="border border-[#E0E0E0] px-2 py-1">HIPERCARD</span>
+                <span className="border border-[#E0E0E0] px-2 py-1">AMERICAN EXPRESS</span>
               </div>
             </div>
 
             <div>
-              <h5 className="text-[11px] font-bold text-white/60 uppercase tracking-widest mb-2 text-center md:text-right">
-                SEGURANÇA
+              <h5 className="text-[11px] font-bold text-black/50 uppercase tracking-widest mb-1.5 text-center md:text-right">
+                Segurança
               </h5>
-              <div className="flex items-center gap-3 text-white/60 text-[10px]">
-                <span className="flex items-center gap-1"><ShieldCheck size={14} className="text-green-400" /> SSL 256 BITS</span>
-                <span className="flex items-center gap-1"><Check size={14} className="text-green-400" /> GOOGLE SAFE BROWSING</span>
+              <div className="flex items-center gap-2 text-black/70 text-[10px] font-bold">
+                <span className="border border-[#E0E0E0] px-2 py-1 flex items-center gap-1">
+                  <ShieldCheck size={12} className="text-green-600" /> SSL 256 BITS
+                </span>
+                <span className="border border-[#E0E0E0] px-2 py-1 flex items-center gap-1">
+                  <Check size={12} className="text-green-600" /> GOOGLE SAFE BROWSING
+                </span>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-white/5 pt-6 text-center text-[10px] text-white/40">
-            <p>GRUPO SANDRINI COMÉRCIO DIGITAL LTDA © 2026 - Todos os direitos reservados.</p>
+          <div className="border-t border-[#EBEBEB] mt-6 pt-4 text-center text-[11px] text-black/50">
+            <p>SANDRINI COMERCIO DIGITAL LTDA - CNPJ 00.000.000/0001-00 © Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
 
-      {/* 12. FLOATING QUICK MENU MOBILE (Torx Style Mobile Bar) */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#EBEBEB] px-4 py-2 flex items-center justify-around text-[10px] font-bold uppercase">
-        <button onClick={() => navigateToCategory("Corrida")} className="flex flex-col items-center gap-1 text-black">
+      {/* 12. FLOATING QUICK MENU MOBILE (Torx .quick-menu) */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-[#EBEBEB] px-3 py-2 flex items-center justify-around text-[10px] font-bold uppercase shadow-lg">
+        <button onClick={() => navigateToCategory("Corrida")} className="flex flex-col items-center gap-1 text-[#0B0B0B]">
           <Flame size={18} />
           <span>Calçados</span>
         </button>
-        <button onClick={() => navigateToCategory("Kits")} className="flex flex-col items-center gap-1 text-black">
+        <button onClick={() => navigateToCategory("Kits")} className="flex flex-col items-center gap-1 text-[#0B0B0B]">
           <Tag size={18} />
-          <span>Clube</span>
+          <span>CLUBE</span>
         </button>
-        <button onClick={() => navigateToCategory("Favoritos")} className="flex flex-col items-center gap-1 text-black relative">
+        <button onClick={() => navigateToCategory("Favoritos")} className="flex flex-col items-center gap-1 text-[#0B0B0B] relative">
           <Heart size={18} />
           <span>Favoritos</span>
           {favorites.length > 0 && (
-            <span className="absolute top-0 right-3 w-3 h-3 bg-[#D94A2F] text-white text-[8px] rounded-full flex items-center justify-center">
+            <span className="absolute -top-1 right-2 w-3.5 h-3.5 bg-[#D94A2F] text-white text-[8px] rounded-full flex items-center justify-center">
               {favorites.length}
             </span>
           )}
@@ -1454,9 +1419,9 @@ export default function App() {
           <ShoppingBag size={18} />
           <span>Sacola ({cartCount})</span>
         </button>
-      </div>
+      </nav>
 
-      {/* 13. SIDE CART DRAWER (Torx / Shoppub Minha Sacola com Barra de Frete Grátis) */}
+      {/* 13. SIDE CART PREVIEW (Torx .header__second--tools-cart-preview .cart-preview) */}
       {cartOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden animate-fade-in">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-xs transition-opacity" onClick={() => setCartOpen(false)} />
@@ -1465,34 +1430,31 @@ export default function App() {
             <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col animate-slide-in-right">
               {/* Cart Header */}
               <div className="px-6 py-4 border-b border-[#EBEBEB] flex items-center justify-between bg-white">
-                <div className="flex items-center gap-2">
-                  <ShoppingBag size={20} className="text-[#D94A2F]" />
-                  <h2 className="font-black text-black tracking-wider text-base uppercase font-['Barlow_Condensed',sans-serif]">
-                    MINHA SACOLA ({cartCount})
-                  </h2>
-                </div>
+                <span className="font-bold text-black text-sm uppercase tracking-wide">
+                  Minha sacola ({cartCount})
+                </span>
                 <button onClick={() => setCartOpen(false)} className="p-1 text-black/60 hover:text-black cursor-pointer">
                   <X size={20} />
                 </button>
               </div>
 
-              {/* Free Shipping Progress Bar */}
-              <div className="bg-[#FAFAFA] border-b border-[#EBEBEB] px-6 py-3.5">
-                <div className="flex justify-between items-center text-xs font-bold mb-1.5">
+              {/* Free Shipping Progress Bar (.cart-preview-free-shipping) */}
+              <div className="bg-[#F9F9F9] border-b border-[#EBEBEB] px-6 py-3.5">
+                <div className="flex justify-between items-center text-xs font-semibold mb-1.5">
                   {remainingForFreeShipping > 0 ? (
                     <span className="text-black/80">
-                      Faltam <b className="text-[#D94A2F]">{formatPrice(remainingForFreeShipping)}</b> para <b>FRETE GRÁTIS</b>
+                      Faltam <b className="text-[#D94A2F]">{formatPrice(remainingForFreeShipping)}</b> para Frete Grátis
                     </span>
                   ) : (
-                    <span className="text-green-600 flex items-center gap-1">
-                      <Check size={14} /> PARABÉNS! VOCÊ GANHOU FRETE GRÁTIS
+                    <span className="text-green-700 font-bold flex items-center gap-1">
+                      <Check size={14} /> Você ganhou Frete Grátis!
                     </span>
                   )}
                   <span className="text-[10px] text-black/50">{Math.round(freeShippingPercent)}%</span>
                 </div>
-                <div className="w-full h-2 bg-[#E0E0E0] rounded-full overflow-hidden">
+                <div className="w-full h-1.5 bg-[#E0E0E0] overflow-hidden">
                   <div
-                    className="h-full bg-[#D94A2F] transition-all duration-500 rounded-full"
+                    className="h-full bg-[#D94A2F] transition-all duration-500"
                     style={{ width: `${freeShippingPercent}%` }}
                   />
                 </div>
@@ -1503,10 +1465,10 @@ export default function App() {
                 {cartItems.length === 0 ? (
                   <div className="flex flex-col items-center justify-center h-full text-center gap-4 py-12">
                     <ShoppingBag size={52} className="text-black/20" />
-                    <p className="text-sm font-bold text-black/70">Sua sacola está vazia.</p>
+                    <p className="text-sm font-semibold text-black/70">Sua sacola está vazia.</p>
                     <button
                       onClick={() => setCartOpen(false)}
-                      className="border-2 border-black text-black text-xs font-black tracking-widest px-6 py-3 uppercase hover:bg-black hover:text-white transition-colors cursor-pointer"
+                      className="border border-black text-black text-xs font-bold tracking-widest px-6 py-3 uppercase hover:bg-black hover:text-white transition-colors cursor-pointer"
                     >
                       CONTINUAR COMPRANDO
                     </button>
@@ -1520,12 +1482,12 @@ export default function App() {
                         <img
                           src={thumb}
                           alt={item.product.name}
-                          className="w-20 h-20 object-contain bg-[#FAFAFA] border border-[#EBEBEB] p-1 rounded-xs"
+                          className="w-18 h-18 object-contain bg-[#FAFAFA] border border-[#EBEBEB] p-1"
                         />
                         <div className="flex-1 flex flex-col justify-between">
                           <div>
                             <div className="flex justify-between items-start gap-2">
-                              <h4 className="font-bold text-xs text-black leading-snug line-clamp-2">
+                              <h4 className="font-semibold text-xs text-black leading-snug line-clamp-2">
                                 {item.product.name}
                               </h4>
                               <button
@@ -1541,7 +1503,7 @@ export default function App() {
                           </div>
 
                           <div className="flex items-center justify-between mt-2">
-                            <div className="flex items-center border border-[#D0D0D0] rounded-xs">
+                            <div className="flex items-center border border-[#D0D0D0]">
                               <button
                                 onClick={() => updateQuantity(item.product.id, item.selectedSize, item.selectedColor, -1)}
                                 className="px-2 py-0.5 text-black/70 hover:bg-black/5"
@@ -1573,7 +1535,7 @@ export default function App() {
                   {/* Cupom */}
                   <div>
                     {appliedCoupon ? (
-                      <div className="flex items-center justify-between bg-green-50 border border-green-200 text-green-800 px-3 py-2 text-xs rounded-xs font-bold">
+                      <div className="flex items-center justify-between bg-green-50 border border-green-200 text-green-800 px-3 py-2 text-xs font-bold">
                         <span>Cupom BEMVINDOSANDRINI (-7%)</span>
                         <button onClick={removeCoupon} className="text-red-600 hover:underline cursor-pointer">
                           Remover
@@ -1585,12 +1547,12 @@ export default function App() {
                           type="text"
                           value={couponInput}
                           onChange={(e) => setCouponInput(e.target.value)}
-                          placeholder="Cupom de Desconto"
-                          className="flex-1 bg-white border border-[#D0D0D0] px-3 py-2 text-xs uppercase outline-none rounded-xs"
+                          placeholder="Cupom Desconto"
+                          className="flex-1 bg-white border border-[#D0D0D0] px-3 py-2 text-xs uppercase outline-none"
                         />
                         <button
                           type="submit"
-                          className="bg-[#0B0B0B] text-white text-xs font-bold px-4 py-2 uppercase hover:bg-[#D94A2F] transition-colors rounded-xs cursor-pointer"
+                          className="bg-[#0B0B0B] text-white text-xs font-bold px-4 py-2 uppercase hover:bg-[#D94A2F] transition-colors cursor-pointer"
                         >
                           Usar
                         </button>
@@ -1606,20 +1568,20 @@ export default function App() {
                       maxLength={9}
                       value={cepInput}
                       onChange={(e) => setCepInput(e.target.value)}
-                      placeholder="Calcular CEP (ex: 01001-000)"
-                      className="flex-1 bg-white border border-[#D0D0D0] px-3 py-2 text-xs outline-none rounded-xs"
+                      placeholder="Digite o CEP"
+                      className="flex-1 bg-white border border-[#D0D0D0] px-3 py-2 text-xs outline-none"
                     />
                     <button
                       onClick={() => setShippingCalculated(true)}
-                      className="bg-white border border-black text-black text-xs font-bold px-4 py-2 uppercase hover:bg-black hover:text-white transition-colors rounded-xs cursor-pointer"
+                      className="bg-white border border-black text-black text-xs font-bold px-4 py-2 uppercase hover:bg-black hover:text-white transition-colors cursor-pointer"
                     >
                       Calcular
                     </button>
                   </div>
                   {shippingCalculated && (
-                    <div className="text-[11px] bg-white border border-[#EBEBEB] p-2.5 rounded-xs space-y-1">
+                    <div className="text-[11px] bg-white border border-[#EBEBEB] p-2.5 space-y-1">
                       <div className="flex justify-between font-semibold">
-                        <span>Sedex Expresso (2-3 dias úteis):</span>
+                        <span>Sedex Expresso:</span>
                         <span className="text-green-600 font-bold">{remainingForFreeShipping === 0 ? "GRÁTIS" : "R$ 14,90"}</span>
                       </div>
                     </div>
@@ -1629,17 +1591,13 @@ export default function App() {
                   <div className="pt-2 border-t border-[#EBEBEB] space-y-1 text-xs">
                     {couponDiscount > 0 && (
                       <div className="flex justify-between text-green-700 font-bold">
-                        <span>Desconto Cupom (7%):</span>
+                        <span>Descontos:</span>
                         <span>-{formatPrice(couponDiscount)}</span>
                       </div>
                     )}
                     <div className="flex justify-between items-baseline pt-1">
-                      <span className="font-extrabold text-sm text-black">Subtotal:</span>
-                      <span className="font-black text-xl text-black">{formatPrice(finalSubtotal)}</span>
-                    </div>
-                    <div className="flex justify-between text-[11px] text-[#D94A2F] font-bold">
-                      <span>Preço no PIX (-5% extra):</span>
-                      <span>{formatPrice(calculatePixPrice(finalSubtotal))}</span>
+                      <span className="font-bold text-sm text-black">Subtotal:</span>
+                      <span className="font-extrabold text-xl text-black">{formatPrice(finalSubtotal)}</span>
                     </div>
                   </div>
 
@@ -1650,9 +1608,16 @@ export default function App() {
                       setCartOpen(false);
                       setCheckoutSuccess(true);
                     }}
-                    className="w-full bg-[#D94A2F] hover:bg-[#0B0B0B] text-white text-xs font-black tracking-widest py-4 uppercase transition-colors rounded-xs shadow-lg cursor-pointer text-center"
+                    className="w-full bg-[#D94A2F] hover:bg-[#0B0B0B] text-white text-xs font-extrabold tracking-widest py-3.5 uppercase transition-colors shadow-md cursor-pointer text-center"
                   >
                     FINALIZAR COMPRA
+                  </button>
+
+                  <button
+                    onClick={() => setCartOpen(false)}
+                    className="w-full text-center text-xs font-bold text-black/60 hover:text-black uppercase tracking-wider py-1 cursor-pointer block"
+                  >
+                    CONTINUAR COMPRANDO
                   </button>
                 </div>
               )}
@@ -1661,26 +1626,26 @@ export default function App() {
         </div>
       )}
 
-      {/* 14. PRODUCT DETAILS MODAL (Torx Quickview Modal) */}
+      {/* 14. PRODUCT DETAILS MODAL */}
       {selectedProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden animate-fade-in">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setSelectedProduct(null)} />
 
-          <div className="relative bg-white max-w-3xl w-full shadow-2xl flex flex-col md:flex-row overflow-y-auto max-h-[90vh] md:max-h-none z-10 rounded-xs">
+          <div className="relative bg-white max-w-3xl w-full shadow-2xl flex flex-col md:flex-row overflow-y-auto max-h-[90vh] md:max-h-none z-10 border border-[#EBEBEB]">
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 z-20 w-9 h-9 bg-white border border-[#EBEBEB] rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer shadow-sm"
+              className="absolute top-4 right-4 z-20 w-8 h-8 bg-white border border-[#EBEBEB] rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer"
             >
-              <X size={18} />
+              <X size={16} />
             </button>
 
             {/* Imagem do Modal */}
-            <div className="md:w-1/2 bg-[#FAFAFA] p-8 flex flex-col items-center justify-center border-r border-[#EBEBEB]">
+            <div className="md:w-1/2 bg-[#FAFAFA] p-6 flex flex-col items-center justify-center border-r border-[#EBEBEB]">
               <div className="aspect-square w-full flex items-center justify-center relative">
                 <img
                   src={galleryImages[activeImageIdx] || selectedProduct.img}
                   alt={selectedProduct.name}
-                  className="max-h-[340px] max-w-full object-contain"
+                  className="max-h-[320px] max-w-full object-contain"
                 />
               </div>
 
@@ -1690,7 +1655,7 @@ export default function App() {
                     <button
                       key={i}
                       onClick={() => setActiveImageIdx(i)}
-                      className={`w-14 h-14 p-1 bg-white border rounded-xs cursor-pointer ${
+                      className={`w-12 h-12 p-1 bg-white border cursor-pointer ${
                         activeImageIdx === i ? "border-2 border-[#D94A2F]" : "border-[#E0E0E0]"
                       }`}
                     >
@@ -1702,33 +1667,33 @@ export default function App() {
             </div>
 
             {/* Detalhes do Modal */}
-            <div className="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between">
+            <div className="md:w-1/2 p-6 flex flex-col justify-between">
               <div>
-                <span className="text-[10px] font-black tracking-widest uppercase text-[#D94A2F] bg-[#D94A2F]/10 px-2 py-0.5 rounded-xs">
+                <span className="text-[10px] font-bold tracking-widest uppercase text-[#D94A2F] bg-[#D94A2F]/10 px-2 py-0.5">
                   {selectedProduct.badge || selectedProduct.category}
                 </span>
-                <h2 className="text-xl sm:text-2xl font-black uppercase text-black font-['Barlow_Condensed',sans-serif] mt-2 mb-2 leading-tight">
+                <h2 className="text-xl sm:text-2xl font-bold uppercase text-black mt-2 mb-2 leading-tight">
                   {selectedProduct.name}
                 </h2>
 
-                <div className="flex items-center gap-1 mb-4">
+                <div className="flex items-center gap-1 mb-3">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                    <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
                   ))}
-                  <span className="text-xs text-black/60 ml-2 font-bold">
+                  <span className="text-xs text-black/60 ml-2 font-semibold">
                     {selectedProduct.rating} ({selectedProduct.reviews} avaliações)
                   </span>
                 </div>
 
                 {/* Bloco de Preços Modal */}
-                <div className="py-3 border-y border-[#EBEBEB] mb-5">
+                <div className="py-3 border-y border-[#EBEBEB] mb-4">
                   {selectedProduct.originalPrice && (
                     <span className="text-xs text-black/40 line-through block">
                       {formatPrice(selectedProduct.originalPrice)}
                     </span>
                   )}
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-2xl font-black text-black">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-2xl font-extrabold text-black">
                       {formatPrice(calculatePixPrice(selectedProduct.price))}
                     </span>
                     <span className="text-xs font-bold text-[#D94A2F]">no PIX</span>
@@ -1752,7 +1717,7 @@ export default function App() {
                             setChosenColor(c.name);
                             setActiveImageIdx(0);
                           }}
-                          className={`px-3 py-1.5 border text-xs font-semibold uppercase rounded-xs flex items-center gap-2 cursor-pointer ${
+                          className={`px-3 py-1.5 border text-xs font-semibold uppercase flex items-center gap-2 cursor-pointer ${
                             chosenColor === c.name
                               ? "bg-[#0B0B0B] text-white border-black"
                               : "bg-white text-black border-[#D0D0D0] hover:border-black"
@@ -1768,7 +1733,7 @@ export default function App() {
 
                 {/* Tamanhos */}
                 {selectedProduct.sizes.length > 0 && (
-                  <div className="mb-6">
+                  <div className="mb-5">
                     <span className="text-xs font-bold text-black uppercase block mb-2">
                       Selecione o Tamanho
                     </span>
@@ -1777,7 +1742,7 @@ export default function App() {
                         <button
                           key={s}
                           onClick={() => setChosenSize(s)}
-                          className={`min-w-[40px] h-10 px-2.5 border text-xs font-bold uppercase rounded-xs cursor-pointer transition-colors ${
+                          className={`min-w-[38px] h-9 px-2 border text-xs font-bold uppercase cursor-pointer transition-colors ${
                             chosenSize === s
                               ? "bg-[#D94A2F] text-white border-[#D94A2F]"
                               : "bg-white text-black border-[#D0D0D0] hover:border-black"
@@ -1796,7 +1761,7 @@ export default function App() {
                   addToCart(selectedProduct, chosenSize, chosenColor);
                   setSelectedProduct(null);
                 }}
-                className="w-full bg-[#D94A2F] hover:bg-[#0B0B0B] text-white text-xs font-black tracking-widest py-4 uppercase transition-colors rounded-xs shadow-md cursor-pointer flex items-center justify-center gap-2"
+                className="w-full bg-[#D94A2F] hover:bg-[#0B0B0B] text-white text-xs font-bold tracking-widest py-3.5 uppercase transition-colors shadow-sm cursor-pointer flex items-center justify-center gap-2"
               >
                 <ShoppingBag size={16} />
                 ADICIONAR À SACOLA
@@ -1810,19 +1775,19 @@ export default function App() {
       {checkoutSuccess && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setCheckoutSuccess(false)} />
-          <div className="relative bg-white max-w-md w-full p-8 shadow-2xl text-center flex flex-col items-center gap-4 z-10 rounded-xs animate-fade-in">
-            <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl font-black">
+          <div className="relative bg-white max-w-md w-full p-8 shadow-2xl text-center flex flex-col items-center gap-4 z-10 border border-[#EBEBEB] animate-fade-in">
+            <div className="w-14 h-14 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-2xl font-black">
               ✓
             </div>
-            <h2 className="text-2xl font-black uppercase text-black font-['Barlow_Condensed',sans-serif]">
-              PEDIDO CONCLUÍDO COM SUCESSO!
+            <h2 className="text-2xl font-black uppercase text-black font-['Montserrat',sans-serif]">
+              PEDIDO CONCLUÍDO!
             </h2>
             <p className="text-xs text-black/60 leading-relaxed">
-              Obrigado por comprar na Sandrini! Enviamos todos os detalhes do pedido e o código de rastreamento para o seu e-mail.
+              Obrigado por comprar na Sandrini! Enviamos todos os detalhes e o código de rastreamento para o seu e-mail.
             </p>
             <button
               onClick={() => setCheckoutSuccess(false)}
-              className="mt-2 w-full bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-black tracking-widest py-3.5 uppercase transition-colors rounded-xs cursor-pointer"
+              className="mt-2 w-full bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-black tracking-widest py-3 uppercase transition-colors cursor-pointer"
             >
               CONTINUAR COMPRANDO
             </button>
@@ -1833,7 +1798,7 @@ export default function App() {
       {/* 16. VIDEO MODAL INSTITUCIONAL */}
       {videoModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="relative w-full max-w-4xl aspect-video bg-black rounded-xs overflow-hidden shadow-2xl">
+          <div className="relative w-full max-w-4xl aspect-video bg-black overflow-hidden shadow-2xl">
             <button
               onClick={() => setVideoModalOpen(false)}
               className="absolute top-4 right-4 z-20 w-10 h-10 bg-black/80 text-white rounded-full flex items-center justify-center hover:bg-[#D94A2F] transition-colors cursor-pointer"
@@ -1843,7 +1808,7 @@ export default function App() {
             <iframe
               className="w-full h-full border-0"
               src="https://www.youtube.com/embed/67EMFQhCpc4?autoplay=1"
-              title="Torx / Sandrini Performance"
+              title="Sandrini Performance"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
