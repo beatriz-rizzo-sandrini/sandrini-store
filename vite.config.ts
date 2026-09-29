@@ -17,7 +17,7 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig({
-  base: '/sandrini-store/',
+  base: 'https://images.tcdn.com.br/files/1354948/themes/3555943/img/',
   plugins: [
     figmaAssetResolver(),
     // The React and Tailwind plugins are both required for Make, even if
@@ -32,6 +32,24 @@ export default defineConfig({
     },
   },
 
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          const raw = assetInfo.name || 'asset';
+          const ext = path.extname(raw);
+          const base = path.basename(raw, ext);
+          const cleanBase = base
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-zA-Z0-9_-]/g, '_');
+          return `${cleanBase}-[hash]${ext}`;
+        },
+        chunkFileNames: '[name]-[hash].js',
+        entryFileNames: '[name]-[hash].js',
+      },
+    },
+  },
   // File types to support raw imports. Never add .css, .tsx, or .ts files to this.
   assetsInclude: ['**/*.svg', '**/*.csv'],
 })

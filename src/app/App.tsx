@@ -27,15 +27,19 @@ import {
   Lock,
   Percent,
   SlidersHorizontal,
+  ChevronDown,
 } from "lucide-react";
 import logoImg from "@/imports/logonew-v1-01.png";
-import logoFooterImg from "@/imports/logo_cortado.png";
+import logoFooterImg from "@/imports/logonew-v1-01.png";
 
 // Import imagens do repositório
 const globImages = import.meta.glob('@/imports/**/*.{jpg,png,webp}', { eager: true, import: 'default' }) as Record<string, string>;
 import heroBanner1Img from "@/imports/BANNERS PRINCIPAIS 1400X900/1/1400x900.jpg";
 import heroBanner2Img from "@/imports/BANNERS PRINCIPAIS 1400X900/2/1400x900.jpg";
-import bannerMaster1 from "@/imports/1.jpg";
+import bannerMaster1 from "@/imports/Desktop_1920x500px.jpg";
+import banner1Img from "@/imports/banner-1.png";
+import banner2Img from "@/imports/banner-2.png";
+import banner3Img from "@/imports/banner-3.png";
 import bannerAeroRunVermelho from "@/imports/Tênis Aero Run - Sandrini/PRETO PRETO E VERMELHO/ambientada 2 ajuste pequeno no logo.png";
 import bannerAeroSparkBranco from "@/imports/Tênis Aero Spark - Sandrini/BRANCO CINZA E LARANJA/TênisMasculinoSandriniAeroSparkBranco408-CAPA2.jpg";
 import bannerSprytePreto from "@/imports/Tênis Spryte - Sandrini/PRETO/TenisSandriniSpryteMasculinoPretoBranco-CAPA.jpg";
@@ -86,6 +90,11 @@ import shortsLinhoVerdeImg from "@/imports/Shorts Linho - Sandrini/VERDE MILITAR
 import kit3CamisetasSortidoImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandrini-CAPA.jpg";
 import kit3CamisetasBrancoImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandriniBranco-CAPA.jpg";
 import kit3CamisetasPretoImg from "@/imports/Kit 3 Camisas Algodão - Sandrini/Kit3CamisetasAlgodãoSandriniPreto-CAPA.jpg";
+
+const BRANDS_LIST = [
+  "Umbro", "Fila", "Penalty", "New Balance", "Topper", "Mormaii",
+  "Adidas", "Poker", "Rainha", "Mikasa", "Kagiva", "Wilson"
+];
 
 const NAV_LINKS = [
   { label: "LANÇAMENTO", category: "Novidades" },
@@ -402,14 +411,14 @@ const PRODUCTS: Product[] = [
 ];
 
 const INSTAGRAM_POSTS = [
-  { img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
-  { img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini.oficial" },
+  { img: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini_oficial" },
+  { img: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini_oficial" },
+  { img: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini_oficial" },
+  { img: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini_oficial" },
+  { img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini_oficial" },
+  { img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini_oficial" },
+  { img: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini_oficial" },
+  { img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&h=600&fit=crop&auto=format", link: "https://www.instagram.com/sandrini_oficial" },
 ];
 
 function formatPrice(val: number) {
@@ -447,7 +456,7 @@ function TorxProductCard({
     >
       {/* Imagem com Hover Flip */}
       <div
-        className="relative aspect-square w-full overflow-hidden bg-[#FAFAFA] cursor-pointer"
+        className="relative aspect-square w-full overflow-hidden bg-white cursor-pointer"
         onClick={() => onClickDetails(product, null)}
       >
         {/* Wishlist Heart */}
@@ -480,9 +489,8 @@ function TorxProductCard({
         <img
           src={product.img}
           alt={product.name}
-          className={`absolute inset-0 w-full h-full object-contain p-3 transition-opacity duration-300 ease-in-out ${
-            hovered && product.secondImg ? "opacity-0" : "opacity-100"
-          }`}
+          className={`absolute inset-0 w-full h-full object-contain p-3 transition-opacity duration-300 ease-in-out ${hovered && product.secondImg ? "opacity-0" : "opacity-100"
+            }`}
         />
 
         {/* Segunda Imagem no Hover */}
@@ -490,9 +498,8 @@ function TorxProductCard({
           <img
             src={product.secondImg}
             alt={`${product.name} detalhe`}
-            className={`absolute inset-0 w-full h-full object-contain p-3 transition-opacity duration-300 ease-in-out ${
-              hovered ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 w-full h-full object-contain p-3 transition-opacity duration-300 ease-in-out ${hovered ? "opacity-100" : "opacity-0"
+              }`}
           />
         )}
       </div>
@@ -593,38 +600,22 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // 3 Banners Principais Inspirados em 1.jpg e Alta Performance da Sandrini
+  // 3 Banners Principais (banner-1, banner-2, banner-3)
   const heroSlides = [
     {
-      title: "SANDRINI AERO SPARK",
-      fullBannerImg: bannerMaster1,
+      title: "Banner Sandrini 1",
+      fullBannerImg: banner1Img,
       category: "Corrida",
     },
     {
-      title: "SANDRINI AERO RUN",
-      subtitle: "IMPULSÃO, RESPOSTA & MÁXIMA PERFORMANCE",
-      desc: "O Sandrini Aero Run entrega alta absorção de impacto e transição fluida para acompanhar seu ritmo nos treinos e corridas.",
-      shoeImage: bannerAeroRunVermelho,
-      badge: "LINHA AERO • PERFORMANCE RUNNING",
-      pixPrice: "R$ 332,41",
-      normalPrice: "R$ 349,90",
-      cta: "EXPLORAR AERO RUN",
-      category: "Corrida",
-      glowColor: "#D94A2F",
-      techSpecs: ["Amortecimento E-TPU", "Drop 8mm", "Respirabilidade", "Performance Running"],
+      title: "Banner Sandrini 2",
+      fullBannerImg: banner2Img,
+      category: "Fitness",
     },
     {
-      title: "AERO SPARK NITRO",
-      subtitle: "ESTABILIDADE, GRIP & LEVEZA DINÂMICA",
-      desc: "Desenvolvido com solado tracionado e cabedal respirável sem costuras para máxima estabilidade em asfalto e esteira.",
-      shoeImage: bannerAeroSparkBranco,
-      badge: "LINHA SPEED • ALTA PERFORMANCE",
-      pixPrice: "R$ 284,91",
-      normalPrice: "R$ 299,90",
-      cta: "CONHECER AERO SPARK",
+      title: "Banner Sandrini 3",
+      fullBannerImg: banner3Img,
       category: "Corrida",
-      glowColor: "#F97316",
-      techSpecs: ["Amortecimento", "Conforto Anatômico", "Respirabilidade", "Grip Total"],
     },
   ];
 
@@ -673,8 +664,8 @@ export default function App() {
       if (existing) {
         return prev.map((item) =>
           item.product.id === product.id &&
-          item.selectedSize === size &&
-          item.selectedColor === color
+            item.selectedSize === size &&
+            item.selectedColor === color
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -765,9 +756,9 @@ export default function App() {
 
       {/* 2. HEADER PRINCIPAL (Dark Style com Logo Branca e Letras Brancas) */}
       <header className="sticky top-0 z-40 bg-[#0B0B0B] border-b border-[#222222] transition-all duration-300 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] gap-4">
           {/* Mobile Menu Trigger & Logo */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 justify-self-start">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="lg:hidden p-2 text-white hover:text-[#D94A2F] transition-colors cursor-pointer"
@@ -793,27 +784,99 @@ export default function App() {
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.label}
-                onClick={() => navigateToCategory(link.category)}
-                className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${
-                  currentPage === link.category
-                    ? "text-[#D94A2F]"
-                    : "text-white hover:text-[#D94A2F]"
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <button
+              onClick={() => navigateToCategory("Novidades")}
+              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Novidades" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
                 }`}
+            >
+              LANÇAMENTO
+            </button>
+            <button
+              onClick={() => navigateToCategory("Fitness")}
+              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Fitness" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+                }`}
+            >
+              TREINO & ACADEMIA
+            </button>
+            <button
+              onClick={() => navigateToCategory("Corrida")}
+              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Corrida" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+                }`}
+            >
+              CORRIDA
+            </button>
+            <button
+              onClick={() => navigateToCategory("Básicos")}
+              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Básicos" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+                }`}
+            >
+              ESSENCIAIS
+            </button>
+            <button
+              onClick={() => navigateToCategory("Kits")}
+              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Kits" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+                }`}
+            >
+              KITS
+            </button>
+            <button
+              onClick={() => navigateToCategory("Underwear")}
+              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Underwear" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+                }`}
+            >
+              UNDERWEAR
+            </button>
+
+            {/* MARCAS DROPDOWN */}
+            <div className="relative group py-2">
+              <button
+                onClick={() => navigateToCategory("Marcas")}
+                className="text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all flex items-center gap-1.5 text-white group-hover:text-[#D94A2F] cursor-pointer"
               >
-                {link.label}
-                {currentPage === link.category && (
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D94A2F]" />
-                )}
+                MARCAS
+                <ChevronDown size={14} className="transition-transform group-hover:rotate-180 text-white/70 group-hover:text-[#D94A2F]" />
               </button>
-            ))}
+
+              <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[640px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none group-hover:pointer-events-auto">
+                <div className="bg-[#111111] border border-[#282828] border-t-2 border-t-[#D94A2F] rounded-lg p-5 shadow-2xl">
+                  <div className="flex items-center justify-between border-b border-[#222222] pb-2.5 mb-3.5">
+                    <span className="text-[11px] font-extrabold tracking-wider text-[#888888] uppercase">Nossas Marcas</span>
+                    <button
+                      onClick={() => navigateToCategory("Marcas")}
+                      className="text-[11px] font-extrabold tracking-wider text-[#D94A2F] hover:text-white uppercase transition-colors"
+                    >
+                      Ver todas as marcas &rarr;
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                    {BRANDS_LIST.map((brand) => (
+                      <button
+                        key={brand}
+                        onClick={() => {
+                          setSearchQuery(brand);
+                          navigateToCategory("busca");
+                        }}
+                        className="bg-[#1A1A1A] hover:bg-white hover:text-black border border-[#282828] hover:border-[#D94A2F] rounded p-2 text-center text-[11px] font-black uppercase text-white transition-all transform hover:-translate-y-0.5 shadow-sm"
+                      >
+                        {brand}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => navigateToCategory("Promoções")}
+              className="text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer text-[#D94A2F]"
+            >
+              PROMOÇÕES
+            </button>
           </nav>
 
           {/* Tools & Actions (Search, Account, Wishlist, Cart) */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 justify-self-end">
             {/* Search Button / Input */}
             <div className="relative">
               {searchOpen ? (
@@ -893,14 +956,13 @@ export default function App() {
 
       {currentPage === "home" ? (
         <>
-          {/* 4. HERO BANNER PRINCIPAL (Showcase Torx de Alta Performance com Fotos Reais Sandrini) */}
-          <section className="relative w-full overflow-hidden bg-[#0B0B0B] min-h-[380px] sm:min-h-0 sm:aspect-[150/61] flex items-center group">
+          {/* 4. HERO BANNER PRINCIPAL (Proporção 2032x774) */}
+          <section className="relative w-full overflow-hidden bg-[#0B0B0B] aspect-[2032/774] flex items-center group">
             {heroSlides.map((slide, idx) => (
               <div
                 key={idx}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                  idx === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                } bg-[#0B0B0B] flex items-center`}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
+                  } bg-[#0B0B0B] flex items-center`}
               >
                 {slide.fullBannerImg ? (
                   <div
@@ -917,7 +979,7 @@ export default function App() {
                   <>
                     {/* Fundo Gradiente com Efeito de Luz / Aura Atlética */}
                     <div className="absolute inset-0 bg-gradient-to-r from-[#060606] via-[#0D0D0D] to-[#120806]" />
-                    
+
                     {/* Aura de Luz Dinâmica com a cor do modelo */}
                     <div
                       className="absolute right-4 sm:right-16 top-1/2 -translate-y-1/2 w-64 sm:w-[500px] h-64 sm:h-[500px] rounded-full blur-[100px] opacity-25 pointer-events-none transition-colors duration-1000"
@@ -1017,9 +1079,8 @@ export default function App() {
                 <button
                   key={i}
                   onClick={() => setCurrentSlide(i)}
-                  className={`h-1.5 transition-all rounded-full cursor-pointer ${
-                    i === currentSlide ? "w-8 bg-[#D94A2F]" : "w-2.5 bg-white/50"
-                  }`}
+                  className={`h-1.5 transition-all rounded-full cursor-pointer ${i === currentSlide ? "w-8 bg-[#D94A2F]" : "w-2.5 bg-white/50"
+                    }`}
                 />
               ))}
             </div>
@@ -1105,11 +1166,10 @@ export default function App() {
                     <button
                       key={tab}
                       onClick={() => setActiveVitrineTab(tab)}
-                      className={`text-xs font-bold tracking-wider px-4 py-2 uppercase transition-all cursor-pointer ${
-                        activeVitrineTab === tab
-                          ? "bg-[#0B0B0B] text-white"
-                          : "bg-white text-black/70 border border-[#E0E0E0] hover:border-black hover:text-black"
-                      }`}
+                      className={`text-xs font-bold tracking-wider px-4 py-2 uppercase transition-all cursor-pointer ${activeVitrineTab === tab
+                        ? "bg-[#0B0B0B] text-white"
+                        : "bg-white text-black/70 border border-[#E0E0E0] hover:border-black hover:text-black"
+                        }`}
                     >
                       {tab}
                     </button>
@@ -1299,7 +1359,7 @@ export default function App() {
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
               <div className="mb-5">
                 <h2 className="text-xl sm:text-2xl font-normal uppercase text-[#0B0B0B]">
-                  INSTAGRAM <b className="font-extrabold text-black">@SANDRINI.OFICIAL</b>
+                  INSTAGRAM <b className="font-extrabold text-black">@SANDRINI_OFICIAL</b>
                 </h2>
               </div>
 
@@ -1788,9 +1848,8 @@ export default function App() {
                     <button
                       key={i}
                       onClick={() => setActiveImageIdx(i)}
-                      className={`w-12 h-12 p-1 bg-white border cursor-pointer ${
-                        activeImageIdx === i ? "border-2 border-[#D94A2F]" : "border-[#E0E0E0]"
-                      }`}
+                      className={`w-12 h-12 p-1 bg-white border cursor-pointer ${activeImageIdx === i ? "border-2 border-[#D94A2F]" : "border-[#E0E0E0]"
+                        }`}
                     >
                       <img src={img} alt="" className="w-full h-full object-contain" />
                     </button>
@@ -1850,11 +1909,10 @@ export default function App() {
                             setChosenColor(c.name);
                             setActiveImageIdx(0);
                           }}
-                          className={`px-3 py-1.5 border text-xs font-semibold uppercase flex items-center gap-2 cursor-pointer ${
-                            chosenColor === c.name
-                              ? "bg-[#0B0B0B] text-white border-black"
-                              : "bg-white text-black border-[#D0D0D0] hover:border-black"
-                          }`}
+                          className={`px-3 py-1.5 border text-xs font-semibold uppercase flex items-center gap-2 cursor-pointer ${chosenColor === c.name
+                            ? "bg-[#0B0B0B] text-white border-black"
+                            : "bg-white text-black border-[#D0D0D0] hover:border-black"
+                            }`}
                         >
                           <span className="w-3 h-3 rounded-full border border-black/20" style={{ backgroundColor: c.hex }} />
                           {c.name}
@@ -1875,11 +1933,10 @@ export default function App() {
                         <button
                           key={s}
                           onClick={() => setChosenSize(s)}
-                          className={`min-w-[38px] h-9 px-2 border text-xs font-bold uppercase cursor-pointer transition-colors ${
-                            chosenSize === s
-                              ? "bg-[#D94A2F] text-white border-[#D94A2F]"
-                              : "bg-white text-black border-[#D0D0D0] hover:border-black"
-                          }`}
+                          className={`min-w-[38px] h-9 px-2 border text-xs font-bold uppercase cursor-pointer transition-colors ${chosenSize === s
+                            ? "bg-[#D94A2F] text-white border-[#D94A2F]"
+                            : "bg-white text-black border-[#D0D0D0] hover:border-black"
+                            }`}
                         >
                           {s}
                         </button>
