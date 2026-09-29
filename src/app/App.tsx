@@ -1099,62 +1099,87 @@ export default function App() {
             </div>
           </section>
 
-          {/* 8. QUEM SOMOS / BRAND VIDEO SECTION (Torx .about-me-home) */}
-          <section className="py-14 bg-[#FFFFFF]">
+          {/* 8. QUEM SOMOS / BRAND VIDEO SECTION */}
+          <section className="py-16 bg-[#0B0B0B] text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
-              <div className="mb-6">
-                <h2 className="text-2xl sm:text-3xl font-black uppercase font-['Montserrat',sans-serif] tracking-tight text-[#0B0B0B]">
+              <div className="text-center max-w-2xl mx-auto mb-10">
+                <span className="text-[#D94A2F] text-xs font-black tracking-[0.25em] uppercase">
+                  NOSSA HISTÓRIA & PROPÓSITO
+                </span>
+                <h2 className="text-3xl sm:text-5xl font-black uppercase font-['Montserrat',sans-serif] tracking-tight mt-1">
                   QUEM SOMOS
                 </h2>
+                <p className="text-xs sm:text-sm text-white/70 mt-2">
+                  Criamos produtos esportivos e casuais com design inovador, tecnologia anatômica e conforto absoluto para o seu dia a dia.
+                </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
-                {/* Responsive Video Container com Play Button */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+                {/* Video Card */}
                 <div
                   onClick={() => setVideoModalOpen(true)}
-                  className="relative aspect-video lg:aspect-auto lg:h-[380px] bg-black overflow-hidden group cursor-pointer"
+                  className="lg:col-span-2 relative aspect-video bg-black rounded-xs overflow-hidden group cursor-pointer border border-white/10 min-h-[300px]"
                 >
                   <img
                     src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1200&h=700&fit=crop&auto=format"
                     alt="Vídeo Institucional Sandrini"
-                    className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <button
-                      type="button"
-                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/90 text-[#D94A2F] text-xl flex items-center justify-center shadow-lg group-hover:bg-[#D94A2F] group-hover:text-white transition-all cursor-pointer"
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#D94A2F] text-white flex items-center justify-center pl-1 shadow-2xl group-hover:scale-110 group-hover:bg-white group-hover:text-[#D94A2F] transition-all">
+                      <Play size={28} />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <span className="bg-black/80 text-white text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest">
+                      VÍDEO DE PERFORMANCE
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-black uppercase font-['Montserrat',sans-serif] mt-2">
+                      A tecnologia por trás de cada passo
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Side Lifestyle Cards */}
+                <div className="flex flex-col gap-6">
+                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-xs flex flex-col justify-between">
+                    <div>
+                      <span className="text-[#D94A2F] text-xs font-black tracking-widest uppercase">
+                        QUALIDADE COMPROVADA
+                      </span>
+                      <h4 className="text-xl font-bold uppercase mt-1 mb-2">
+                        Mais de 500.000 clientes satisfeitos
+                      </h4>
+                      <p className="text-xs text-white/60 leading-relaxed">
+                        Foco em matérias-primas nobres, amortecimento durável e corte anatômico com padrão internacional.
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-1 text-amber-400 mt-4">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className="fill-amber-400" />
+                      ))}
+                      <span className="text-xs text-white/80 ml-2 font-bold">4.9 / 5.0</span>
+                    </div>
+                  </div>
+
+                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-xs flex flex-col justify-between">
+                    <div>
+                      <span className="text-[#D94A2F] text-xs font-black tracking-widest uppercase">
+                        PRODUÇÃO NACIONAL
+                      </span>
+                      <h4 className="text-xl font-bold uppercase mt-1 mb-2">
+                        Direto da fábrica para sua casa
+                      </h4>
+                      <p className="text-xs text-white/60 leading-relaxed">
+                        Preço justo, entrega rastreada e suporte dedicado de segunda a sexta para você comprar com tranquilidade.
+                      </p>
+                    </div>
+                    <a
+                      href="#newsletter"
+                      className="text-xs font-bold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 mt-3"
                     >
-                      ▶
-                    </button>
-                  </div>
-                </div>
-
-                {/* 2 Lifestyle Banners */}
-                <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[380px] overflow-hidden group cursor-pointer bg-black">
-                  <img
-                    src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&h=800&fit=crop&auto=format"
-                    alt="Performance & Tecnologia"
-                    className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
-                    <span className="text-[10px] font-black text-[#D94A2F] uppercase tracking-widest">
-                      TECNOLOGIA
-                    </span>
-                    <h3 className="text-xl font-bold uppercase">Amortecimento e leveza extrema</h3>
-                  </div>
-                </div>
-
-                <div className="relative aspect-[4/3] lg:aspect-auto lg:h-[380px] overflow-hidden group cursor-pointer bg-black">
-                  <img
-                    src="https://images.unsplash.com/photo-1483721074573-586540da5703?w=800&h=800&fit=crop&auto=format"
-                    alt="Design & Durabilidade"
-                    className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
-                    <span className="text-[10px] font-black text-[#D94A2F] uppercase tracking-widest">
-                      DURABILIDADE
-                    </span>
-                    <h3 className="text-xl font-bold uppercase">Design anatômico para alta rotação</h3>
+                      FAÇA PARTE DO CLUBE <ChevronRight size={14} />
+                    </a>
                   </div>
                 </div>
               </div>
