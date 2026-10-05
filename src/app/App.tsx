@@ -40,6 +40,8 @@ import bannerMaster1 from "@/imports/Desktop_1920x500px.jpg";
 import banner1Img from "@/imports/banner-1.png";
 import banner2Img from "@/imports/banner-2.png";
 import banner3Img from "@/imports/banner-3.png";
+import bannerFilaAdizeroImg from "@/imports/banner-fila-adizero.jpg";
+import bannerFilaSpeedZoneImg from "@/imports/banner-fila-speedzone.jpg";
 import bannerAeroRunVermelho from "@/imports/Tênis Aero Run - Sandrini/PRETO PRETO E VERMELHO/ambientada 2 ajuste pequeno no logo.png";
 import bannerAeroSparkBranco from "@/imports/Tênis Aero Spark - Sandrini/BRANCO CINZA E LARANJA/TênisMasculinoSandriniAeroSparkBranco408-CAPA2.jpg";
 import bannerSprytePreto from "@/imports/Tênis Spryte - Sandrini/PRETO/TenisSandriniSpryteMasculinoPretoBranco-CAPA.jpg";
@@ -100,10 +102,8 @@ const NAV_LINKS = [
   { label: "LANÇAMENTO", category: "Novidades" },
   { label: "TREINO & ACADEMIA", category: "Fitness" },
   { label: "CORRIDA", category: "Corrida" },
-  { label: "ESSENCIAIS", category: "Básicos" },
-  { label: "KITS", category: "Kits" },
-  { label: "UNDERWEAR", category: "Underwear" },
-  { label: "PROMOÇÕES", category: "Promoções" },
+  { label: "LIFESTYLE", category: "Lifestyle" },
+  { label: "MARCAS", category: "Marcas" },
 ];
 
 const TORX_TOPBAR_MESSAGES = [
@@ -600,21 +600,21 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // 3 Banners Principais (banner-1, banner-2, banner-3)
+  // 3 Banners Principais Originais (1920x500 Nítidos)
   const heroSlides = [
     {
-      title: "Banner Sandrini 1",
-      fullBannerImg: banner1Img,
+      title: "Banner Sandrini Aero Spark",
+      fullBannerImg: bannerMaster1,
       category: "Corrida",
     },
     {
-      title: "Banner Sandrini 2",
-      fullBannerImg: banner2Img,
+      title: "Banner Fila Adizero",
+      fullBannerImg: bannerFilaAdizeroImg,
       category: "Fitness",
     },
     {
-      title: "Banner Sandrini 3",
-      fullBannerImg: banner3Img,
+      title: "Banner Fila SpeedZone",
+      fullBannerImg: bannerFilaSpeedZoneImg,
       category: "Corrida",
     },
   ];
@@ -745,8 +745,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FFFFFF] text-[#0B0B0B] font-['Open_Sans',sans-serif] antialiased">
-      {/* 1. TOPO ANÚNCIO ROTATIVO (Torx Header Ticker #js-texto-header) */}
-      <div className="bg-[#141414] border-b border-white/10 text-white py-2 px-4 text-center text-[12px] font-bold tracking-[0.08em] uppercase overflow-hidden relative select-none">
+      {/* 1. TOPO ANÚNCIO ROTATIVO (Torx Header Ticker - Mais Fino & Delicado) */}
+      <div className="bg-[#111111] border-b border-white/10 text-white py-1 px-4 text-center text-[10.5px] font-semibold tracking-[0.1em] uppercase overflow-hidden relative select-none">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-4">
           <span className="inline-flex items-center gap-2 animate-fade-in key={currentTopNoticeIdx}">
             {TORX_TOPBAR_MESSAGES[currentTopNoticeIdx]}
@@ -756,9 +756,9 @@ export default function App() {
 
       {/* 2. HEADER PRINCIPAL (Dark Style com Logo Branca e Letras Brancas) */}
       <header className="sticky top-0 z-40 bg-[#0B0B0B] border-b border-[#222222] transition-all duration-300 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] gap-4">
-          {/* Mobile Menu Trigger & Logo */}
-          <div className="flex items-center gap-3 justify-self-start">
+        <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-8 lg:px-12 h-18 sm:h-20 flex items-center justify-between gap-6">
+          {/* 1. Esquerda: Menu Mobile Trigger + Logo Sandrini (Bem à esquerda) */}
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="lg:hidden p-2 text-white hover:text-[#D94A2F] transition-colors cursor-pointer"
@@ -783,68 +783,75 @@ export default function App() {
             </a>
           </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          {/* 2. Centro: Todas as Categorias juntas e uniformes (Letras Mais Altas e Elegantes) */}
+          <nav className="hidden lg:flex items-center gap-7 xl:gap-9 font-['Chakra_Petch',sans-serif]">
             <button
               onClick={() => navigateToCategory("Novidades")}
-              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Novidades" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-                }`}
+              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${
+                currentPage === "Novidades" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+              }`}
             >
               LANÇAMENTO
+              {currentPage === "Novidades" && (
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D94A2F]" />
+              )}
             </button>
             <button
               onClick={() => navigateToCategory("Fitness")}
-              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Fitness" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-                }`}
+              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${
+                currentPage === "Fitness" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+              }`}
             >
               TREINO & ACADEMIA
+              {currentPage === "Fitness" && (
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D94A2F]" />
+              )}
             </button>
             <button
               onClick={() => navigateToCategory("Corrida")}
-              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Corrida" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-                }`}
+              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${
+                currentPage === "Corrida" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+              }`}
             >
               CORRIDA
+              {currentPage === "Corrida" && (
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D94A2F]" />
+              )}
             </button>
             <button
-              onClick={() => navigateToCategory("Básicos")}
-              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Básicos" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-                }`}
+              onClick={() => navigateToCategory("Lifestyle")}
+              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${
+                currentPage === "Lifestyle" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+              }`}
             >
-              ESSENCIAIS
-            </button>
-            <button
-              onClick={() => navigateToCategory("Kits")}
-              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Kits" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-                }`}
-            >
-              KITS
-            </button>
-            <button
-              onClick={() => navigateToCategory("Underwear")}
-              className={`text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer ${currentPage === "Underwear" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-                }`}
-            >
-              UNDERWEAR
+              LIFESTYLE
+              {currentPage === "Lifestyle" && (
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D94A2F]" />
+              )}
             </button>
 
             {/* MARCAS DROPDOWN */}
             <div className="relative group py-2">
               <button
                 onClick={() => navigateToCategory("Marcas")}
-                className="text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all flex items-center gap-1.5 text-white group-hover:text-[#D94A2F] cursor-pointer"
+                className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  currentPage === "Marcas" ? "text-[#D94A2F]" : "text-white group-hover:text-[#D94A2F]"
+                }`}
               >
                 MARCAS
-                <ChevronDown size={14} className="transition-transform group-hover:rotate-180 text-white/70 group-hover:text-[#D94A2F]" />
+                <ChevronDown
+                  size={14}
+                  className="transition-transform group-hover:rotate-180 text-white/70 group-hover:text-[#D94A2F] stroke-[1.5]"
+                />
               </button>
 
               <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[640px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 pointer-events-none group-hover:pointer-events-auto">
                 <div className="bg-[#111111] border border-[#282828] border-t-2 border-t-[#D94A2F] rounded-lg p-5 shadow-2xl">
                   <div className="flex items-center justify-between border-b border-[#222222] pb-2.5 mb-3.5">
-                    <span className="text-[11px] font-extrabold tracking-wider text-[#888888] uppercase">Nossas Marcas</span>
+                    <span className="text-[11px] font-bold tracking-wider text-[#888888] uppercase">Nossas Marcas</span>
                     <button
                       onClick={() => navigateToCategory("Marcas")}
-                      className="text-[11px] font-extrabold tracking-wider text-[#D94A2F] hover:text-white uppercase transition-colors"
+                      className="text-[11px] font-semibold tracking-wider text-[#D94A2F] hover:text-white uppercase transition-colors"
                     >
                       Ver todas as marcas &rarr;
                     </button>
@@ -857,7 +864,7 @@ export default function App() {
                           setSearchQuery(brand);
                           navigateToCategory("busca");
                         }}
-                        className="bg-[#1A1A1A] hover:bg-white hover:text-black border border-[#282828] hover:border-[#D94A2F] rounded p-2 text-center text-[11px] font-black uppercase text-white transition-all transform hover:-translate-y-0.5 shadow-sm"
+                        className="bg-[#1A1A1A] hover:bg-white hover:text-black border border-[#282828] hover:border-[#D94A2F] rounded p-2 text-center text-[11px] font-medium uppercase text-white transition-all transform hover:-translate-y-0.5 shadow-sm"
                       >
                         {brand}
                       </button>
@@ -866,37 +873,42 @@ export default function App() {
                 </div>
               </div>
             </div>
-
-            <button
-              onClick={() => navigateToCategory("Promoções")}
-              className="text-[13px] font-extrabold tracking-[0.08em] uppercase transition-all relative py-2 cursor-pointer text-[#D94A2F]"
-            >
-              PROMOÇÕES
-            </button>
           </nav>
 
-          {/* Tools & Actions (Search, Account, Wishlist, Cart) */}
-          <div className="flex items-center gap-2 sm:gap-4 justify-self-end">
-            {/* Search Button / Input */}
+          {/* 3. Direita: Ícones de Ação Juntinhos e Alinhados à Direita (Torx Style) */}
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 ml-auto lg:ml-0">
+            {/* Search Button / Expandable Input */}
             <div className="relative">
               {searchOpen ? (
-                <div className="flex items-center bg-[#1E1E1E] rounded-full px-3 py-1.5 border border-white/20">
+                <div className="flex items-center bg-[#1A1A1A] rounded-full px-3 py-1 border border-white/20 shadow-xl animate-fade-in">
+                  <Search size={16} className="text-white/60 mr-2 shrink-0" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Pesquisar produtos..."
-                    className="bg-transparent text-xs text-white outline-none w-36 sm:w-48 placeholder:text-white/50"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && searchQuery.trim()) {
+                        navigateToCategory("busca");
+                      }
+                    }}
+                    placeholder="Pesquisar..."
+                    className="bg-transparent text-xs text-white outline-none w-28 sm:w-36 placeholder:text-white/50"
                     autoFocus
                   />
-                  <button onClick={() => setSearchOpen(false)} className="text-white/60 hover:text-white p-0.5">
+                  <button
+                    onClick={() => {
+                      setSearchOpen(false);
+                      setSearchQuery("");
+                    }}
+                    className="text-white/60 hover:text-white p-0.5 ml-1 cursor-pointer"
+                  >
                     <X size={14} />
                   </button>
                 </div>
               ) : (
                 <button
                   onClick={() => setSearchOpen(true)}
-                  className="p-2 text-white hover:text-[#D94A2F] transition-colors rounded-full hover:bg-white/10 cursor-pointer"
+                  className="p-1.5 text-white hover:text-[#D94A2F] transition-colors rounded-full hover:bg-white/10 cursor-pointer"
                   title="Pesquisar"
                 >
                   <Search size={20} />
@@ -907,12 +919,12 @@ export default function App() {
             {/* Favoritos */}
             <button
               onClick={() => navigateToCategory("Favoritos")}
-              className="p-2 text-white hover:text-[#D94A2F] transition-colors rounded-full hover:bg-white/10 relative cursor-pointer hidden sm:flex"
+              className="p-1.5 text-white hover:text-[#D94A2F] transition-colors rounded-full hover:bg-white/10 relative cursor-pointer hidden sm:flex"
               title="Favoritos"
             >
               <Heart size={20} />
               {favorites.length > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-[#D94A2F] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#D94A2F] text-white text-[9px] font-bold rounded-full flex items-center justify-center">
                   {favorites.length}
                 </span>
               )}
@@ -921,26 +933,27 @@ export default function App() {
             {/* Conta / Perfil */}
             <button
               onClick={() => alert("Área do cliente Sandrini - Login & Pedidos")}
-              className="p-2 text-white hover:text-[#D94A2F] transition-colors rounded-full hover:bg-white/10 cursor-pointer hidden sm:flex"
+              className="p-1.5 text-white hover:text-[#D94A2F] transition-colors rounded-full hover:bg-white/10 cursor-pointer hidden sm:flex"
               title="Minha Conta"
             >
               <User size={20} />
             </button>
 
-            {/* Sacola / Cart (.header__second--tools-cart) */}
+            {/* Sacola / Cart Torx Pill */}
             <button
               onClick={() => setCartOpen(true)}
-              className="flex items-center gap-2 bg-[#D94A2F] hover:bg-white hover:text-[#0B0B0B] text-white px-3.5 sm:px-4 py-2.5 rounded-full transition-all cursor-pointer shadow-sm group"
+              className="bg-[#D94A2F] hover:bg-[#c23e25] text-white px-3.5 py-1.5 rounded-full flex items-center gap-1.5 transition-all cursor-pointer shadow-sm hover:scale-105 shrink-0"
+              title="Sacola de Compras"
             >
-              <ShoppingBag size={18} />
-              <span className="text-xs font-bold">{cartCount}</span>
+              <ShoppingBag size={17} />
+              <span className="text-xs font-bold leading-none">{cartCount}</span>
             </button>
           </div>
         </div>
 
         {/* Mobile Dropdown Menu */}
         {menuOpen && (
-          <div className="lg:hidden bg-[#0B0B0B] border-t border-[#222222] px-6 py-6 flex flex-col gap-4 shadow-xl">
+          <div className="lg:hidden bg-[#0B0B0B] border-t border-[#222222] px-6 py-6 flex flex-col gap-4 shadow-xl font-['Chakra_Petch',sans-serif]">
             {NAV_LINKS.map((link) => (
               <button
                 key={link.label}
@@ -956,13 +969,13 @@ export default function App() {
 
       {currentPage === "home" ? (
         <>
-          {/* 4. HERO BANNER PRINCIPAL (Proporção 2032x774) */}
+          {/* 4. HERO BANNER PRINCIPAL (Proporção Torx 2032x774) */}
           <section className="relative w-full overflow-hidden bg-[#0B0B0B] aspect-[2032/774] flex items-center group">
             {heroSlides.map((slide, idx) => (
               <div
                 key={idx}
                 className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${idx === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-                  } bg-[#0B0B0B] flex items-center`}
+                  } bg-[#0B0B0B] flex items-center justify-center`}
               >
                 {slide.fullBannerImg ? (
                   <div
@@ -972,7 +985,7 @@ export default function App() {
                     <img
                       src={slide.fullBannerImg}
                       alt={slide.title}
-                      className="w-full h-full object-cover sm:object-cover object-center transition-transform duration-700 group-hover/master:scale-[1.01]"
+                      className="w-full h-full object-cover object-center transition-transform duration-700 group-hover/master:scale-[1.01]"
                     />
                   </div>
                 ) : (
@@ -1485,106 +1498,167 @@ export default function App() {
         </div>
       </div>
 
-      {/* 11. FOOTER COMPLETO (Torx .footer #footer) */}
-      <footer className="bg-[#FFFFFF] text-[#0B0B0B] text-xs border-t border-[#EBEBEB] pt-12 pb-24 sm:pb-8">
+      {/* 11. FOOTER COMPLETO (Produção / Tray Dark Theme) */}
+      <footer className="bg-[#0B0B0B] text-white text-xs border-t border-[#1C1C1C] pt-14 pb-24 sm:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-            {/* Logo & Redes */}
-            <div className="md:col-span-1 flex flex-col items-center text-center sm:items-center sm:text-center">
-              <img src={logoFooterImg} alt="Sandrini" className="h-14 sm:h-16 w-auto object-contain mb-4 mx-auto" />
-              <div className="flex justify-center gap-2.5 text-black/60">
-                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-8 h-8 border border-[#E0E0E0] flex items-center justify-center hover:border-black hover:text-black transition-colors">
-                  <Instagram size={14} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 lg:gap-10 mb-12">
+            {/* 1. Logo & Redes Sociais */}
+            <div className="md:col-span-3 flex flex-col items-start">
+              <a href="/" onClick={(e) => { e.preventDefault(); navigateToCategory("home"); }} className="mb-6 block">
+                <img src={logoFooterImg} alt="Sandrini" className="h-10 sm:h-12 w-auto object-contain" />
+              </a>
+              <div className="flex items-center gap-3 text-white/70">
+                <a
+                  href="https://www.instagram.com/sandrini_oficial/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
+                  title="Instagram"
+                >
+                  <Instagram size={15} />
                 </a>
-                <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-8 h-8 border border-[#E0E0E0] flex items-center justify-center hover:border-black hover:text-black transition-colors">
-                  <Youtube size={14} />
+                <a
+                  href="https://www.youtube.com/@sandrini"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
+                  title="YouTube"
+                >
+                  <Youtube size={15} />
                 </a>
-                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="w-8 h-8 border border-[#E0E0E0] flex items-center justify-center hover:border-black hover:text-black transition-colors">
-                  <Facebook size={14} />
+                <a
+                  href="https://www.linkedin.com/company/sandrini"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
+                  title="LinkedIn"
+                >
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2Z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.tiktok.com/@sandrini_oficial"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
+                  title="TikTok"
+                >
+                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-1.01v8.42a6.92 6.92 0 0 1-1.37 4.12 7.02 7.02 0 0 1-6.17 2.87 7.02 7.02 0 0 1-5.74-3.4 7.03 7.03 0 0 1 .49-7.85c1.4-1.68 3.56-2.58 5.74-2.43v4.11c-1.09-.16-2.26.15-2.95.97-.66.78-.71 1.93-.27 2.85.45.92 1.43 1.5 2.45 1.51 1.46.06 2.71-1.08 2.79-2.54.03-1.62.01-3.25.01-4.87V.02Z" />
+                  </svg>
                 </a>
               </div>
             </div>
 
-            {/* Sua Conta */}
-            <div>
-              <h4 className="font-bold text-sm uppercase tracking-wide mb-3 text-black">
-                Sua Conta
+            {/* 2. Categorias */}
+            <div className="md:col-span-2">
+              <h4 className="font-bold text-[13px] uppercase tracking-wider mb-4 text-white">
+                Categorias
               </h4>
-              <ul className="space-y-2 text-black/70">
-                <li><a href="#" className="hover:text-black">Acesso ao Painel</a></li>
-                <li><a href="#" className="hover:text-black">Meus Pedidos</a></li>
-                <li><a href="#" className="hover:text-black">Meus Dados</a></li>
+              <ul className="space-y-2.5 text-white/60 text-xs">
+                <li><button onClick={() => navigateToCategory("Marcas")} className="hover:text-white transition-colors cursor-pointer">Marcas</button></li>
+                <li><button onClick={() => navigateToCategory("Camisetas")} className="hover:text-white transition-colors cursor-pointer">Camisetas</button></li>
+                <li><button onClick={() => navigateToCategory("Underwear")} className="hover:text-white transition-colors cursor-pointer">Cueca & Meias</button></li>
+                <li><button onClick={() => navigateToCategory("Corrida")} className="hover:text-white transition-colors cursor-pointer">Calçados</button></li>
+                <li><button onClick={() => navigateToCategory("Kits")} className="hover:text-white transition-colors cursor-pointer">Kits Essenciais</button></li>
+                <li><button onClick={() => navigateToCategory("Shorts")} className="hover:text-white transition-colors cursor-pointer">Bermudas & Shorts</button></li>
               </ul>
             </div>
 
-            {/* Institucional */}
-            <div>
-              <h4 className="font-bold text-sm uppercase tracking-wide mb-3 text-black">
+            {/* 3. Institucional */}
+            <div className="md:col-span-3">
+              <h4 className="font-bold text-[13px] uppercase tracking-wider mb-4 text-white">
                 Institucional
               </h4>
-              <ul className="space-y-2 text-black/70">
-                <li><a href="#" className="hover:text-black">Política de Privacidade</a></li>
-                <li><a href="#" className="hover:text-black">Quem Somos</a></li>
-                <li><a href="#" className="hover:text-black">Garantia e Reembolso</a></li>
-                <li><a href="#" className="hover:text-black">Como cuidar do seu produto</a></li>
+              <ul className="space-y-2.5 text-white/60 text-xs">
+                <li><a href="#" className="hover:text-white transition-colors">Sobre a empresa Sandrini Sports</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Como comprar</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Segurança</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Envio</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Pagamento</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Tempo de Garantia</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Política de Privacidade</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Termos e condições</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Trocas e devoluções</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Fale Conosco</a></li>
               </ul>
             </div>
 
-            {/* Dúvidas */}
-            <div>
-              <h4 className="font-bold text-sm uppercase tracking-wide mb-3 text-black">
-                Dúvidas
-              </h4>
-              <ul className="space-y-2 text-black/70">
-                <li><a href="#" className="hover:text-black">Fale Conosco</a></li>
-                <li><a href="#" className="hover:text-black">Dúvidas Frequentes</a></li>
-                <li><a href="#" className="hover:text-black">Troca e Devoluções</a></li>
-              </ul>
-            </div>
-
-            {/* Atendimento */}
-            <div>
-              <h4 className="font-bold text-sm uppercase tracking-wide mb-3 text-black">
+            {/* 4. Atendimento */}
+            <div className="md:col-span-2">
+              <h4 className="font-bold text-[13px] uppercase tracking-wider mb-4 text-white">
                 Atendimento
               </h4>
-              <p className="text-black/70">Seg à Sex das 8h às 17h</p>
-              <p className="text-black font-bold mt-2">contato@sandrini.com.br</p>
-            </div>
-          </div>
-
-          {/* Formas de Pagamento e Segurança (Torx .bottom) */}
-          <div className="border-t border-[#EBEBEB] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-              <h5 className="text-[11px] font-bold text-black/50 uppercase tracking-widest mb-1.5 text-center md:text-left">
-                Pagamento
-              </h5>
-              <div className="flex items-center gap-2 flex-wrap justify-center md:justify-start text-[10px] font-bold text-black/70">
-                <span className="border border-[#E0E0E0] px-2 py-1">PIX</span>
-                <span className="border border-[#E0E0E0] px-2 py-1">VISA</span>
-                <span className="border border-[#E0E0E0] px-2 py-1">MASTERCARD</span>
-                <span className="border border-[#E0E0E0] px-2 py-1">ELO</span>
-                <span className="border border-[#E0E0E0] px-2 py-1">HIPERCARD</span>
-                <span className="border border-[#E0E0E0] px-2 py-1">AMERICAN EXPRESS</span>
+              <div className="space-y-3 text-white/70 text-xs">
+                <a
+                  href="https://wa.me/5519935006925"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 hover:text-[#25D366] transition-colors"
+                >
+                  <span className="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center shrink-0">
+                    📞
+                  </span>
+                  <span className="font-semibold text-white/90">(19) 93500-6925</span>
+                </a>
+                <a
+                  href="mailto:atendimento@sandrinisports.com.br"
+                  className="flex items-start gap-2 hover:text-white transition-colors leading-relaxed break-all"
+                >
+                  <span className="w-5 h-5 rounded-full bg-white/10 text-white flex items-center justify-center shrink-0 mt-0.5">
+                    ✉
+                  </span>
+                  <span>atendimento@sandrinisports.com.br</span>
+                </a>
               </div>
             </div>
 
-            <div>
-              <h5 className="text-[11px] font-bold text-black/50 uppercase tracking-widest mb-1.5 text-center md:text-right">
-                Segurança
-              </h5>
-              <div className="flex items-center gap-2 text-black/70 text-[10px] font-bold">
-                <span className="border border-[#E0E0E0] px-2 py-1 flex items-center gap-1">
-                  <ShieldCheck size={12} className="text-green-600" /> SSL 256 BITS
-                </span>
-                <span className="border border-[#E0E0E0] px-2 py-1 flex items-center gap-1">
-                  <Check size={12} className="text-green-600" /> GOOGLE SAFE BROWSING
-                </span>
+            {/* 5. Formas de Pagamento & Selos de Segurança */}
+            <div className="md:col-span-2 flex flex-col gap-6">
+              <div>
+                <h4 className="font-bold text-[13px] uppercase tracking-wider mb-3 text-white">
+                  Formas de pagamento
+                </h4>
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <span className="bg-[#1C1C1C] border border-[#2E2E2E] text-white text-[10px] font-bold px-2 py-1 rounded-[2px]">
+                    PIX
+                  </span>
+                  <span className="bg-[#1C1C1C] border border-[#2E2E2E] text-white text-[10px] font-bold px-2 py-1 rounded-[2px]">
+                    BOLETO
+                  </span>
+                  <span className="bg-[#1C1C1C] border border-[#2E2E2E] text-white text-[10px] font-bold px-2 py-1 rounded-[2px]">
+                    CARTÃO
+                  </span>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-bold text-[13px] uppercase tracking-wider mb-3 text-white">
+                  Selos de Segurança
+                </h4>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <div className="bg-[#1C1C1C] border border-[#2E2E2E] px-2.5 py-1.5 rounded-[2px] flex items-center gap-1.5 text-[10px] font-bold text-white/80">
+                    <ShieldCheck size={13} className="text-green-500" />
+                    <span>Google Safe</span>
+                  </div>
+                  <div className="bg-[#1C1C1C] border border-[#2E2E2E] px-2.5 py-1.5 rounded-[2px] flex items-center gap-1.5 text-[10px] font-bold text-white/80">
+                    <Lock size={13} className="text-amber-400" />
+                    <span>Loja Protegida</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-[#EBEBEB] mt-6 pt-4 text-center text-[11px] text-black/50">
-            <p>SANDRINI COMERCIO DIGITAL LTDA - CNPJ 00.000.000/0001-00 © Todos os direitos reservados.</p>
+          {/* Linha Divisória e Rodapé Final */}
+          <div className="border-t border-[#1C1C1C] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/50 text-center sm:text-left">
+            <p>Sandrini Menswear - © Todos os direitos reservados.</p>
+            <p className="flex items-center gap-1.5">
+              <span>Desenvolvimento <b className="text-white/80">samáthemes</b></span>
+              <span className="text-white/30">|</span>
+              <span>Tecnologia <b className="text-white/80">Tray</b></span>
+            </p>
           </div>
         </div>
       </footer>
