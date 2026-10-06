@@ -733,7 +733,7 @@ export default function App() {
   const [productCep, setProductCep] = useState("");
   const [productShippingResult, setProductShippingResult] = useState(false);
   const [activeTab, setActiveTab] = useState<"descricao" | "especificacoes" | "avaliacoes" | "medidas">("descricao");
-  const [productLayoutVersion, setProductLayoutVersion] = useState<"v1" | "v2">("v2");
+  const [productLayoutVersion, setProductLayoutVersion] = useState<"v1" | "v2">("v1");
   const [v2ActiveTab, setV2ActiveTab] = useState<"tecnologia" | "especificacoes" | "avaliacoes" | "medidas">("tecnologia");
   const [v2ImageIdx, setV2ImageIdx] = useState(0);
   const [showStickyBar, setShowStickyBar] = useState(false);
@@ -1472,44 +1472,9 @@ export default function App() {
         </>
       ) : currentPage === "product" && selectedProduct ? (
         /* ========================================================================= */
-        /* PÁGINA DE PRODUTO DUAL-VERSION (VERSÃO 1 TORX & VERSÃO 2 SANDRINI 2026)   */
+        /* PÁGINA DE PRODUTO OFICIAL SANDRINI                                       */
         /* ========================================================================= */
         <div className="bg-[#FFFFFF] min-h-screen pb-16 animate-fade-in text-[#111111] font-['Open_Sans',sans-serif]">
-          {/* SWITCHER DE VERSÃO INTERATIVO (STICKY BANNER DE ALTO IMPACTO) */}
-          <div className="bg-[#0B0B0B] border-b border-[#222222] py-2.5 px-4 sticky top-18 sm:top-20 z-30 shadow-md">
-            <div className="max-w-[1400px] mx-auto flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs text-white/80 font-medium">
-                  Alternar Experiência de Produto:
-                </span>
-              </div>
-              <div className="inline-flex p-1 bg-[#1A1A1A] rounded-lg border border-white/10">
-                <button
-                  onClick={() => setProductLayoutVersion("v1")}
-                  className={`px-3.5 py-1.5 rounded-md text-xs font-bold transition-all cursor-pointer ${
-                    productLayoutVersion === "v1"
-                      ? "bg-white text-black shadow-sm"
-                      : "text-white/60 hover:text-white"
-                  }`}
-                >
-                  🏷️ Versão 1 (Torx Minimal)
-                </button>
-                <button
-                  onClick={() => setProductLayoutVersion("v2")}
-                  className={`px-3.5 py-1.5 rounded-md text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                    productLayoutVersion === "v2"
-                      ? "bg-[#D94A2F] text-white shadow-md"
-                      : "text-white/60 hover:text-white"
-                  }`}
-                >
-                  ✨ Versão 2 (Sandrini Performance 2026)
-                  <span className="bg-white/20 text-[9px] font-black uppercase px-1.5 py-0.2 rounded">NOVO</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
           {productLayoutVersion === "v1" ? (
             /* ========================================================================= */
             /* VERSÃO 1: TORX MINIMAL CLÁSSICO                                           */
