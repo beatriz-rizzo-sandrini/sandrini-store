@@ -1153,19 +1153,19 @@ export default function App() {
             </div>
           </section>
 
-          {/* 3. FAIXA CUPOM (Torx .faixa-cupom - Abaixo do Banner) */}
-          <div className="bg-[#FFFFFF] border-b border-[#EBEBEB] py-3.5 px-4 text-center shadow-xs">
+          {/* 3. FAIXA CUPOM MODERNA (Abaixo do Banner) */}
+          <div className="bg-[#FFFFFF] border-b border-black/6 py-3.5 px-4 text-center">
             <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm font-semibold">
               <span className="text-[#0B0B0B]">
                 Ganhe <b>7% OFF</b> com Cupom:
               </span>
-              <div className="inline-flex items-center gap-2 bg-[#F9F9F9] border border-[#D94A2F] px-3 py-1 rounded-none">
-                <span className="font-extrabold text-[#D94A2F] tracking-wider uppercase font-['Chakra_Petch',sans-serif]">
+              <div className="inline-flex items-center gap-2 bg-[#FAFAFC] border border-[#D94A2F]/40 px-3.5 py-1.5 rounded-full shadow-2xs">
+                <span className="font-bold text-[#D94A2F] tracking-wider uppercase font-['Chakra_Petch',sans-serif]">
                   BEMVINDOSANDRINI
                 </span>
                 <button
                   onClick={copyCouponCode}
-                  className="text-[11px] font-bold bg-[#D94A2F] text-white px-2.5 py-0.5 hover:bg-black transition-colors flex items-center gap-1 cursor-pointer font-['Chakra_Petch',sans-serif]"
+                  className="text-[11px] font-bold bg-[#D94A2F] hover:bg-black text-white px-3 py-1 rounded-full transition-colors flex items-center gap-1 cursor-pointer font-['Chakra_Petch',sans-serif]"
                 >
                   {couponCopied ? (
                     <>
@@ -1181,34 +1181,34 @@ export default function App() {
             </div>
           </div>
 
-          {/* 5. GRADE DE 3 BANNERS DE CATEGORIAS (Torx .banner-grid com proporção vertical 4:5) */}
-          <section className="py-8 sm:py-12 bg-[#FFFFFF]">
+          {/* 5. GRADE DE 3 BANNERS DE CATEGORIAS MODERNOS */}
+          <section className="py-10 sm:py-14 bg-[#FFFFFF]">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {TORX_CATEGORY_GRID.map((item) => (
                   <div
                     key={item.title}
                     onClick={() => navigateToCategory(item.category)}
-                    className="group relative overflow-hidden bg-black aspect-[4/5] cursor-pointer shadow-sm"
+                    className="group relative overflow-hidden bg-black aspect-[4/5] rounded-3xl cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1.5"
                   >
                     <img
                       src={item.img}
                       alt={item.title}
-                      className="w-full h-full object-cover opacity-85 transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="w-full h-full object-cover opacity-85 transition-transform duration-700 ease-out group-hover:scale-108"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
-                    <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
-                      <span className="text-[10px] font-bold tracking-widest text-[#D94A2F] uppercase mb-1 font-['Chakra_Petch',sans-serif]">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent" />
+                    <div className="absolute inset-0 p-7 flex flex-col justify-end text-white">
+                      <span className="text-[10px] font-bold tracking-widest text-[#D94A2F] uppercase mb-1.5 font-['Chakra_Petch',sans-serif]">
                         {item.badge}
                       </span>
-                      <h3 className="text-2xl sm:text-3xl font-bold uppercase tracking-[0.03em] font-['Chakra_Petch',sans-serif] leading-tight mb-1">
+                      <h3 className="text-2xl sm:text-3xl font-bold uppercase tracking-[0.03em] font-['Chakra_Petch',sans-serif] leading-tight mb-1.5">
                         {item.title}
                       </h3>
-                      <p className="text-xs text-white/75 mb-3 line-clamp-2">
+                      <p className="text-xs text-white/75 mb-4 line-clamp-2 leading-relaxed">
                         {item.subtitle}
                       </p>
                       <div className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-white group-hover:text-[#D94A2F] transition-colors font-['Chakra_Petch',sans-serif]">
-                        CONFERIR <ChevronRight size={14} />
+                        CONFERIR <ChevronRight size={14} className="transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
                   </div>
@@ -1275,16 +1275,16 @@ export default function App() {
             </div>
           </section>
 
-          {/* 7. FAIXA COMUNICADO / 4 PILARES (Torx .faixa-comunicado) */}
-          <section className="py-10 bg-white border-b border-[#EBEBEB]">
+          {/* 7. FAIXA COMUNICADO / 4 PILARES MODERNOS */}
+          <section className="py-12 bg-white border-b border-black/6">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <div className="flex items-center gap-4 p-4 border border-[#EBEBEB] bg-[#FAFAFA]">
-                  <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-4 p-5 rounded-2xl border border-black/8 bg-[#FAFAFC] shadow-2xs hover:shadow-md hover:border-black/20 transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
                     <RotateCcw size={22} />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wider text-black">
+                    <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider text-black font-['Chakra_Petch',sans-serif]">
                       TROCA FACILITADA
                     </h4>
                     <p className="text-xs text-black/60 mt-0.5 leading-snug">
@@ -1293,12 +1293,12 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 border border-[#EBEBEB] bg-[#FAFAFA]">
-                  <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-4 p-5 rounded-2xl border border-black/8 bg-[#FAFAFC] shadow-2xs hover:shadow-md hover:border-black/20 transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
                     <Truck size={22} />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wider text-black">
+                    <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider text-black font-['Chakra_Petch',sans-serif]">
                       FRETE GRÁTIS
                     </h4>
                     <p className="text-xs text-black/60 mt-0.5 leading-snug">
@@ -1307,12 +1307,12 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 border border-[#EBEBEB] bg-[#FAFAFA]">
-                  <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-4 p-5 rounded-2xl border border-black/8 bg-[#FAFAFC] shadow-2xs hover:shadow-md hover:border-black/20 transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
                     <Tag size={22} />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wider text-black">
+                    <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider text-black font-['Chakra_Petch',sans-serif]">
                       GANHE 7% OFF
                     </h4>
                     <p className="text-xs text-black/60 mt-0.5 leading-snug">
@@ -1321,16 +1321,16 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 border border-[#EBEBEB] bg-[#FAFAFA]">
-                  <div className="w-12 h-12 rounded-full bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-4 p-5 rounded-2xl border border-black/8 bg-[#FAFAFC] shadow-2xs hover:shadow-md hover:border-black/20 transition-all">
+                  <div className="w-12 h-12 rounded-2xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
                     <Flame size={22} />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-xs sm:text-sm uppercase tracking-wider text-black">
-                      CLUBE
+                    <h4 className="font-bold text-xs sm:text-sm uppercase tracking-wider text-black font-['Chakra_Petch',sans-serif]">
+                      CLUBE VIP
                     </h4>
                     <p className="text-xs text-black/60 mt-0.5 leading-snug">
-                      Seja membro de nosso club e receba ofertas exclusivas
+                      Seja membro do nosso clube e receba lançamentos em primeira mão
                     </p>
                   </div>
                 </div>
@@ -1338,17 +1338,17 @@ export default function App() {
             </div>
           </section>
 
-          {/* 8. QUEM SOMOS / BRAND VIDEO SECTION */}
-          <section className="py-16 bg-[#0B0B0B] text-white">
+          {/* 8. QUEM SOMOS / BRAND VIDEO SECTION MODERNO */}
+          <section className="py-16 sm:py-20 bg-[#0B0B0B] text-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
-              <div className="text-center max-w-2xl mx-auto mb-10">
-                <span className="text-[#D94A2F] text-xs font-black tracking-[0.25em] uppercase">
+              <div className="text-center max-w-2xl mx-auto mb-12">
+                <span className="text-[#D94A2F] text-xs font-bold tracking-[0.2em] uppercase font-['Chakra_Petch',sans-serif] block mb-1">
                   NOSSA HISTÓRIA & PROPÓSITO
                 </span>
-                <h2 className="text-3xl sm:text-5xl font-black uppercase font-['Montserrat',sans-serif] tracking-tight mt-1">
+                <h2 className="text-3xl sm:text-4xl font-bold uppercase font-['Chakra_Petch',sans-serif] tracking-[0.03em]">
                   QUEM SOMOS
                 </h2>
-                <p className="text-xs sm:text-sm text-white/70 mt-2">
+                <p className="text-xs sm:text-sm text-white/70 mt-2 max-w-lg mx-auto leading-relaxed">
                   Criamos produtos esportivos e casuais com design inovador, tecnologia anatômica e conforto absoluto para o seu dia a dia.
                 </p>
               </div>
@@ -1357,7 +1357,7 @@ export default function App() {
                 {/* Video Card */}
                 <div
                   onClick={() => setVideoModalOpen(true)}
-                  className="lg:col-span-2 relative aspect-video bg-black rounded-xs overflow-hidden group cursor-pointer border border-white/10 min-h-[300px]"
+                  className="lg:col-span-2 relative aspect-video bg-black rounded-3xl overflow-hidden group cursor-pointer border border-white/10 shadow-2xl min-h-[320px]"
                 >
                   <img
                     src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1200&h=700&fit=crop&auto=format"
@@ -1370,10 +1370,10 @@ export default function App() {
                     </div>
                   </div>
                   <div className="absolute bottom-6 left-6 right-6">
-                    <span className="bg-black/80 text-white text-[10px] font-bold px-2.5 py-1 uppercase tracking-widest">
+                    <span className="bg-black/80 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider font-['Chakra_Petch',sans-serif]">
                       VÍDEO DE PERFORMANCE
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-black uppercase font-['Montserrat',sans-serif] mt-2">
+                    <h3 className="text-xl sm:text-2xl font-bold uppercase font-['Chakra_Petch',sans-serif] mt-2 tracking-[0.02em]">
                       A tecnologia por trás de cada passo
                     </h3>
                   </div>
@@ -1381,13 +1381,13 @@ export default function App() {
 
                 {/* Side Lifestyle Cards */}
                 <div className="flex flex-col gap-6">
-                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-xs flex flex-col justify-between">
+                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-3xl flex flex-col justify-between hover:border-white/20 transition-all">
                     <div>
-                      <span className="text-[#D94A2F] text-xs font-black tracking-widest uppercase">
+                      <span className="text-[#D94A2F] text-xs font-bold tracking-wider uppercase font-['Chakra_Petch',sans-serif]">
                         QUALIDADE COMPROVADA
                       </span>
-                      <h4 className="text-xl font-bold uppercase mt-1 mb-2">
-                        Mais de 500.000 clientes satisfeitos
+                      <h4 className="text-lg sm:text-xl font-bold uppercase mt-1 mb-2 font-['Chakra_Petch',sans-serif]">
+                        Mais de 500.000 clientes
                       </h4>
                       <p className="text-xs text-white/60 leading-relaxed">
                         Foco em matérias-primas nobres, amortecimento durável e corte anatômico com padrão internacional.
@@ -1397,25 +1397,25 @@ export default function App() {
                       {[...Array(5)].map((_, i) => (
                         <Star key={i} size={14} className="fill-amber-400" />
                       ))}
-                      <span className="text-xs text-white/80 ml-2 font-bold">4.9 / 5.0</span>
+                      <span className="text-xs text-white/80 ml-2 font-bold font-['Chakra_Petch',sans-serif]">4.9 / 5.0</span>
                     </div>
                   </div>
 
-                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-xs flex flex-col justify-between">
+                  <div className="flex-1 bg-white/5 border border-white/10 p-6 rounded-3xl flex flex-col justify-between hover:border-white/20 transition-all">
                     <div>
-                      <span className="text-[#D94A2F] text-xs font-black tracking-widest uppercase">
+                      <span className="text-[#D94A2F] text-xs font-bold tracking-wider uppercase font-['Chakra_Petch',sans-serif]">
                         PRODUÇÃO NACIONAL
                       </span>
-                      <h4 className="text-xl font-bold uppercase mt-1 mb-2">
-                        Direto da fábrica para sua casa
+                      <h4 className="text-lg sm:text-xl font-bold uppercase mt-1 mb-2 font-['Chakra_Petch',sans-serif]">
+                        Direto da fábrica para você
                       </h4>
                       <p className="text-xs text-white/60 leading-relaxed">
-                        Preço justo, entrega rastreada e suporte dedicado de segunda a sexta para você comprar com tranquilidade.
+                        Preço justo, entrega rastreada e suporte dedicado para você comprar com total tranquilidade.
                       </p>
                     </div>
                     <a
                       href="#newsletter"
-                      className="text-xs font-bold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 mt-3"
+                      className="text-xs font-bold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 mt-3 font-['Chakra_Petch',sans-serif]"
                     >
                       FAÇA PARTE DO CLUBE <ChevronRight size={14} />
                     </a>
@@ -1425,23 +1425,36 @@ export default function App() {
             </div>
           </section>
 
-          {/* 9. INSTAGRAM GRID (Torx .banner-instagram) */}
-          <section className="py-10 bg-[#FFFFFF] border-t border-[#EBEBEB]">
+          {/* 9. INSTAGRAM GRID MODERNO */}
+          <section className="py-12 bg-[#FFFFFF] border-t border-black/6">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
-              <div className="mb-5">
-                <h2 className="text-xl sm:text-2xl font-normal uppercase text-[#0B0B0B]">
-                  INSTAGRAM <b className="font-extrabold text-black">@SANDRINI_OFICIAL</b>
-                </h2>
+              <div className="mb-6 flex items-center justify-between">
+                <div>
+                  <span className="text-[11px] font-bold text-[#D94A2F] uppercase tracking-widest block mb-1 font-['Chakra_Petch',sans-serif]">
+                    FEED SOCIAL
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-bold uppercase text-[#0B0B0B] font-['Chakra_Petch',sans-serif]">
+                    INSTAGRAM <b className="text-[#D94A2F]">@SANDRINI_OFICIAL</b>
+                  </h2>
+                </div>
+                <a
+                  href="https://www.instagram.com/sandrini_oficial/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs font-bold uppercase text-black hover:text-[#D94A2F] transition-colors font-['Chakra_Petch',sans-serif] hidden sm:inline-flex items-center gap-1"
+                >
+                  Seguir no Instagram →
+                </a>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
                 {INSTAGRAM_POSTS.map((post, i) => (
                   <a
                     key={i}
                     href={post.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="relative aspect-square overflow-hidden group bg-black/10"
+                    className="relative aspect-square overflow-hidden rounded-2xl group bg-black/5 shadow-2xs hover:shadow-md transition-all"
                   >
                     <img
                       src={post.img}
@@ -2746,19 +2759,23 @@ export default function App() {
         </div>
       )}
 
-      {/* 10. NEWSLETTER (Torx #newsletter .newsletter) */}
-      <div id="newsletter" className="bg-[#FFFFFF] border-t border-[#EBEBEB] py-12 px-4 text-center">
-        <div className="max-w-2xl mx-auto">
-          <span className="text-xs font-bold uppercase text-black/50 tracking-widest block mb-1">
-            Newsletter
+      {/* 10. NEWSLETTER MODERNA */}
+      <div id="newsletter" className="bg-[#FFFFFF] border-t border-black/6 py-16 px-4 text-center">
+        <div className="max-w-2xl mx-auto bg-[#FAFAFC] border border-black/8 rounded-3xl p-8 sm:p-12 shadow-2xs">
+          <span className="text-xs font-bold uppercase text-[#D94A2F] tracking-widest block mb-2 font-['Chakra_Petch',sans-serif]">
+            CLUBE SANDRINI
           </span>
-          <span className="text-base sm:text-lg font-bold uppercase text-[#0B0B0B] block mb-4">
-            CADASTRE-SE E GANHE ATÉ 7% OFF EM SUA PRIMEIRA COMPRA!
-          </span>
+          <h2 className="text-2xl sm:text-3xl font-bold uppercase text-[#0B0B0B] block mb-3 font-['Chakra_Petch',sans-serif] tracking-[0.02em]">
+            CADASTRE-SE E GANHE 7% OFF
+          </h2>
+          <p className="text-xs text-black/60 mb-6 max-w-md mx-auto">
+            Receba novidades, drops exclusivos e cupons especiais direto no seu e-mail.
+          </p>
 
           {newsletterSent ? (
-            <div className="bg-green-50 border border-green-200 text-green-800 p-3 text-xs font-bold">
-              ✓ E-mail cadastrado! Utilize o cupom BEMVINDOSANDRINI na sua primeira compra.
+            <div className="bg-emerald-50 border border-emerald-200 text-emerald-900 p-4 rounded-2xl text-xs font-bold flex items-center justify-center gap-2">
+              <Check size={16} className="text-emerald-600" />
+              E-mail cadastrado com sucesso! Use o cupom <b className="text-[#D94A2F] font-['Chakra_Petch',sans-serif]">BEMVINDOSANDRINI</b>.
             </div>
           ) : (
             <form
@@ -2766,29 +2783,29 @@ export default function App() {
                 e.preventDefault();
                 if (newsletterEmail) setNewsletterSent(true);
               }}
-              className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto"
+              className="flex flex-col sm:flex-row gap-2.5 max-w-md mx-auto"
             >
               <input
                 type="email"
                 required
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                placeholder="E-mail"
-                className="flex-1 bg-[#F9F9F9] text-black placeholder:text-black/40 border border-[#E0E0E0] px-4 py-3 text-xs outline-none focus:border-black"
+                placeholder="Seu melhor e-mail..."
+                className="flex-1 bg-white text-black placeholder:text-black/40 border border-black/15 rounded-xl px-4 py-3 text-xs outline-none focus:border-[#D94A2F] font-medium"
               />
               <button
                 type="submit"
-                className="bg-[#D94A2F] hover:bg-black text-white text-xs font-bold tracking-widest px-8 py-3 uppercase transition-colors cursor-pointer"
+                className="bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold tracking-wider px-8 py-3 rounded-xl uppercase transition-colors cursor-pointer font-['Chakra_Petch',sans-serif] shrink-0"
               >
-                ENVIAR
+                CADASTRAR
               </button>
             </form>
           )}
         </div>
       </div>
 
-      {/* 11. FOOTER COMPLETO (Produção / Tray Dark Theme) */}
-      <footer className="bg-[#0B0B0B] text-white text-xs border-t border-[#1C1C1C] pt-14 pb-24 sm:pb-12">
+      {/* 11. FOOTER COMPLETO (Produção / Dark Theme Moderno) */}
+      <footer className="bg-[#0B0B0B] text-white text-xs border-t border-[#1C1C1C] pt-16 pb-24 sm:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 lg:gap-10 mb-12">
             {/* 1. Logo & Redes Sociais */}
@@ -2801,36 +2818,25 @@ export default function App() {
                   href="https://www.instagram.com/sandrini_oficial/"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
                   title="Instagram"
                 >
-                  <Instagram size={15} />
+                  <Instagram size={16} />
                 </a>
                 <a
                   href="https://www.youtube.com/@sandrini"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
                   title="YouTube"
                 >
-                  <Youtube size={15} />
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/sandrini"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
-                  title="LinkedIn"
-                >
-                  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2Z" />
-                  </svg>
+                  <Youtube size={16} />
                 </a>
                 <a
                   href="https://www.tiktok.com/@sandrini_oficial"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#D94A2F] hover:text-[#D94A2F] hover:bg-white/10 transition-all cursor-pointer"
                   title="TikTok"
                 >
                   <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -2842,10 +2848,10 @@ export default function App() {
 
             {/* 2. Categorias */}
             <div className="md:col-span-2">
-              <h4 className="font-bold text-[13px] uppercase tracking-wider mb-4 text-white">
+              <h4 className="font-bold text-[13px] uppercase tracking-wider mb-4 text-white font-['Chakra_Petch',sans-serif]">
                 Categorias
               </h4>
-              <ul className="space-y-2.5 text-white/60 text-xs">
+              <ul className="space-y-2.5 text-white/60 text-xs font-medium">
                 <li><button onClick={() => navigateToCategory("Marcas")} className="hover:text-white transition-colors cursor-pointer">Marcas</button></li>
                 <li><button onClick={() => navigateToCategory("Camisetas")} className="hover:text-white transition-colors cursor-pointer">Camisetas</button></li>
                 <li><button onClick={() => navigateToCategory("Underwear")} className="hover:text-white transition-colors cursor-pointer">Cueca & Meias</button></li>
@@ -2857,26 +2863,22 @@ export default function App() {
 
             {/* 3. Institucional */}
             <div className="md:col-span-3">
-              <h4 className="font-bold text-[13px] uppercase tracking-wider mb-4 text-white">
+              <h4 className="font-bold text-[13px] uppercase tracking-wider mb-4 text-white font-['Chakra_Petch',sans-serif]">
                 Institucional
               </h4>
-              <ul className="space-y-2.5 text-white/60 text-xs">
-                <li><a href="#" className="hover:text-white transition-colors">Sobre a empresa Sandrini Sports</a></li>
+              <ul className="space-y-2.5 text-white/60 text-xs font-medium">
+                <li><a href="#" className="hover:text-white transition-colors">Sobre a Sandrini Sports</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Como comprar</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Segurança</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Envio</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pagamento</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Tempo de Garantia</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Política de Privacidade</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Termos e condições</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Trocas e devoluções</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Fale Conosco</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Segurança & Privacidade</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Envio & Rastreamento</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Garantia Oficial</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Trocas e Devoluções</a></li>
               </ul>
             </div>
 
             {/* 4. Atendimento */}
             <div className="md:col-span-2">
-              <h4 className="font-bold text-[13px] uppercase tracking-wider mb-4 text-white">
+              <h4 className="font-bold text-[13px] uppercase tracking-wider mb-4 text-white font-['Chakra_Petch',sans-serif]">
                 Atendimento
               </h4>
               <div className="space-y-3 text-white/70 text-xs">
@@ -2886,7 +2888,7 @@ export default function App() {
                   rel="noreferrer"
                   className="flex items-center gap-2 hover:text-[#25D366] transition-colors"
                 >
-                  <span className="w-5 h-5 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center shrink-0">
+                  <span className="w-6 h-6 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center shrink-0">
                     📞
                   </span>
                   <span className="font-semibold text-white/90">(19) 93500-6925</span>
@@ -2895,7 +2897,7 @@ export default function App() {
                   href="mailto:atendimento@sandrinisports.com.br"
                   className="flex items-start gap-2 hover:text-white transition-colors leading-relaxed break-all"
                 >
-                  <span className="w-5 h-5 rounded-full bg-white/10 text-white flex items-center justify-center shrink-0 mt-0.5">
+                  <span className="w-6 h-6 rounded-full bg-white/10 text-white flex items-center justify-center shrink-0 mt-0.5">
                     ✉
                   </span>
                   <span>atendimento@sandrinisports.com.br</span>
@@ -2906,34 +2908,34 @@ export default function App() {
             {/* 5. Formas de Pagamento & Selos de Segurança */}
             <div className="md:col-span-2 flex flex-col gap-6">
               <div>
-                <h4 className="font-bold text-[13px] uppercase tracking-wider mb-3 text-white">
+                <h4 className="font-bold text-[13px] uppercase tracking-wider mb-3 text-white font-['Chakra_Petch',sans-serif]">
                   Formas de pagamento
                 </h4>
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  <span className="bg-[#1C1C1C] border border-[#2E2E2E] text-white text-[10px] font-bold px-2 py-1 rounded-[2px]">
+                  <span className="bg-[#1C1C1C] border border-[#2E2E2E] text-white text-[10px] font-bold px-2.5 py-1 rounded-lg font-['Chakra_Petch',sans-serif]">
                     PIX
                   </span>
-                  <span className="bg-[#1C1C1C] border border-[#2E2E2E] text-white text-[10px] font-bold px-2 py-1 rounded-[2px]">
+                  <span className="bg-[#1C1C1C] border border-[#2E2E2E] text-white text-[10px] font-bold px-2.5 py-1 rounded-lg font-['Chakra_Petch',sans-serif]">
                     BOLETO
                   </span>
-                  <span className="bg-[#1C1C1C] border border-[#2E2E2E] text-white text-[10px] font-bold px-2 py-1 rounded-[2px]">
+                  <span className="bg-[#1C1C1C] border border-[#2E2E2E] text-white text-[10px] font-bold px-2.5 py-1 rounded-lg font-['Chakra_Petch',sans-serif]">
                     CARTÃO
                   </span>
                 </div>
               </div>
 
               <div>
-                <h4 className="font-bold text-[13px] uppercase tracking-wider mb-3 text-white">
-                  Selos de Segurança
+                <h4 className="font-bold text-[13px] uppercase tracking-wider mb-3 text-white font-['Chakra_Petch',sans-serif]">
+                  Segurança
                 </h4>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <div className="bg-[#1C1C1C] border border-[#2E2E2E] px-2.5 py-1.5 rounded-[2px] flex items-center gap-1.5 text-[10px] font-bold text-white/80">
-                    <ShieldCheck size={13} className="text-green-500" />
+                  <div className="bg-[#1C1C1C] border border-[#2E2E2E] px-3 py-1.5 rounded-xl flex items-center gap-1.5 text-[10.5px] font-bold text-white/80 font-['Chakra_Petch',sans-serif]">
+                    <ShieldCheck size={14} className="text-emerald-500" />
                     <span>Google Safe</span>
                   </div>
-                  <div className="bg-[#1C1C1C] border border-[#2E2E2E] px-2.5 py-1.5 rounded-[2px] flex items-center gap-1.5 text-[10px] font-bold text-white/80">
-                    <Lock size={13} className="text-amber-400" />
-                    <span>Loja Protegida</span>
+                  <div className="bg-[#1C1C1C] border border-[#2E2E2E] px-3 py-1.5 rounded-xl flex items-center gap-1.5 text-[10.5px] font-bold text-white/80 font-['Chakra_Petch',sans-serif]">
+                    <Lock size={14} className="text-amber-400" />
+                    <span>100% Protegida</span>
                   </div>
                 </div>
               </div>
@@ -2942,11 +2944,9 @@ export default function App() {
 
           {/* Linha Divisória e Rodapé Final */}
           <div className="border-t border-[#1C1C1C] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/50 text-center sm:text-left">
-            <p>Sandrini Menswear - © Todos os direitos reservados.</p>
+            <p>Sandrini Performance 2026 - © Todos os direitos reservados.</p>
             <p className="flex items-center gap-1.5">
-              <span>Desenvolvimento <b className="text-white/80">samáthemes</b></span>
-              <span className="text-white/30">|</span>
-              <span>Tecnologia <b className="text-white/80">Tray</b></span>
+              <span>Tecnologia de ponta Sandrini Labs</span>
             </p>
           </div>
         </div>
