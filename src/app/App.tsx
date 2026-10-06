@@ -2041,26 +2041,26 @@ export default function App() {
               </div>
 
               {/* 2. Grid Principal: Palco Visual de Performance (Esquerda) + Cápsula de Compra High-Tech (Direita) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
                 {/* COLUNA ESQUERDA (7 COLS): PALCO DE EXIBIÇÃO AMBIENTAL MULTI-ÂNGULO */}
-                <div className="lg:col-span-7 space-y-6">
-                  {/* Palco Principal do Produto com Iluminação Studio & Efeito Flutuante */}
-                  <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-[#F6F7FA] via-[#ECEFF4] to-[#F8F9FB] border border-black/8 p-6 sm:p-12 shadow-sm transition-all">
+                <div className="lg:col-span-7 space-y-5">
+                  {/* Palco Principal do Produto - Clean Studio Floating */}
+                  <div className="relative rounded-3xl overflow-hidden bg-[#FBFBFD] border border-black/5 p-6 sm:p-10 transition-all flex flex-col items-center justify-center min-h-[380px] sm:min-h-[460px]">
                     {/* Top Overlay Badges */}
-                    <div className="flex items-center justify-between gap-2 absolute top-5 left-5 right-5 z-10 pointer-events-none">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="bg-[#D94A2F] text-white text-[11px] font-black tracking-widest uppercase px-3 py-1 rounded-md shadow-sm">
+                    <div className="flex items-center justify-between w-full absolute top-5 left-5 right-5 z-10 pointer-events-none px-2">
+                      <div className="flex items-center gap-2">
+                        <span className="bg-[#D94A2F] text-white text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full shadow-xs font-['Chakra_Petch',sans-serif]">
                           {selectedProduct.discountBadge || "-10% NO PIX"}
                         </span>
-                        <span className="bg-white/90 backdrop-blur-md text-[#0B0B0B] text-[10.5px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md border border-black/10">
-                          ED. LIMITADA 2026
+                        <span className="bg-black/5 backdrop-blur-md text-[#0B0B0B] text-[10.5px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full font-['Chakra_Petch',sans-serif]">
+                          ED. 2026
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-1.5 pointer-events-auto">
+                      <div className="pointer-events-auto">
                         <button
                           onClick={() => toggleFavorite(selectedProduct.id)}
-                          className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-md border border-black/10 flex items-center justify-center text-black/70 hover:text-[#D94A2F] hover:bg-white transition-all shadow-xs cursor-pointer"
+                          className="w-10 h-10 rounded-full bg-white border border-black/8 flex items-center justify-center text-black/60 hover:text-[#D94A2F] hover:bg-white transition-all shadow-xs cursor-pointer"
                           title="Favoritar"
                         >
                           <Heart
@@ -2071,196 +2071,152 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* Imagem Central em Alta Definição */}
-                    <div className="relative aspect-[4/3] w-full flex items-center justify-center select-none py-4">
-                      {/* Aura Dinâmica de Fundo */}
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div className="w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-[#D94A2F]/10 blur-3xl" />
-                      </div>
-
+                    {/* Imagem Central Flutuante */}
+                    <div className="relative w-full flex items-center justify-center select-none py-6 my-auto">
                       <img
                         src={galleryImages[v2ImageIdx] || galleryImages[0] || selectedProduct.img}
-                        alt={`${selectedProduct.name} ângulo ${v2ImageIdx + 1}`}
-                        className="relative z-10 max-h-[340px] sm:max-h-[420px] w-auto max-w-full object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.18)] transition-all duration-500 ease-out hover:scale-105"
+                        alt={`${selectedProduct.name} vista ${v2ImageIdx + 1}`}
+                        className="relative z-10 max-h-[320px] sm:max-h-[400px] w-auto max-w-full object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.12)] transition-all duration-300 ease-out hover:scale-105"
                       />
-
-                      {/* Sombra de Contato Studio */}
-                      <div className="absolute bottom-2 sm:bottom-4 w-3/4 h-5 bg-black/25 blur-lg rounded-full" />
                     </div>
 
-                    {/* Tag de Ângulo Atual */}
-                    <div className="absolute bottom-4 right-5 z-10 bg-black/80 backdrop-blur-md text-white text-[10.5px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">
-                      VISTA {v2ImageIdx + 1} DE {galleryImages.length}
+                    {/* Indicador Minimalista de Ângulo */}
+                    <div className="w-full flex items-center justify-between pt-2 border-t border-black/5 text-[11px] text-black/50 font-medium">
+                      <span className="flex items-center gap-1.5 font-['Chakra_Petch',sans-serif]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        Visualização em Alta Resolução
+                      </span>
+                      <span className="font-['Chakra_Petch',sans-serif] tracking-wider uppercase">
+                        Vista {v2ImageIdx + 1} de {galleryImages.length}
+                      </span>
                     </div>
                   </div>
 
                   {/* Carrossel / Miniaturas de Ângulos Interativos */}
-                  <div className="space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-black uppercase tracking-wider flex items-center gap-1.5">
-                        <Eye size={14} className="text-[#D94A2F]" />
-                        Ângulos de Alta Resolução ({galleryImages.length} vistas)
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs text-black/60">
+                      <span className="font-semibold text-black flex items-center gap-1.5 font-['Chakra_Petch',sans-serif] uppercase tracking-wider text-[11px]">
+                        <Eye size={13} className="text-[#D94A2F]" />
+                        Galeria de Ângulos
                       </span>
-                      <span className="text-[11px] text-black/50">Clique para alternar o visual</span>
+                      <span className="text-[11px] text-black/40">Selecione para alternar</span>
                     </div>
 
-                    <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
+                    <div className="flex flex-wrap gap-2.5 sm:gap-3">
                       {galleryImages.map((imgUrl, idx) => {
                         const isCurrent = v2ImageIdx === idx;
                         return (
                           <button
                             key={idx}
                             onClick={() => setV2ImageIdx(idx)}
-                            className={`group relative aspect-square rounded-2xl overflow-hidden bg-[#F7F7F9] p-2 border-2 transition-all cursor-pointer ${
+                            className={`group relative w-16 h-16 sm:w-18 sm:h-18 rounded-xl overflow-hidden p-1.5 border transition-all cursor-pointer ${
                               isCurrent
-                                ? "border-[#D94A2F] shadow-md scale-105 bg-white"
-                                : "border-black/5 hover:border-black/30 hover:bg-white"
+                                ? "border-[#D94A2F] ring-2 ring-[#D94A2F]/20 bg-white shadow-xs"
+                                : "border-black/10 bg-[#FAFAFC] hover:border-black/30 hover:bg-white"
                             }`}
                           >
                             <img
                               src={imgUrl}
                               alt={`Ângulo ${idx + 1}`}
-                              className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
+                              className="w-full h-full object-contain mix-blend-multiply transition-transform duration-200 group-hover:scale-105"
                             />
-                            {isCurrent && (
-                              <span className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-[#D94A2F] text-white rounded-full flex items-center justify-center text-[8px] font-black">
-                                ✓
-                              </span>
-                            )}
                           </button>
                         );
                       })}
                     </div>
                   </div>
-
-                  {/* 3 Cartões de Destaque de Engenharia / Specs no Palco */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
-                    <div className="bg-[#FAFAFC] border border-black/6 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
-                      <div className="w-10 h-10 rounded-xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
-                        <Zap size={20} />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-black/40 uppercase tracking-widest block">Amortecimento</span>
-                        <h5 className="text-xs font-extrabold text-black">MaxPulse™ EVA</h5>
-                      </div>
-                    </div>
-
-                    <div className="bg-[#FAFAFC] border border-black/6 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
-                      <div className="w-10 h-10 rounded-xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
-                        <Activity size={20} />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-black/40 uppercase tracking-widest block">Drop Dinâmico</span>
-                        <h5 className="text-xs font-extrabold text-black">8 mm / 245g</h5>
-                      </div>
-                    </div>
-
-                    <div className="bg-[#FAFAFC] border border-black/6 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
-                      <div className="w-10 h-10 rounded-xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
-                        <Award size={20} />
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-black/40 uppercase tracking-widest block">Certificado</span>
-                        <h5 className="text-xs font-extrabold text-black">100% Original</h5>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
-                {/* COLUNA DIREITA (5 COLS): CÁPSULA DE COMPRA HIGH-TECH STICKY */}
-                <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+                {/* COLUNA DIREITA (5 COLS): CÁPSULA DE COMPRA CLEAN & AIRY */}
+                <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-6">
                   {/* Bloco de Título & Identificação */}
-                  <div className="space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                        <span className="text-[11px] font-bold text-emerald-700 tracking-wider uppercase">
-                          Em Estoque no CD • Envio em 24h
-                        </span>
-                      </div>
-                      <span className="text-[11px] text-black/40 font-mono tracking-wider">
-                        REF: SAN-{selectedProduct.id}90
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-[11px] font-bold text-[#D94A2F] tracking-widest uppercase font-['Chakra_Petch',sans-serif]">
+                        {selectedProduct.category || "PERFORMANCE"} • REF: SAN-{selectedProduct.id}90
+                      </span>
+                      <span className="flex items-center gap-1 text-[11px] font-semibold text-emerald-700">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        Em Estoque
                       </span>
                     </div>
 
-                    <h1 className="text-2xl sm:text-[30px] font-bold uppercase tracking-[0.03em] text-[#0B0B0B] leading-tight font-['Chakra_Petch',sans-serif]">
+                    <h1 className="text-2xl sm:text-[28px] font-bold uppercase tracking-[0.02em] text-[#0B0B0B] leading-tight font-['Chakra_Petch',sans-serif]">
                       {selectedProduct.name}
                     </h1>
 
-                    {/* Social Proof & Rating Pill */}
-                    <div className="flex items-center gap-2.5 pt-0.5">
-                      <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200/80 px-2.5 py-1 rounded-full text-xs font-bold text-amber-900">
-                        <Star size={13} className="fill-amber-400 text-amber-400" />
-                        <span className="font-['Chakra_Petch',sans-serif] font-bold">{selectedProduct.rating}</span>
-                        <span className="text-black/40 font-normal">({selectedProduct.reviews} avaliações)</span>
+                    {/* Social Proof & Rating */}
+                    <div className="flex items-center gap-2 pt-0.5">
+                      <div className="flex items-center gap-1 text-xs">
+                        <div className="flex items-center text-amber-400">
+                          <Star size={13} className="fill-amber-400" />
+                        </div>
+                        <span className="font-['Chakra_Petch',sans-serif] font-bold text-black">{selectedProduct.rating}</span>
+                        <span className="text-black/40 text-[11px]">({selectedProduct.reviews} avaliações)</span>
                       </div>
-
-                      <span className="text-xs font-semibold text-black/60">
-                        ⚡ <b>98%</b> de aprovação
+                      <span className="text-black/20">•</span>
+                      <span className="text-[11px] text-emerald-700 font-semibold">
+                        98% recomendam este modelo
                       </span>
                     </div>
                   </div>
 
-                  {/* Matriz de Preço Moderno com Foco em PIX */}
-                  <div className="bg-gradient-to-br from-[#FAFAFC] to-[#F2F4F8] border border-black/8 rounded-2xl p-5 space-y-3 shadow-2xs">
+                  {/* Preço Limpo & Estruturado */}
+                  <div className="pt-2 border-t border-black/8 space-y-2">
                     {selectedProduct.originalPrice && (
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-black/40 line-through font-medium">
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="text-black/40 line-through">
                           De {formatPrice(selectedProduct.originalPrice)}
                         </span>
-                        <span className="bg-[#D94A2F]/10 text-[#D94A2F] font-bold text-[11px] px-2 py-0.5 rounded font-['Chakra_Petch',sans-serif]">
-                          Economia de {formatPrice(selectedProduct.originalPrice - calculatePixPrice(selectedProduct.price))}
+                        <span className="text-[#D94A2F] font-bold text-[11px] font-['Chakra_Petch',sans-serif]">
+                          Economize {formatPrice(selectedProduct.originalPrice - calculatePixPrice(selectedProduct.price))}
                         </span>
                       </div>
                     )}
 
-                    <div className="flex items-baseline gap-2.5 flex-wrap">
-                      <span className="text-3xl sm:text-4xl font-bold text-[#0B0B0B] tracking-[0.02em] font-['Chakra_Petch',sans-serif]">
+                    <div className="flex items-baseline gap-3 flex-wrap">
+                      <span className="text-3xl sm:text-4xl font-bold text-[#0B0B0B] tracking-tight font-['Chakra_Petch',sans-serif]">
                         {formatPrice(calculatePixPrice(selectedProduct.price))}
                       </span>
-                      <span className="inline-flex items-center gap-1 bg-[#D94A2F] text-white text-[11px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md shadow-xs font-['Chakra_Petch',sans-serif]">
-                        <Percent size={12} /> 10% OFF NO PIX
+                      <span className="bg-[#D94A2F] text-white text-[11px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded font-['Chakra_Petch',sans-serif]">
+                        10% OFF NO PIX
                       </span>
                     </div>
 
-                    <div className="pt-2 border-t border-black/8 flex items-center justify-between text-xs text-black/70">
-                      <div className="flex items-center gap-1.5 font-medium">
-                        <CreditCard size={15} className="text-[#D94A2F]" />
-                        <span>ou <b>6x de {formatPrice(selectedProduct.price / 6)}</b> sem juros</span>
-                      </div>
-                      <span className="text-[11px] text-black/40">Total: {formatPrice(selectedProduct.price)}</span>
-                    </div>
+                    <p className="text-xs text-black/60">
+                      ou <span className="font-semibold text-black">6x de {formatPrice(selectedProduct.price / 6)}</span> sem juros (Total {formatPrice(selectedProduct.price)})
+                    </p>
 
-                    {/* Atalho de Cupom Sandrini */}
-                    <div className="bg-white border border-[#D94A2F]/30 rounded-xl p-2.5 flex items-center justify-between gap-2">
+                    {/* Cupom Limpo & Minimalista */}
+                    <div className="mt-3 inline-flex items-center justify-between gap-3 bg-[#F8F9FA] border border-black/8 rounded-xl px-3 py-2 w-full">
                       <div className="flex items-center gap-2">
-                        <Tag size={15} className="text-[#D94A2F]" />
-                        <span className="text-[11.5px] text-black/80 font-semibold">
-                          Cupom: <b className="text-[#D94A2F] font-bold font-['Chakra_Petch',sans-serif]">BEMVINDOSANDRINI</b>
+                        <Tag size={14} className="text-[#D94A2F]" />
+                        <span className="text-xs text-black/70 font-medium">
+                          Cupom de 1ª Compra: <b className="text-[#D94A2F] font-['Chakra_Petch',sans-serif] font-bold">BEMVINDOSANDRINI</b>
                         </span>
                       </div>
                       <button
                         onClick={copyCouponCode}
-                        className="text-[10.5px] font-bold bg-[#0B0B0B] hover:bg-[#D94A2F] text-white px-3 py-1 rounded-lg uppercase transition-colors cursor-pointer font-['Chakra_Petch',sans-serif]"
+                        className="text-[10px] font-bold text-black uppercase hover:text-[#D94A2F] transition-colors cursor-pointer font-['Chakra_Petch',sans-serif] shrink-0"
                       >
-                        {couponCopied ? "Copiado!" : "Copiar"}
+                        {couponCopied ? "✓ Copiado!" : "Copiar"}
                       </button>
                     </div>
                   </div>
 
-                  {/* Seletor Visual de Cores com Fotos Reais */}
+                  {/* Seletor de Cores - Swatches Minimalistas */}
                   {selectedProduct.colors && selectedProduct.colors.length > 0 && (
-                    <div className="space-y-3">
+                    <div className="space-y-2.5 pt-2 border-t border-black/8">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-black/80">
+                        <span className="font-medium text-black/70">
                           Cor: <b className="text-black font-bold font-['Chakra_Petch',sans-serif]">{chosenColor}</b>
                         </span>
-                        <span className="text-[11px] text-black/50 font-medium">
-                          {selectedProduct.colors.length} variações disponíveis
+                        <span className="text-[11px] text-black/40">
+                          {selectedProduct.colors.length} opções
                         </span>
                       </div>
 
-                      <div className="grid grid-cols-4 sm:grid-cols-4 gap-2.5">
+                      <div className="flex items-center gap-2.5">
                         {selectedProduct.colors.map((c) => {
                           const isSelected = chosenColor === c.name;
                           return (
@@ -2271,27 +2227,18 @@ export default function App() {
                                 setActiveImageIdx(0);
                                 setV2ImageIdx(0);
                               }}
-                              className={`group relative rounded-xl p-1.5 bg-[#F9FAFB] border-2 cursor-pointer transition-all flex flex-col items-center gap-1 ${
+                              title={c.name}
+                              className={`group relative w-14 h-14 rounded-xl overflow-hidden p-1 border-2 transition-all cursor-pointer bg-white ${
                                 isSelected
-                                  ? "border-[#D94A2F] bg-white shadow-md scale-105 ring-2 ring-[#D94A2F]/20"
-                                  : "border-black/10 hover:border-black/30 hover:bg-white"
+                                  ? "border-[#D94A2F] ring-2 ring-[#D94A2F]/20 shadow-xs scale-105"
+                                  : "border-black/10 hover:border-black/30"
                               }`}
                             >
-                              <div className="w-full aspect-square relative">
-                                <img
-                                  src={c.img}
-                                  alt={c.name}
-                                  className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
-                                />
-                              </div>
-                              <span className="text-[9.5px] font-bold uppercase truncate max-w-full text-black/70 font-['Chakra_Petch',sans-serif]">
-                                {c.name.split(" ")[0]}
-                              </span>
-                              {isSelected && (
-                                <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-[#D94A2F] text-white rounded-full flex items-center justify-center text-[8px] font-black">
-                                  ✓
-                                </span>
-                              )}
+                              <img
+                                src={c.img}
+                                alt={c.name}
+                                className="w-full h-full object-contain mix-blend-multiply"
+                              />
                             </button>
                           );
                         })}
@@ -2299,39 +2246,36 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* Seletor Inteligente de Tamanhos */}
+                  {/* Seletor de Tamanhos - Clean Matrix */}
                   {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
-                    <div className="space-y-3">
+                    <div className="space-y-2.5 pt-2 border-t border-black/8">
                       <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-black/80">
-                          Tamanho Selecionado: <b className="text-black font-bold font-['Chakra_Petch',sans-serif]">{chosenSize} BR</b>
+                        <span className="font-medium text-black/70">
+                          Tamanho: <b className="text-black font-bold font-['Chakra_Petch',sans-serif]">{chosenSize} BR</b>
                         </span>
 
                         <button
                           onClick={() => setSizeGuideOpen(true)}
                           className="text-xs font-bold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 cursor-pointer font-['Chakra_Petch',sans-serif]"
                         >
-                          <SlidersHorizontal size={13} /> Guia de Medidas
+                          <SlidersHorizontal size={12} /> Tabela de Medidas
                         </button>
                       </div>
 
-                      <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+                      <div className="grid grid-cols-7 gap-2">
                         {selectedProduct.sizes.map((s) => {
                           const isSelected = chosenSize === s;
                           return (
                             <button
                               key={s}
                               onClick={() => setChosenSize(s)}
-                              className={`h-12 rounded-xl text-xs font-bold uppercase cursor-pointer transition-all flex flex-col items-center justify-center border font-['Chakra_Petch',sans-serif] ${
+                              className={`h-11 rounded-xl text-xs font-bold uppercase cursor-pointer transition-all flex items-center justify-center border font-['Chakra_Petch',sans-serif] ${
                                 isSelected
-                                  ? "bg-[#0B0B0B] text-white border-[#0B0B0B] shadow-md scale-105"
+                                  ? "bg-[#0B0B0B] text-white border-[#0B0B0B] shadow-sm scale-105"
                                   : "bg-white text-black/80 border-black/15 hover:border-black hover:text-black hover:bg-black/5"
                               }`}
                             >
-                              <span className="text-sm">{s}</span>
-                              <span className={`text-[8.5px] font-semibold ${isSelected ? "text-emerald-400" : "text-black/40"}`}>
-                                Disp.
-                              </span>
+                              {s}
                             </button>
                           );
                         })}
@@ -2339,9 +2283,9 @@ export default function App() {
                     </div>
                   )}
 
-                  {/* Botões de Ação de Alta Conversão */}
-                  <div className="space-y-3 pt-1">
-                    {/* Botão Primário: Comprar Agora 1-Clique */}
+                  {/* Botões de Ação */}
+                  <div className="space-y-3 pt-2">
+                    {/* Botão Primário: Comprar Agora */}
                     <button
                       onClick={() => {
                         for (let i = 0; i < productQty; i++) {
@@ -2349,28 +2293,28 @@ export default function App() {
                         }
                         setCartOpen(true);
                       }}
-                      className="w-full bg-gradient-to-r from-[#D94A2F] via-[#E85D43] to-[#D94A2F] hover:opacity-95 text-white text-sm font-bold tracking-[0.06em] uppercase transition-all py-4.5 rounded-2xl shadow-lg hover:shadow-xl cursor-pointer flex items-center justify-center gap-3 group/buy font-['Chakra_Petch',sans-serif]"
+                      className="w-full bg-[#D94A2F] hover:bg-[#c23f26] text-white text-sm font-bold tracking-[0.05em] uppercase transition-all py-4 rounded-xl shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2 group/buy font-['Chakra_Petch',sans-serif]"
                     >
-                      <Zap size={18} className="fill-white transition-transform group-hover/buy:scale-125" />
-                      COMPRAR AGORA • 1-CLIQUE
-                      <ArrowRight size={18} className="transition-transform group-hover/buy:translate-x-1" />
+                      <Zap size={16} className="fill-white" />
+                      COMPRAR AGORA
+                      <ArrowRight size={16} className="transition-transform group-hover/buy:translate-x-1" />
                     </button>
 
-                    {/* Botão Secundário: Adicionar à Sacola */}
+                    {/* Botão Secundário: Adicionar à Sacola com Seletor de Qtd */}
                     <div className="flex gap-2.5">
-                      <div className="flex items-center border border-black/20 bg-white rounded-xl overflow-hidden font-['Chakra_Petch',sans-serif]">
+                      <div className="flex items-center border border-black/15 bg-white rounded-xl overflow-hidden font-['Chakra_Petch',sans-serif]">
                         <button
                           onClick={() => setProductQty((q) => Math.max(1, q - 1))}
-                          className="w-10 h-12 flex items-center justify-center text-sm font-bold text-black hover:bg-black/5 cursor-pointer"
+                          className="w-9 h-11 flex items-center justify-center text-sm font-bold text-black hover:bg-black/5 cursor-pointer"
                         >
                           -
                         </button>
-                        <span className="w-9 text-center font-bold text-xs text-black">
+                        <span className="w-8 text-center font-bold text-xs text-black">
                           {productQty}
                         </span>
                         <button
                           onClick={() => setProductQty((q) => q + 1)}
-                          className="w-10 h-12 flex items-center justify-center text-sm font-bold text-black hover:bg-black/5 cursor-pointer"
+                          className="w-9 h-11 flex items-center justify-center text-sm font-bold text-black hover:bg-black/5 cursor-pointer"
                         >
                           +
                         </button>
@@ -2382,19 +2326,19 @@ export default function App() {
                             addToCart(selectedProduct, chosenSize, chosenColor);
                           }
                         }}
-                        className="flex-1 bg-[#0B0B0B] hover:bg-[#222222] text-white text-xs font-bold tracking-[0.06em] uppercase transition-all rounded-xl cursor-pointer flex items-center justify-center gap-2 h-12 shadow-sm font-['Chakra_Petch',sans-serif]"
+                        className="flex-1 bg-white hover:bg-black/5 border border-black/20 text-black text-xs font-bold tracking-wider uppercase transition-all rounded-xl cursor-pointer flex items-center justify-center gap-2 h-11 font-['Chakra_Petch',sans-serif]"
                       >
-                        <ShoppingBag size={16} />
-                        ADICIONAR À SACOLA
+                        <ShoppingBag size={15} />
+                        Adicionar à Sacola
                       </button>
                     </div>
                   </div>
 
-                  {/* Simulador de Frete Expresso */}
-                  <div className="bg-[#FAFAFC] border border-black/8 rounded-2xl p-4 space-y-3">
-                    <span className="text-xs font-bold text-black uppercase tracking-wider flex items-center gap-2 font-['Chakra_Petch',sans-serif]">
-                      <Truck size={16} className="text-[#D94A2F]" />
-                      Frete e Prazo de Entrega
+                  {/* Simulador de Frete Clean */}
+                  <div className="pt-2 border-t border-black/8 space-y-2.5">
+                    <span className="text-xs font-semibold text-black uppercase tracking-wider flex items-center gap-1.5 font-['Chakra_Petch',sans-serif]">
+                      <Truck size={14} className="text-[#D94A2F]" />
+                      Calcular Frete e Prazo
                     </span>
 
                     <div className="flex gap-2">
@@ -2403,77 +2347,50 @@ export default function App() {
                         maxLength={9}
                         value={productCep}
                         onChange={(e) => setProductCep(e.target.value.replace(/\D/g, "").slice(0, 8))}
-                        placeholder="Digite seu CEP..."
-                        className="flex-1 bg-white border border-black/15 rounded-xl px-3.5 py-2.5 text-xs outline-none focus:border-[#D94A2F] font-medium"
+                        placeholder="Informe seu CEP..."
+                        className="flex-1 bg-white border border-black/15 rounded-xl px-3 py-2 text-xs outline-none focus:border-[#D94A2F] font-medium"
                       />
                       <button
                         onClick={() => {
                           if (productCep.length >= 8) setProductShippingResult(true);
                         }}
-                        className="bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold px-5 py-2.5 rounded-xl uppercase transition-colors cursor-pointer font-['Chakra_Petch',sans-serif]"
+                        className="bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold px-4 py-2 rounded-xl uppercase transition-colors cursor-pointer font-['Chakra_Petch',sans-serif]"
                       >
                         Calcular
                       </button>
                     </div>
 
                     {productShippingResult && (
-                      <div className="space-y-2 pt-1 text-xs">
-                        <div className="flex items-center justify-between bg-emerald-50 text-emerald-950 p-3 rounded-xl border border-emerald-200">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm">🚚</span>
-                            <div>
-                              <span className="font-bold block">PAC Econômico (3 a 5 dias)</span>
-                              <span className="text-[11px] text-emerald-700">Rastreio monitorado 24h</span>
-                            </div>
-                          </div>
-                          <span className="font-bold text-emerald-700 uppercase bg-white px-2 py-1 rounded font-['Chakra_Petch',sans-serif]">GRÁTIS</span>
+                      <div className="space-y-1.5 pt-1 text-xs">
+                        <div className="flex items-center justify-between bg-emerald-50 text-emerald-950 px-3 py-2 rounded-lg border border-emerald-200">
+                          <span className="font-medium text-xs">PAC Econômico (3 a 5 dias úteis)</span>
+                          <span className="font-bold text-emerald-700 uppercase font-['Chakra_Petch',sans-serif]">GRÁTIS</span>
                         </div>
-                        <div className="flex items-center justify-between bg-white text-black p-3 rounded-xl border border-black/10">
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm">⚡</span>
-                            <div>
-                              <span className="font-bold block">Sedex Expresso (24h a 48h)</span>
-                              <span className="text-[11px] text-black/50">Entrega prioritária</span>
-                            </div>
-                          </div>
+                        <div className="flex items-center justify-between bg-[#F8F9FA] text-black px-3 py-2 rounded-lg border border-black/8">
+                          <span className="font-medium text-xs">Sedex Expresso (24h a 48h)</span>
                           <span className="font-bold text-black font-['Chakra_Petch',sans-serif]">R$ 14,90</span>
                         </div>
                       </div>
                     )}
                   </div>
 
-                  {/* 4 Selos de Garantia & Confiança Sandrini */}
-                  <div className="grid grid-cols-2 gap-2.5 pt-1 text-xs">
-                    <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
-                      <RotateCcw size={18} className="text-[#D94A2F] shrink-0" />
-                      <div>
-                        <span className="font-bold text-black block text-[11px] font-['Chakra_Petch',sans-serif]">1ª Troca Grátis</span>
-                        <span className="text-[10px] text-black/50">Até 30 dias após receber</span>
-                      </div>
+                  {/* Selos de Confiança Compactos e Elegantes */}
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-black/8 text-[11px] text-black/70">
+                    <div className="flex items-center gap-2 p-2 rounded-lg bg-[#FAFAFC]">
+                      <RotateCcw size={15} className="text-[#D94A2F] shrink-0" />
+                      <span><b>1ª Troca Grátis</b> em 30 dias</span>
                     </div>
-
-                    <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
-                      <ShieldCheck size={18} className="text-[#D94A2F] shrink-0" />
-                      <div>
-                        <span className="font-bold text-black block text-[11px] font-['Chakra_Petch',sans-serif]">Garantia Oficial</span>
-                        <span className="text-[10px] text-black/50">90 dias direto de fábrica</span>
-                      </div>
+                    <div className="flex items-center gap-2 p-2 rounded-lg bg-[#FAFAFC]">
+                      <ShieldCheck size={15} className="text-[#D94A2F] shrink-0" />
+                      <span><b>Garantia Oficial</b> 90 dias</span>
                     </div>
-
-                    <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
-                      <Lock size={18} className="text-[#D94A2F] shrink-0" />
-                      <div>
-                        <span className="font-bold text-black block text-[11px] font-['Chakra_Petch',sans-serif]">100% Seguro</span>
-                        <span className="text-[10px] text-black/50">Criptografia de ponta</span>
-                      </div>
+                    <div className="flex items-center gap-2 p-2 rounded-lg bg-[#FAFAFC]">
+                      <Lock size={15} className="text-[#D94A2F] shrink-0" />
+                      <span><b>Compra 100% Segura</b></span>
                     </div>
-
-                    <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
-                      <Truck size={18} className="text-[#D94A2F] shrink-0" />
-                      <div>
-                        <span className="font-bold text-black block text-[11px] font-['Chakra_Petch',sans-serif]">Frete Grátis</span>
-                        <span className="text-[10px] text-black/50">Em compras &gt; R$ 259</span>
-                      </div>
+                    <div className="flex items-center gap-2 p-2 rounded-lg bg-[#FAFAFC]">
+                      <Truck size={15} className="text-[#D94A2F] shrink-0" />
+                      <span><b>Frete Grátis</b> &gt; R$ 259</span>
                     </div>
                   </div>
                 </div>
