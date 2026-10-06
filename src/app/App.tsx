@@ -714,15 +714,27 @@ export default function App() {
   const freeShippingPercent = Math.min(100, (finalSubtotal / freeShippingThreshold) * 100);
   const remainingForFreeShipping = Math.max(0, freeShippingThreshold - finalSubtotal);
 
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
+  const [productQty, setProductQty] = useState(1);
+  const [productCep, setProductCep] = useState("");
+  const [productShippingResult, setProductShippingResult] = useState(false);
+  const [activeTab, setActiveTab] = useState<"descricao" | "especificacoes" | "avaliacoes" | "medidas">("descricao");
+
   const openProductDetails = (product: Product, defaultColor: string | null = null) => {
-    setChosenSize(product.sizes[0] || "M");
-    setChosenColor(defaultColor || (product.colors ? product.colors[0].name : null));
+    setChosenSize(product.sizes[0] || "41");
+    const initialColor = defaultColor || (product.colors ? product.colors[0].name : null);
+    setChosenColor(initialColor);
     setSelectedProduct(product);
     setActiveImageIdx(0);
+    setProductQty(1);
+    setProductShippingResult(false);
+    setCurrentPage("product");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToCategory = (catName: string) => {
     setCurrentPage(catName);
+    setSelectedProduct(null);
     setMenuOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -737,10 +749,26 @@ export default function App() {
     return true;
   });
 
-  const activeColorObj = selectedProduct?.colors?.find((c) => c.name === chosenColor);
-  let galleryImages = activeColorObj ? [activeColorObj.img] : selectedProduct ? [selectedProduct.img] : [];
-  if (selectedProduct?.secondImg && !galleryImages.includes(selectedProduct.secondImg)) {
-    galleryImages.push(selectedProduct.secondImg);
+  const activeColorObj = selectedProduct?.colors?.find((c) => c.name === chosenColor) || selectedProduct?.colors?.[0];
+
+  // Recupera todas as fotos da cor selecionada ou do produto
+  let galleryImages: string[] = [];
+  if (selectedProduct) {
+    if (activeColorObj?.folderPath) {
+      const matched = Object.entries(globImages)
+        .filter(([path]) => path.includes(activeColorObj.folderPath!))
+        .map(([_, url]) => url);
+      if (matched.length > 0) {
+        galleryImages = matched;
+      }
+    }
+    if (galleryImages.length === 0) {
+      if (activeColorObj?.img) galleryImages.push(activeColorObj.img);
+      else if (selectedProduct.img) galleryImages.push(selectedProduct.img);
+      if (selectedProduct.secondImg && !galleryImages.includes(selectedProduct.secondImg)) {
+        galleryImages.push(selectedProduct.secondImg);
+      }
+    }
   }
 
   return (
@@ -1394,6 +1422,532 @@ export default function App() {
             </div>
           </section>
         </>
+      ) : currentPage === "product" && selectedProduct ? (
+        /* ========================================================================= */
+        /* PÁGINA DE PRODUTO ULTRA-CLEAN & PREMIUM (INSPIRADA EM TORX / NIKE)        */
+        /* ========================================================================= */
+        <div className="bg-[#FFFFFF] min-h-screen py-6 sm:py-10 animate-fade-in text-[#111111]">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+            {/* 1. Breadcrumb Discreto */}
+            <div className="flex items-center justify-between border-b border-black/5 pb-4 mb-8">
+              <nav className="flex items-center gap-2 text-xs font-normal text-black/50">
+                <button
+                  onClick={() => {
+                    setCurrentPage("home");
+                    setSelectedProduct(null);
+                  }}
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  Início
+                </button>
+                <span className="text-black/30">/</span>
+                <button
+                  onClick={() => {
+                    setCurrentPage(selectedProduct.category);
+                    setSelectedProduct(null);
+                  }}
+                  className="hover:text-black transition-colors cursor-pointer"
+                >
+                  {selectedProduct.category}
+                </button>
+                <span className="text-black/30">/</span>
+                <span className="text-black font-medium truncate max-w-[240px] sm:max-w-md">
+                  {selectedProduct.name}
+                </span>
+              </nav>
+
+              <button
+                onClick={() => {
+                  setCurrentPage("home");
+                  setSelectedProduct(null);
+                }}
+                className="text-xs font-semibold text-black/60 hover:text-[#D94A2F] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+              >
+                ← Voltar para o catálogo
+              </button>
+            </div>
+
+            {/* 2. Grid Principal: Galeria (Esquerda) + Compra (Direita) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+              {/* COLUNA ESQUERDA: GALERIA DE FOTOS EM GRADE DE 2 COLUNAS */}
+              <div className="lg:col-span-7">
+                <div className="relative">
+                  {/* Selo de Desconto Minimalista */}
+                  {selectedProduct.discountBadge && (
+                    <div className="absolute top-4 left-4 z-10">
+                      <span className="bg-[#D94A2F] text-white text-[11px] font-bold tracking-wider px-3 py-1 uppercase shadow-xs">
+                        {selectedProduct.discountBadge}
+                      </span>
+                    </div>
+                  )}
+
+                  {/* Grade de 2 Colunas */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {galleryImages.map((imgUrl, idx) => (
+                      <div
+                        key={idx}
+                        className="group relative bg-[#F8F8F8] overflow-hidden aspect-square flex items-center justify-center p-6 transition-all duration-300 hover:bg-[#F3F3F3]"
+                      >
+                        <img
+                          src={imgUrl}
+                          alt={`${selectedProduct.name} vista ${idx + 1}`}
+                          className="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-105"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Garantia Oficial Sandrini */}
+                <div className="mt-8 py-5 px-6 bg-[#FAFAFA] border border-[#EAEAEA] flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3.5">
+                    <ShieldCheck className="text-[#D94A2F] shrink-0" size={24} />
+                    <div>
+                      <h4 className="text-xs font-bold text-black uppercase tracking-wide">Produto Oficial Sandrini</h4>
+                      <p className="text-xs text-black/60 mt-0.5">Garantia oficial de 90 dias com Nota Fiscal direta de fábrica.</p>
+                    </div>
+                  </div>
+                  <span className="text-[11px] font-bold text-[#D94A2F] uppercase tracking-wider whitespace-nowrap">
+                    100% Original
+                  </span>
+                </div>
+              </div>
+
+              {/* COLUNA DIREITA: INFORMAÇÕES & COMPRA STICKY */}
+              <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-6">
+                {/* 1. Header do Produto */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold tracking-widest text-[#D94A2F] uppercase">
+                      {selectedProduct.badge || "Sandrini Performance"}
+                    </span>
+                    <span className="text-[11px] text-black/40 font-mono">
+                      SAN-{selectedProduct.id}90
+                    </span>
+                  </div>
+
+                  <h1 className="text-2xl sm:text-[28px] font-extrabold tracking-tight text-black leading-tight font-['Montserrat',sans-serif]">
+                    {selectedProduct.name}
+                  </h1>
+
+                  {/* Avaliações */}
+                  <div className="flex items-center gap-2 pt-1 text-xs">
+                    <div className="flex text-amber-400">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                    <span className="font-bold text-black">{selectedProduct.rating}</span>
+                    <span className="text-black/40">({selectedProduct.reviews} avaliações)</span>
+                    <span className="text-black/20">•</span>
+                    <span className="text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded text-[11px]">
+                      +1.200 vendidos
+                    </span>
+                  </div>
+                </div>
+
+                {/* 2. Preços (Limpo & Destaque) */}
+                <div className="py-4 border-y border-black/10 space-y-1">
+                  {selectedProduct.originalPrice && (
+                    <div className="flex items-center gap-2 text-xs">
+                      <span className="text-black/40 line-through">
+                        De {formatPrice(selectedProduct.originalPrice)}
+                      </span>
+                      <span className="text-[#D94A2F] font-bold text-[11px]">
+                        Economize {formatPrice(selectedProduct.originalPrice - calculatePixPrice(selectedProduct.price))}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl sm:text-4xl font-extrabold text-black tracking-tight font-['Montserrat',sans-serif]">
+                      {formatPrice(calculatePixPrice(selectedProduct.price))}
+                    </span>
+                    <span className="text-xs font-bold text-[#D94A2F] uppercase tracking-wider">
+                      no PIX
+                    </span>
+                    <span className="text-xs text-black/40 font-normal">
+                      (10% de desconto)
+                    </span>
+                  </div>
+
+                  <p className="text-xs text-black/60 pt-1 font-normal">
+                    ou <b className="font-semibold text-black">{formatPrice(selectedProduct.price)}</b> em até <b className="font-semibold text-black">6x de {formatPrice(selectedProduct.price / 6)}</b> sem juros no cartão
+                  </p>
+                </div>
+
+                {/* 3. Seleção de Cor com Miniaturas Fotográficas Reais */}
+                {selectedProduct.colors && selectedProduct.colors.length > 0 && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-medium text-black/70">
+                        Cor: <b className="text-black font-bold">{chosenColor}</b>
+                      </span>
+                      <span className="text-[11px] text-black/40">
+                        {selectedProduct.colors.length} opções
+                      </span>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2.5">
+                      {selectedProduct.colors.map((c) => {
+                        const isSelected = chosenColor === c.name;
+                        return (
+                          <button
+                            key={c.name}
+                            onClick={() => {
+                              setChosenColor(c.name);
+                              setActiveImageIdx(0);
+                            }}
+                            className={`relative w-16 h-16 p-1 bg-[#F9F9F9] border-2 cursor-pointer transition-all ${
+                              isSelected
+                                ? "border-black shadow-xs scale-105"
+                                : "border-transparent hover:border-black/30"
+                            }`}
+                            title={c.name}
+                          >
+                            <img
+                              src={c.img}
+                              alt={c.name}
+                              className="w-full h-full object-contain mix-blend-multiply"
+                            />
+                            {isSelected && (
+                              <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-black text-white flex items-center justify-center text-[9px] font-bold">
+                                ✓
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 4. Seleção de Tamanho */}
+                {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-medium text-black/70">
+                        Tamanho: <b className="text-black font-bold">{chosenSize}</b>
+                      </span>
+
+                      <button
+                        onClick={() => setSizeGuideOpen(true)}
+                        className="text-xs font-semibold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 cursor-pointer"
+                      >
+                        <SlidersHorizontal size={12} /> Tabela de Medidas
+                      </button>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProduct.sizes.map((s) => {
+                        const isSelected = chosenSize === s;
+                        return (
+                          <button
+                            key={s}
+                            onClick={() => setChosenSize(s)}
+                            className={`w-12 h-11 border text-xs font-bold uppercase cursor-pointer transition-all flex items-center justify-center ${
+                              isSelected
+                                ? "bg-black text-white border-black font-extrabold shadow-xs"
+                                : "bg-white text-black/80 border-[#E2E2E2] hover:border-black hover:text-black"
+                            }`}
+                          >
+                            {s}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 5. Alerta de Estoque Discreto */}
+                <div className="flex items-center gap-2 text-xs font-medium text-amber-900 bg-amber-50/80 border border-amber-200/60 px-3.5 py-2.5">
+                  <Flame size={15} className="text-[#D94A2F] shrink-0" />
+                  <span>Poucas unidades restantes no tamanho {chosenSize}.</span>
+                </div>
+
+                {/* 6. Botões de Compra */}
+                <div className="space-y-2.5 pt-1">
+                  <div className="flex gap-2.5">
+                    {/* Quantidade */}
+                    <div className="flex items-center border border-[#D0D0D0] bg-white">
+                      <button
+                        onClick={() => setProductQty((q) => Math.max(1, q - 1))}
+                        className="w-10 h-12 flex items-center justify-center text-sm font-semibold text-black hover:bg-black/5 cursor-pointer"
+                      >
+                        -
+                      </button>
+                      <span className="w-10 text-center font-bold text-xs text-black">
+                        {productQty}
+                      </span>
+                      <button
+                        onClick={() => setProductQty((q) => q + 1)}
+                        className="w-10 h-12 flex items-center justify-center text-sm font-semibold text-black hover:bg-black/5 cursor-pointer"
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    {/* Adicionar à Sacola */}
+                    <button
+                      onClick={() => {
+                        for (let i = 0; i < productQty; i++) {
+                          addToCart(selectedProduct, chosenSize, chosenColor);
+                        }
+                      }}
+                      className="flex-1 bg-[#0B0B0B] hover:bg-[#222222] text-white text-xs font-bold tracking-widest uppercase transition-colors cursor-pointer flex items-center justify-center gap-2 h-12"
+                    >
+                      <ShoppingBag size={16} />
+                      Adicionar à Sacola
+                    </button>
+                  </div>
+
+                  {/* Comprar Agora (Coral Sandrini) */}
+                  <button
+                    onClick={() => {
+                      for (let i = 0; i < productQty; i++) {
+                        addToCart(selectedProduct, chosenSize, chosenColor);
+                      }
+                      setCartOpen(true);
+                    }}
+                    className="w-full bg-[#D94A2F] hover:bg-[#c23e25] text-white text-xs font-extrabold tracking-widest uppercase transition-all py-4 shadow-sm hover:shadow-md cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    Comprar Agora
+                    <ArrowRight size={16} />
+                  </button>
+                </div>
+
+                {/* 7. Cálculo de Frete Limpo */}
+                <div className="pt-4 border-t border-black/10 space-y-3">
+                  <span className="text-xs font-bold text-black uppercase tracking-wider flex items-center gap-1.5">
+                    <Truck size={15} className="text-[#D94A2F]" />
+                    Calcular Frete e Prazo
+                  </span>
+
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      maxLength={9}
+                      value={productCep}
+                      onChange={(e) => setProductCep(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                      placeholder="00000-000"
+                      className="flex-1 bg-white border border-[#D0D0D0] px-3.5 py-2.5 text-xs outline-none focus:border-black font-medium uppercase"
+                    />
+                    <button
+                      onClick={() => {
+                        if (productCep.length >= 8) setProductShippingResult(true);
+                      }}
+                      className="bg-black hover:bg-[#D94A2F] text-white text-xs font-bold px-5 py-2.5 uppercase transition-colors cursor-pointer"
+                    >
+                      Calcular
+                    </button>
+                  </div>
+
+                  {productShippingResult && (
+                    <div className="space-y-2 pt-2 text-xs">
+                      <div className="flex items-center justify-between bg-emerald-50 text-emerald-950 p-3 border border-emerald-200">
+                        <span className="font-semibold">🚚 PAC Econômico (4 a 6 dias úteis)</span>
+                        <span className="font-bold text-emerald-700 uppercase">GRÁTIS</span>
+                      </div>
+                      <div className="flex items-center justify-between bg-white text-black p-3 border border-[#E0E0E0]">
+                        <span className="font-semibold">⚡ Sedex Expresso (1 a 2 dias úteis)</span>
+                        <span className="font-bold text-black">R$ 14,90</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* 8. 4 Benefícios e Confiança */}
+                <div className="grid grid-cols-2 gap-3 pt-2 text-xs text-black/80">
+                  <div className="flex items-center gap-2.5">
+                    <Truck size={17} className="text-[#D94A2F] shrink-0" />
+                    <span className="font-medium text-[11.5px] leading-tight">Frete Grátis &gt; R$ 259</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <RotateCcw size={17} className="text-[#D94A2F] shrink-0" />
+                    <span className="font-medium text-[11.5px] leading-tight">1ª Troca Grátis 30 Dias</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <CreditCard size={17} className="text-[#D94A2F] shrink-0" />
+                    <span className="font-medium text-[11.5px] leading-tight">Até 6x Sem Juros</span>
+                  </div>
+                  <div className="flex items-center gap-2.5">
+                    <ShieldCheck size={17} className="text-[#D94A2F] shrink-0" />
+                    <span className="font-medium text-[11.5px] leading-tight">Garantia Sandrini 90D</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Abas de Conteúdo Detalhado (Descrição, Ficha Técnica, Avaliações, Medidas) */}
+            <div className="mt-16 border-t border-[#EBEBEB] pt-10">
+              {/* Tab Navigation */}
+              <div className="flex flex-wrap items-center gap-2 border-b border-[#EBEBEB] pb-3 mb-8">
+                {[
+                  { id: "descricao", label: "DESCRIÇÃO DO PRODUTO" },
+                  { id: "especificacoes", label: "ESPECIFICAÇÕES TÉCNICAS" },
+                  { id: "avaliacoes", label: `AVALIAÇÕES (${selectedProduct.reviews})` },
+                  { id: "medidas", label: "TABELA DE MEDIDAS" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`text-xs font-bold tracking-wider uppercase px-4 py-2.5 border-b-2 transition-all cursor-pointer ${
+                      activeTab === tab.id
+                        ? "border-[#D94A2F] text-[#D94A2F] bg-[#D94A2F]/5"
+                        : "border-transparent text-black/60 hover:text-black"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Tab Contents */}
+              <div className="max-w-4xl">
+                {activeTab === "descricao" && (
+                  <div className="space-y-4 text-xs sm:text-sm text-black/80 leading-relaxed font-normal">
+                    <p className="font-semibold text-black text-sm sm:text-base">
+                      O {selectedProduct.name} foi desenvolvido com a mais alta tecnologia esportiva para entregar performance, amortecimento e durabilidade em cada passada.
+                    </p>
+                    <p>
+                      Com cabedal confeccionado em <b>Engineered Mesh respirável</b>, o modelo proporciona ventilação contínua aos pés, evitando o superaquecimento durante treinos intensos e provas de longa distância.
+                    </p>
+                    <p>
+                      A entressola conta com o composto exclusivo <b>Sandrini MaxPulse™</b>, que absorve os impactos com máxima eficiência e devolve a energia em impulsão responsiva para você correr mais longe com menos esforço.
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                      <div className="bg-[#FAFAFA] p-4 border border-[#EBEBEB]">
+                        <h5 className="font-black uppercase text-xs text-black mb-1">Amortecimento Dinâmico</h5>
+                        <p className="text-xs text-black/60">Absorção de impacto contínua com espuma responsiva de alta densidade.</p>
+                      </div>
+                      <div className="bg-[#FAFAFA] p-4 border border-[#EBEBEB]">
+                        <h5 className="font-black uppercase text-xs text-black mb-1">Cabedal AirFlow</h5>
+                        <p className="text-xs text-black/60">Tecido tecnológico perfurado a laser para respirabilidade térmica.</p>
+                      </div>
+                      <div className="bg-[#FAFAFA] p-4 border border-[#EBEBEB]">
+                        <h5 className="font-black uppercase text-xs text-black mb-1">Solado Sandrini Grip</h5>
+                        <p className="text-xs text-black/60">Borracha de alta tração e durabilidade para asfalto e esteira.</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "especificacoes" && (
+                  <div className="border border-[#EBEBEB] divide-y divide-[#EBEBEB] text-xs">
+                    {[
+                      { label: "Categoria", val: selectedProduct.category },
+                      { label: "Drop", val: "8 mm" },
+                      { label: "Peso Aproximado", val: "245g (tamanho 41 individual)" },
+                      { label: "Tipo de Pisada", val: "Neutra / Supinada leve" },
+                      { label: "Cabedal", val: "Engineered Mesh com reforços estruturais" },
+                      { label: "Entressola", val: "Sandrini MaxPulse™ EVA High Rebound" },
+                      { label: "Solado", val: "Borracha vulcanizada antiderrapante" },
+                      { label: "Garantia do Fabricante", val: "90 dias contra defeitos de fabricação" },
+                      { label: "Origem", val: "Nacional (Sandrini Oficial)" },
+                    ].map((row, i) => (
+                      <div key={i} className="grid grid-cols-3 p-3.5 bg-white even:bg-[#FAFAFA]">
+                        <span className="font-bold text-black uppercase">{row.label}</span>
+                        <span className="col-span-2 text-black/70">{row.val}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {activeTab === "avaliacoes" && (
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-4 bg-[#FAFAFA] border border-[#EBEBEB] p-5">
+                      <div className="text-center border-r border-[#EBEBEB] pr-6">
+                        <span className="text-4xl font-black text-black">{selectedProduct.rating}</span>
+                        <div className="flex text-amber-400 justify-center mt-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                          ))}
+                        </div>
+                        <span className="text-[10px] text-black/50 uppercase block mt-1">{selectedProduct.reviews} opiniões</span>
+                      </div>
+                      <div className="text-xs text-black/70 space-y-1">
+                        <p className="font-bold text-black">98% dos clientes recomendam este modelo</p>
+                        <p>Avaliações reais de clientes que compraram e testaram o produto.</p>
+                      </div>
+                    </div>
+
+                    {/* Comentários */}
+                    <div className="space-y-3">
+                      {[
+                        { name: "Lucas M.", date: "Há 3 dias", rating: 5, text: "Tênis sensacional! Muito leve, o amortecimento é perfeito para rodagens de 10km a 21km. Acabamento de primeira linha da Sandrini." },
+                        { name: "Rodrigo S.", date: "Há 1 semana", rating: 5, text: "Superou as expectativas! Confortável demais no pé, não aperta os dedos e a sola agarra muito bem tanto no asfalto quanto na esteira." },
+                        { name: "Carlos Eduardo", date: "Há 2 semanas", rating: 5, text: "Excelente custo-benefício. O design é lindo demais ao vivo, as fotos representam perfeitamente. Entrega muito rápida!" }
+                      ].map((rev, idx) => (
+                        <div key={idx} className="bg-white border border-[#EBEBEB] p-4 space-y-1.5">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold text-xs text-black uppercase">{rev.name}</span>
+                              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5">COMPRA VERIFICADA</span>
+                            </div>
+                            <span className="text-[10px] text-black/40">{rev.date}</span>
+                          </div>
+                          <div className="flex text-amber-400">
+                            {[...Array(rev.rating)].map((_, i) => (
+                              <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
+                            ))}
+                          </div>
+                          <p className="text-xs text-black/75 leading-relaxed">{rev.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "medidas" && (
+                  <div className="space-y-4">
+                    <p className="text-xs text-black/70">
+                      Utilize uma fita métrica ou régua para medir o comprimento do seu pé (do calcanhar à ponta do dedão) e encontre sua numeração ideal:
+                    </p>
+                    <div className="border border-[#EBEBEB] divide-y divide-[#EBEBEB] text-xs">
+                      <div className="grid grid-cols-2 p-3 bg-black text-white font-bold uppercase">
+                        <span>Tamanho BR</span>
+                        <span>Comprimento do Pé (cm)</span>
+                      </div>
+                      {[
+                        { size: "38", cm: "25,5 cm" },
+                        { size: "39", cm: "26,0 cm" },
+                        { size: "40", cm: "26,5 cm" },
+                        { size: "41", cm: "27,5 cm" },
+                        { size: "42", cm: "28,0 cm" },
+                        { size: "43", cm: "29,0 cm" },
+                        { size: "44", cm: "29,5 cm" },
+                      ].map((row, i) => (
+                        <div key={i} className="grid grid-cols-2 p-3 bg-white even:bg-[#FAFAFA]">
+                          <span className="font-bold text-black">{row.size}</span>
+                          <span className="text-black/70">{row.cm}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* 4. Quem Comprou Também Levou (Recomendações) */}
+            <div className="mt-16 border-t border-[#EBEBEB] pt-10">
+              <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#0B0B0B] font-['Montserrat',sans-serif] mb-6">
+                QUEM COMPROU, TAMBÉM LEVOU
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {PRODUCTS.filter((p) => p.id !== selectedProduct.id).slice(0, 4).map((p) => (
+                  <TorxProductCard
+                    key={p.id}
+                    product={p}
+                    onAddToCart={(prod, size) => addToCart(prod, size)}
+                    onClickDetails={(prod, color) => openProductDetails(prod, color)}
+                    isFavorite={favorites.includes(p.id)}
+                    onToggleFavorite={toggleFavorite}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       ) : (
         /* PÁGINA DE CATEGORIA / BUSCA / FAVORITOS */
         <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10 min-h-[70vh]">
@@ -1419,7 +1973,7 @@ export default function App() {
             </div>
             <button
               onClick={() => setCurrentPage("home")}
-              className="text-xs font-bold text-[#D94A2F] hover:underline uppercase"
+              className="text-xs font-bold text-[#D94A2F] hover:underline uppercase cursor-pointer"
             >
               ← Voltar para a Home
             </button>
@@ -1888,144 +2442,52 @@ export default function App() {
         </div>
       )}
 
-      {/* 14. PRODUCT DETAILS MODAL */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-hidden animate-fade-in">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" onClick={() => setSelectedProduct(null)} />
-
-          <div className="relative bg-white max-w-3xl w-full shadow-2xl flex flex-col md:flex-row overflow-y-auto max-h-[90vh] md:max-h-none z-10 border border-[#EBEBEB]">
+      {/* 14. TABELA DE MEDIDAS MODAL */}
+      {sizeGuideOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fade-in">
+          <div className="relative bg-white max-w-lg w-full p-6 shadow-2xl z-10 border border-[#EBEBEB]">
             <button
-              onClick={() => setSelectedProduct(null)}
+              onClick={() => setSizeGuideOpen(false)}
               className="absolute top-4 right-4 z-20 w-8 h-8 bg-white border border-[#EBEBEB] rounded-full flex items-center justify-center hover:bg-black hover:text-white transition-colors cursor-pointer"
             >
               <X size={16} />
             </button>
 
-            {/* Imagem do Modal */}
-            <div className="md:w-1/2 bg-[#FAFAFA] p-6 flex flex-col items-center justify-center border-r border-[#EBEBEB]">
-              <div className="aspect-square w-full flex items-center justify-center relative">
-                <img
-                  src={galleryImages[activeImageIdx] || selectedProduct.img}
-                  alt={selectedProduct.name}
-                  className="max-h-[320px] max-w-full object-contain"
-                />
-              </div>
+            <h3 className="text-xl font-black uppercase text-black font-['Montserrat',sans-serif] mb-2 flex items-center gap-2">
+              <SlidersHorizontal size={18} className="text-[#D94A2F]" />
+              TABELA DE MEDIDAS (GUIA DE TAMANHOS)
+            </h3>
+            <p className="text-xs text-black/70 mb-4">
+              Meça o comprimento do seu pé da ponta do calcanhar à ponta do dedão para escolher o tamanho ideal:
+            </p>
 
-              {galleryImages.length > 1 && (
-                <div className="flex gap-2 mt-4">
-                  {galleryImages.map((img, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setActiveImageIdx(i)}
-                      className={`w-12 h-12 p-1 bg-white border cursor-pointer ${activeImageIdx === i ? "border-2 border-[#D94A2F]" : "border-[#E0E0E0]"
-                        }`}
-                    >
-                      <img src={img} alt="" className="w-full h-full object-contain" />
-                    </button>
-                  ))}
+            <div className="border border-[#EBEBEB] divide-y divide-[#EBEBEB] text-xs mb-6">
+              <div className="grid grid-cols-2 p-3 bg-black text-white font-bold uppercase">
+                <span>Tamanho BR</span>
+                <span>Comprimento do Pé</span>
+              </div>
+              {[
+                { size: "38", cm: "25,5 cm" },
+                { size: "39", cm: "26,0 cm" },
+                { size: "40", cm: "26,5 cm" },
+                { size: "41", cm: "27,5 cm" },
+                { size: "42", cm: "28,0 cm" },
+                { size: "43", cm: "29,0 cm" },
+                { size: "44", cm: "29,5 cm" },
+              ].map((row, i) => (
+                <div key={i} className="grid grid-cols-2 p-3 bg-white even:bg-[#FAFAFA]">
+                  <span className="font-bold text-black">{row.size}</span>
+                  <span className="text-black/70 font-semibold">{row.cm}</span>
                 </div>
-              )}
+              ))}
             </div>
 
-            {/* Detalhes do Modal */}
-            <div className="md:w-1/2 p-6 flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] font-bold tracking-widest uppercase text-[#D94A2F] bg-[#D94A2F]/10 px-2 py-0.5">
-                  {selectedProduct.badge || selectedProduct.category}
-                </span>
-                <h2 className="text-xl sm:text-2xl font-bold uppercase text-black mt-2 mb-2 leading-tight">
-                  {selectedProduct.name}
-                </h2>
-
-                <div className="flex items-center gap-1 mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
-                  ))}
-                  <span className="text-xs text-black/60 ml-2 font-semibold">
-                    {selectedProduct.rating} ({selectedProduct.reviews} avaliações)
-                  </span>
-                </div>
-
-                {/* Bloco de Preços Modal */}
-                <div className="py-3 border-y border-[#EBEBEB] mb-4">
-                  {selectedProduct.originalPrice && (
-                    <span className="text-xs text-black/40 line-through block">
-                      {formatPrice(selectedProduct.originalPrice)}
-                    </span>
-                  )}
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-2xl font-extrabold text-black">
-                      {formatPrice(calculatePixPrice(selectedProduct.price))}
-                    </span>
-                    <span className="text-xs font-bold text-[#D94A2F]">no PIX</span>
-                  </div>
-                  <span className="text-xs text-black/60 font-medium block mt-0.5">
-                    ou {formatPrice(selectedProduct.price)} em até 6x de {formatPrice(selectedProduct.price / 6)} sem juros
-                  </span>
-                </div>
-
-                {/* Cores */}
-                {selectedProduct.colors && (
-                  <div className="mb-4">
-                    <span className="text-xs font-bold text-black uppercase block mb-2">
-                      Cor: {chosenColor}
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProduct.colors.map((c) => (
-                        <button
-                          key={c.name}
-                          onClick={() => {
-                            setChosenColor(c.name);
-                            setActiveImageIdx(0);
-                          }}
-                          className={`px-3 py-1.5 border text-xs font-semibold uppercase flex items-center gap-2 cursor-pointer ${chosenColor === c.name
-                            ? "bg-[#0B0B0B] text-white border-black"
-                            : "bg-white text-black border-[#D0D0D0] hover:border-black"
-                            }`}
-                        >
-                          <span className="w-3 h-3 rounded-full border border-black/20" style={{ backgroundColor: c.hex }} />
-                          {c.name}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Tamanhos */}
-                {selectedProduct.sizes.length > 0 && (
-                  <div className="mb-5">
-                    <span className="text-xs font-bold text-black uppercase block mb-2">
-                      Selecione o Tamanho
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProduct.sizes.map((s) => (
-                        <button
-                          key={s}
-                          onClick={() => setChosenSize(s)}
-                          className={`min-w-[38px] h-9 px-2 border text-xs font-bold uppercase cursor-pointer transition-colors ${chosenSize === s
-                            ? "bg-[#D94A2F] text-white border-[#D94A2F]"
-                            : "bg-white text-black border-[#D0D0D0] hover:border-black"
-                            }`}
-                        >
-                          {s}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <button
-                onClick={() => {
-                  addToCart(selectedProduct, chosenSize, chosenColor);
-                  setSelectedProduct(null);
-                }}
-                className="w-full bg-[#D94A2F] hover:bg-[#0B0B0B] text-white text-xs font-bold tracking-widest py-3.5 uppercase transition-colors shadow-sm cursor-pointer flex items-center justify-center gap-2"
-              >
-                <ShoppingBag size={16} />
-                ADICIONAR À SACOLA
-              </button>
-            </div>
+            <button
+              onClick={() => setSizeGuideOpen(false)}
+              className="w-full bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-black tracking-widest py-3 uppercase transition-colors cursor-pointer"
+            >
+              ENTENDI, FECHAR GUIA
+            </button>
           </div>
         </div>
       )}
