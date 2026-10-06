@@ -787,9 +787,8 @@ export default function App() {
           <nav className="hidden lg:flex items-center gap-7 xl:gap-9 font-['Chakra_Petch',sans-serif]">
             <button
               onClick={() => navigateToCategory("Novidades")}
-              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${
-                currentPage === "Novidades" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-              }`}
+              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${currentPage === "Novidades" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+                }`}
             >
               LANÇAMENTO
               {currentPage === "Novidades" && (
@@ -798,9 +797,8 @@ export default function App() {
             </button>
             <button
               onClick={() => navigateToCategory("Fitness")}
-              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${
-                currentPage === "Fitness" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-              }`}
+              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${currentPage === "Fitness" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+                }`}
             >
               TREINO & ACADEMIA
               {currentPage === "Fitness" && (
@@ -809,9 +807,8 @@ export default function App() {
             </button>
             <button
               onClick={() => navigateToCategory("Corrida")}
-              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${
-                currentPage === "Corrida" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-              }`}
+              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${currentPage === "Corrida" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+                }`}
             >
               CORRIDA
               {currentPage === "Corrida" && (
@@ -820,9 +817,8 @@ export default function App() {
             </button>
             <button
               onClick={() => navigateToCategory("Lifestyle")}
-              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${
-                currentPage === "Lifestyle" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
-              }`}
+              className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all relative py-2 cursor-pointer whitespace-nowrap ${currentPage === "Lifestyle" ? "text-[#D94A2F]" : "text-white hover:text-[#D94A2F]"
+                }`}
             >
               LIFESTYLE
               {currentPage === "Lifestyle" && (
@@ -834,9 +830,8 @@ export default function App() {
             <div className="relative group py-2">
               <button
                 onClick={() => navigateToCategory("Marcas")}
-                className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
-                  currentPage === "Marcas" ? "text-[#D94A2F]" : "text-white group-hover:text-[#D94A2F]"
-                }`}
+                className={`text-[14px] sm:text-[14.5px] font-medium tracking-[0.06em] uppercase transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${currentPage === "Marcas" ? "text-[#D94A2F]" : "text-white group-hover:text-[#D94A2F]"
+                  }`}
               >
                 MARCAS
                 <ChevronDown
