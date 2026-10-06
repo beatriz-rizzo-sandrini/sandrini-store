@@ -567,9 +567,9 @@ function TorxProductCard({
           </p>
         </div>
 
-        {/* Botão de Compra Moderno */}
+        {/* Botão de Compra Moderno (Redireciona para a Página do Produto) */}
         <button
-          onClick={() => onAddToCart(product, product.sizes[0] || "M")}
+          onClick={() => onClickDetails(product, null)}
           className="w-full bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold tracking-wider py-3 rounded-xl uppercase transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 shadow-xs hover:shadow-md font-['Chakra_Petch',sans-serif] group/btn mt-1"
         >
           <ShoppingBag size={14} className="transition-transform group-hover/btn:scale-110" />
