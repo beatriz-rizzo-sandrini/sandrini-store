@@ -438,7 +438,7 @@ function calculatePixPrice(val: number) {
   return val * 0.95;
 }
 
-// Card de produto idêntico à Torx Brasil
+// Card de produto moderno Sandrini Performance
 function TorxProductCard({
   product,
   onAddToCart,
@@ -458,13 +458,13 @@ function TorxProductCard({
 
   return (
     <div
-      className="group flex flex-col bg-white border border-[#F0F0F0] hover:border-black/20 transition-all duration-300 relative rounded-none hover:shadow-md"
+      className="group flex flex-col bg-white border border-black/8 hover:border-black/20 rounded-2xl overflow-hidden transition-all duration-300 relative hover:shadow-xl hover:-translate-y-1.5"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Imagem com Hover Flip */}
+      {/* Imagem com Hover Flip & Aura */}
       <div
-        className="relative aspect-square w-full overflow-hidden bg-white cursor-pointer"
+        className="relative aspect-square w-full overflow-hidden bg-[#F8F9FB] group-hover:bg-[#F3F5F9] transition-colors cursor-pointer p-4 flex items-center justify-center"
         onClick={() => onClickDetails(product, null)}
       >
         {/* Wishlist Heart */}
@@ -473,21 +473,21 @@ function TorxProductCard({
             e.stopPropagation();
             if (onToggleFavorite) onToggleFavorite(product.id);
           }}
-          className="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur-xs flex items-center justify-center text-black/70 hover:text-[#D94A2F] hover:bg-white transition-all shadow-xs cursor-pointer"
+          className="absolute top-3 right-3 z-10 w-8.5 h-8.5 rounded-full bg-white/90 backdrop-blur-xs border border-black/8 flex items-center justify-center text-black/60 hover:text-[#D94A2F] hover:bg-white transition-all shadow-xs cursor-pointer"
           title="Favoritar"
         >
           <Heart size={16} className={isFavorite ? "fill-[#D94A2F] text-[#D94A2F]" : ""} />
         </button>
 
-        {/* Badges Torx Style */}
-        <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1 pointer-events-none">
+        {/* Badges Pill Modernas */}
+        <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5 pointer-events-none items-start">
           {product.discountBadge && (
-            <span className="bg-[#D94A2F] text-white text-[11px] font-bold tracking-wider uppercase px-2 py-0.5">
+            <span className="bg-[#D94A2F] text-white text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-xs font-['Chakra_Petch',sans-serif]">
               {product.discountBadge}
             </span>
           )}
           {product.badge && (
-            <span className="bg-[#0B0B0B] text-white text-[10px] font-bold tracking-widest uppercase px-2 py-0.5">
+            <span className="bg-[#0B0B0B] text-white text-[9.5px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-xs font-['Chakra_Petch',sans-serif]">
               {product.badge}
             </span>
           )}
@@ -497,8 +497,9 @@ function TorxProductCard({
         <img
           src={product.img}
           alt={product.name}
-          className={`absolute inset-0 w-full h-full object-contain p-3 transition-opacity duration-300 ease-in-out ${hovered && product.secondImg ? "opacity-0" : "opacity-100"
-            }`}
+          className={`absolute inset-0 w-full h-full object-contain p-4 transition-all duration-300 ease-out group-hover:scale-105 ${
+            hovered && product.secondImg ? "opacity-0" : "opacity-100"
+          }`}
         />
 
         {/* Segunda Imagem no Hover */}
@@ -506,67 +507,72 @@ function TorxProductCard({
           <img
             src={product.secondImg}
             alt={`${product.name} detalhe`}
-            className={`absolute inset-0 w-full h-full object-contain p-3 transition-opacity duration-300 ease-in-out ${hovered ? "opacity-100" : "opacity-0"
-              }`}
+            className={`absolute inset-0 w-full h-full object-contain p-4 transition-all duration-300 ease-out group-hover:scale-105 ${
+              hovered ? "opacity-100" : "opacity-0"
+            }`}
           />
         )}
       </div>
 
-      {/* Info do Produto Torx */}
-      <div className="p-3 sm:p-4 flex flex-col flex-1 justify-between gap-2.5">
-        <div>
+      {/* Info do Produto */}
+      <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between gap-3">
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between text-[11px] text-black/40 font-semibold font-['Chakra_Petch',sans-serif] uppercase tracking-wider">
+            <span>{product.category || "PERFORMANCE"}</span>
+            <span className="text-emerald-700 font-bold">• EM ESTOQUE</span>
+          </div>
+
           <h3
             onClick={() => onClickDetails(product, null)}
-            className="font-semibold text-[13px] sm:text-[14px] text-[#0B0B0B] leading-snug line-clamp-2 cursor-pointer hover:text-[#D94A2F] transition-colors"
+            className="font-bold text-[13.5px] sm:text-[14.5px] text-[#0B0B0B] leading-snug line-clamp-2 cursor-pointer hover:text-[#D94A2F] transition-colors font-['Chakra_Petch',sans-serif] tracking-[0.01em]"
           >
             {product.name}
           </h3>
         </div>
 
-        {/* Cores disponíveis em swatches */}
+        {/* Cores disponíveis em swatches minimalistas */}
         {product.colors && product.colors.length > 0 && (
           <div className="flex items-center gap-1.5 py-0.5">
             {product.colors.map((c) => (
               <span
                 key={c.name}
-                className="w-3.5 h-3.5 rounded-full border border-black/20 shadow-2xs"
+                className="w-3.5 h-3.5 rounded-full border border-black/20 shadow-2xs hover:scale-125 transition-transform"
                 style={{ backgroundColor: c.hex }}
                 title={c.name}
               />
             ))}
-            <span className="text-[10px] text-black/50 ml-1 font-medium">
+            <span className="text-[10.5px] text-black/45 ml-1 font-medium font-['Chakra_Petch',sans-serif]">
               +{product.colors.length} cores
             </span>
           </div>
         )}
 
-        {/* Bloco de Preços Estilo Torx Brasil */}
-        <div className="pt-2 border-t border-black/5 flex flex-col gap-0.5">
+        {/* Bloco de Preços Limpo & Esportivo */}
+        <div className="pt-2.5 border-t border-black/6 flex flex-col gap-1">
           {product.originalPrice && (
-            <span className="text-xs text-black/40 line-through">
-              {formatPrice(product.originalPrice)}
+            <span className="text-xs text-black/40 line-through font-medium">
+              De {formatPrice(product.originalPrice)}
             </span>
           )}
-          <div className="flex items-baseline gap-1.5 flex-wrap">
-            <span className="text-base font-extrabold text-[#0B0B0B]">
+          <div className="flex items-baseline gap-2 flex-wrap">
+            <span className="text-lg sm:text-xl font-bold text-[#0B0B0B] font-['Chakra_Petch',sans-serif] tracking-tight">
               {formatPrice(pixPrice)}
             </span>
-            <span className="text-xs font-bold text-[#D94A2F]">no PIX</span>
+            <span className="text-[10px] font-bold uppercase text-[#D94A2F] bg-[#D94A2F]/10 px-1.5 py-0.5 rounded font-['Chakra_Petch',sans-serif]">
+              NO PIX
+            </span>
           </div>
           <p className="text-[11px] text-black/60 font-medium">
-            ou {formatPrice(product.price)} em outros meios
-          </p>
-          <p className="text-[11px] text-black/60 font-medium">
-            <b className="text-black">6x de {formatPrice(installmentValue)}</b> sem juros
+            ou <b className="text-black font-semibold">6x de {formatPrice(installmentValue)}</b> sem juros
           </p>
         </div>
 
-        {/* Botão de Compra Torx */}
+        {/* Botão de Compra Moderno */}
         <button
           onClick={() => onAddToCart(product, product.sizes[0] || "M")}
-          className="w-full bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold tracking-widest py-2.5 uppercase transition-colors cursor-pointer flex items-center justify-center gap-2 mt-1"
+          className="w-full bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold tracking-wider py-3 rounded-xl uppercase transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 shadow-xs hover:shadow-md font-['Chakra_Petch',sans-serif] group/btn mt-1"
         >
-          <ShoppingBag size={14} />
+          <ShoppingBag size={14} className="transition-transform group-hover/btn:scale-110" />
           COMPRAR
         </button>
       </div>
@@ -1211,26 +1217,30 @@ export default function App() {
             </div>
           </section>
 
-          {/* 6. VITRINES ROTATIVAS (Torx .rotation-vitrine) */}
-          <section className="py-10 sm:py-14 bg-[#FAFAFA] border-y border-[#EBEBEB]">
+          {/* 6. VITRINES ROTATIVAS SANDRINI PERFORMANCE */}
+          <section className="py-12 sm:py-16 bg-[#FAFAFC] border-y border-black/6">
             <div className="max-w-7xl mx-auto px-4 sm:px-8">
               {/* Vitrine Tabs */}
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 border-b border-[#EBEBEB] pb-4">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-bold uppercase font-['Chakra_Petch',sans-serif] tracking-[0.04em] text-[#0B0B0B]">
+                  <span className="text-[11px] font-bold tracking-widest uppercase text-[#D94A2F] block mb-1 font-['Chakra_Petch',sans-serif]">
+                    COLEÇÃO 2026
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-bold uppercase font-['Chakra_Petch',sans-serif] tracking-[0.03em] text-[#0B0B0B]">
                     {activeVitrineTab}
                   </h2>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="bg-white p-1 rounded-2xl border border-black/8 shadow-2xs inline-flex flex-wrap gap-1">
                   {["CORRIDA", "TREINO & ACADEMIA", "MAIS VENDIDOS", "LANÇAMENTOS", "KITS"].map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveVitrineTab(tab)}
-                      className={`text-xs font-bold tracking-wider px-4 py-2 uppercase transition-all cursor-pointer ${activeVitrineTab === tab
-                        ? "bg-[#0B0B0B] text-white"
-                        : "bg-white text-black/70 border border-[#E0E0E0] hover:border-black hover:text-black"
-                        }`}
+                      className={`text-xs font-bold tracking-wider px-4 py-2 rounded-xl uppercase transition-all cursor-pointer font-['Chakra_Petch',sans-serif] ${
+                        activeVitrineTab === tab
+                          ? "bg-[#0B0B0B] text-white shadow-xs"
+                          : "text-black/60 hover:text-black hover:bg-black/5"
+                      }`}
                     >
                       {tab}
                     </button>
@@ -1239,7 +1249,7 @@ export default function App() {
               </div>
 
               {/* Vitrine Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 {vitrineProducts.slice(0, 8).map((p) => (
                   <TorxProductCard
                     key={p.id}
@@ -1253,13 +1263,13 @@ export default function App() {
               </div>
 
               {/* Ver Todos Button */}
-              <div className="text-center mt-8">
+              <div className="text-center mt-10">
                 <button
                   onClick={() => navigateToCategory(activeVitrineTab === "KITS" ? "Kits" : "Todos")}
-                  className="inline-flex items-center gap-2 border border-black text-black hover:bg-black hover:text-white font-extrabold text-xs tracking-widest px-8 py-3.5 uppercase transition-all cursor-pointer"
+                  className="inline-flex items-center gap-2.5 bg-white hover:bg-[#0B0B0B] text-[#0B0B0B] hover:text-white border border-black/15 hover:border-[#0B0B0B] font-bold text-xs tracking-widest px-8 py-3.5 rounded-xl uppercase transition-all duration-300 cursor-pointer shadow-xs hover:shadow-md font-['Chakra_Petch',sans-serif] group"
                 >
                   VER MAIS PRODUTOS ({vitrineProducts.length})
-                  <ArrowRight size={14} />
+                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
             </div>
