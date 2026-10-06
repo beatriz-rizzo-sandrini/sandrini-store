@@ -797,7 +797,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFFFF] text-[#0B0B0B] font-['Open_Sans',sans-serif] antialiased">
+    <div className="min-h-screen bg-[#FFFFFF] text-[#0B0B0B] font-['Outfit',sans-serif] antialiased">
       {/* 1. TOPO ANÚNCIO ROTATIVO (Torx Header Ticker - Mais Fino & Delicado) */}
       <div className="bg-[#111111] border-b border-white/10 text-white py-1 px-4 text-center text-[10.5px] font-semibold tracking-[0.1em] uppercase overflow-hidden relative select-none">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-4">
@@ -1064,7 +1064,7 @@ export default function App() {
                           )}
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-none mb-2 sm:mb-3 font-['Montserrat',sans-serif]">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-[0.03em] leading-none mb-2 sm:mb-3 font-['Chakra_Petch',sans-serif]">
                           {slide.title}
                         </h1>
 
@@ -1154,12 +1154,12 @@ export default function App() {
                 Ganhe <b>7% OFF</b> com Cupom:
               </span>
               <div className="inline-flex items-center gap-2 bg-[#F9F9F9] border border-[#D94A2F] px-3 py-1 rounded-none">
-                <span className="font-extrabold text-[#D94A2F] tracking-wider uppercase">
+                <span className="font-extrabold text-[#D94A2F] tracking-wider uppercase font-['Chakra_Petch',sans-serif]">
                   BEMVINDOSANDRINI
                 </span>
                 <button
                   onClick={copyCouponCode}
-                  className="text-[11px] font-bold bg-[#D94A2F] text-white px-2.5 py-0.5 hover:bg-black transition-colors flex items-center gap-1 cursor-pointer"
+                  className="text-[11px] font-bold bg-[#D94A2F] text-white px-2.5 py-0.5 hover:bg-black transition-colors flex items-center gap-1 cursor-pointer font-['Chakra_Petch',sans-serif]"
                 >
                   {couponCopied ? (
                     <>
@@ -1192,16 +1192,16 @@ export default function App() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent" />
                     <div className="absolute inset-0 p-6 flex flex-col justify-end text-white">
-                      <span className="text-[10px] font-black tracking-widest text-[#D94A2F] uppercase mb-1">
+                      <span className="text-[10px] font-bold tracking-widest text-[#D94A2F] uppercase mb-1 font-['Chakra_Petch',sans-serif]">
                         {item.badge}
                       </span>
-                      <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight font-['Montserrat',sans-serif] leading-tight mb-1">
+                      <h3 className="text-2xl sm:text-3xl font-bold uppercase tracking-[0.03em] font-['Chakra_Petch',sans-serif] leading-tight mb-1">
                         {item.title}
                       </h3>
                       <p className="text-xs text-white/75 mb-3 line-clamp-2">
                         {item.subtitle}
                       </p>
-                      <div className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-white group-hover:text-[#D94A2F] transition-colors">
+                      <div className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-white group-hover:text-[#D94A2F] transition-colors font-['Chakra_Petch',sans-serif]">
                         CONFERIR <ChevronRight size={14} />
                       </div>
                     </div>
@@ -1217,7 +1217,7 @@ export default function App() {
               {/* Vitrine Tabs */}
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6 border-b border-[#EBEBEB] pb-4">
                 <div>
-                  <h2 className="text-2xl sm:text-3xl font-black uppercase font-['Montserrat',sans-serif] tracking-tight text-[#0B0B0B]">
+                  <h2 className="text-2xl sm:text-3xl font-bold uppercase font-['Chakra_Petch',sans-serif] tracking-[0.04em] text-[#0B0B0B]">
                     {activeVitrineTab}
                   </h2>
                 </div>
@@ -1582,7 +1582,7 @@ export default function App() {
                   {/* 1. Header do Produto */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-bold tracking-widest text-[#D94A2F] uppercase">
+                      <span className="text-[11px] font-bold tracking-widest text-[#D94A2F] uppercase font-['Chakra_Petch',sans-serif]">
                         {selectedProduct.badge || "Sandrini Performance"}
                       </span>
                       <span className="text-[11px] text-black/40 font-mono">
@@ -1590,7 +1590,7 @@ export default function App() {
                       </span>
                     </div>
 
-                    <h1 className="text-2xl sm:text-[28px] font-extrabold tracking-tight text-black leading-tight font-['Montserrat',sans-serif]">
+                    <h1 className="text-2xl sm:text-[28px] font-bold tracking-[0.03em] text-black leading-tight uppercase font-['Chakra_Petch',sans-serif]">
                       {selectedProduct.name}
                     </h1>
 
@@ -1624,10 +1624,10 @@ export default function App() {
                     )}
 
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl sm:text-4xl font-extrabold text-black tracking-tight font-['Montserrat',sans-serif]">
+                      <span className="text-3xl sm:text-4xl font-bold text-black tracking-[0.02em] font-['Chakra_Petch',sans-serif]">
                         {formatPrice(calculatePixPrice(selectedProduct.price))}
                       </span>
-                      <span className="text-xs font-bold text-[#D94A2F] uppercase tracking-wider">
+                      <span className="text-xs font-bold text-[#D94A2F] uppercase tracking-wider font-['Chakra_Petch',sans-serif]">
                         no PIX
                       </span>
                       <span className="text-xs text-black/40 font-normal">
@@ -2183,7 +2183,7 @@ export default function App() {
                       </span>
                     </div>
 
-                    <h1 className="text-2xl sm:text-[32px] font-black uppercase tracking-tight text-[#0B0B0B] leading-tight font-['Montserrat',sans-serif]">
+                    <h1 className="text-2xl sm:text-[30px] font-bold uppercase tracking-[0.03em] text-[#0B0B0B] leading-tight font-['Chakra_Petch',sans-serif]">
                       {selectedProduct.name}
                     </h1>
 
@@ -2191,7 +2191,7 @@ export default function App() {
                     <div className="flex items-center gap-2.5 pt-0.5">
                       <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200/80 px-2.5 py-1 rounded-full text-xs font-bold text-amber-900">
                         <Star size={13} className="fill-amber-400 text-amber-400" />
-                        <span>{selectedProduct.rating}</span>
+                        <span className="font-['Chakra_Petch',sans-serif] font-bold">{selectedProduct.rating}</span>
                         <span className="text-black/40 font-normal">({selectedProduct.reviews} avaliações)</span>
                       </div>
 
@@ -2208,17 +2208,17 @@ export default function App() {
                         <span className="text-black/40 line-through font-medium">
                           De {formatPrice(selectedProduct.originalPrice)}
                         </span>
-                        <span className="bg-[#D94A2F]/10 text-[#D94A2F] font-bold text-[11px] px-2 py-0.5 rounded">
+                        <span className="bg-[#D94A2F]/10 text-[#D94A2F] font-bold text-[11px] px-2 py-0.5 rounded font-['Chakra_Petch',sans-serif]">
                           Economia de {formatPrice(selectedProduct.originalPrice - calculatePixPrice(selectedProduct.price))}
                         </span>
                       </div>
                     )}
 
                     <div className="flex items-baseline gap-2.5 flex-wrap">
-                      <span className="text-3xl sm:text-4xl font-black text-[#0B0B0B] tracking-tight font-['Montserrat',sans-serif]">
+                      <span className="text-3xl sm:text-4xl font-bold text-[#0B0B0B] tracking-[0.02em] font-['Chakra_Petch',sans-serif]">
                         {formatPrice(calculatePixPrice(selectedProduct.price))}
                       </span>
-                      <span className="inline-flex items-center gap-1 bg-[#D94A2F] text-white text-[11px] font-black tracking-wider uppercase px-2.5 py-1 rounded-md shadow-xs">
+                      <span className="inline-flex items-center gap-1 bg-[#D94A2F] text-white text-[11px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md shadow-xs font-['Chakra_Petch',sans-serif]">
                         <Percent size={12} /> 10% OFF NO PIX
                       </span>
                     </div>
@@ -2236,12 +2236,12 @@ export default function App() {
                       <div className="flex items-center gap-2">
                         <Tag size={15} className="text-[#D94A2F]" />
                         <span className="text-[11.5px] text-black/80 font-semibold">
-                          Cupom: <b className="text-[#D94A2F] font-black">BEMVINDOSANDRINI</b>
+                          Cupom: <b className="text-[#D94A2F] font-bold font-['Chakra_Petch',sans-serif]">BEMVINDOSANDRINI</b>
                         </span>
                       </div>
                       <button
                         onClick={copyCouponCode}
-                        className="text-[10.5px] font-bold bg-[#0B0B0B] hover:bg-[#D94A2F] text-white px-3 py-1 rounded-lg uppercase transition-colors cursor-pointer"
+                        className="text-[10.5px] font-bold bg-[#0B0B0B] hover:bg-[#D94A2F] text-white px-3 py-1 rounded-lg uppercase transition-colors cursor-pointer font-['Chakra_Petch',sans-serif]"
                       >
                         {couponCopied ? "Copiado!" : "Copiar"}
                       </button>
@@ -2253,7 +2253,7 @@ export default function App() {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between text-xs">
                         <span className="font-semibold text-black/80">
-                          Cor: <b className="text-black font-extrabold">{chosenColor}</b>
+                          Cor: <b className="text-black font-bold font-['Chakra_Petch',sans-serif]">{chosenColor}</b>
                         </span>
                         <span className="text-[11px] text-black/50 font-medium">
                           {selectedProduct.colors.length} variações disponíveis
@@ -2284,7 +2284,7 @@ export default function App() {
                                   className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
                                 />
                               </div>
-                              <span className="text-[9.5px] font-bold uppercase truncate max-w-full text-black/70">
+                              <span className="text-[9.5px] font-bold uppercase truncate max-w-full text-black/70 font-['Chakra_Petch',sans-serif]">
                                 {c.name.split(" ")[0]}
                               </span>
                               {isSelected && (
@@ -2304,12 +2304,12 @@ export default function App() {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between text-xs">
                         <span className="font-semibold text-black/80">
-                          Tamanho Selecionado: <b className="text-black font-extrabold">{chosenSize} BR</b>
+                          Tamanho Selecionado: <b className="text-black font-bold font-['Chakra_Petch',sans-serif]">{chosenSize} BR</b>
                         </span>
 
                         <button
                           onClick={() => setSizeGuideOpen(true)}
-                          className="text-xs font-bold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 cursor-pointer"
+                          className="text-xs font-bold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 cursor-pointer font-['Chakra_Petch',sans-serif]"
                         >
                           <SlidersHorizontal size={13} /> Guia de Medidas
                         </button>
@@ -2322,13 +2322,13 @@ export default function App() {
                             <button
                               key={s}
                               onClick={() => setChosenSize(s)}
-                              className={`h-12 rounded-xl text-xs font-extrabold uppercase cursor-pointer transition-all flex flex-col items-center justify-center border ${
+                              className={`h-12 rounded-xl text-xs font-bold uppercase cursor-pointer transition-all flex flex-col items-center justify-center border font-['Chakra_Petch',sans-serif] ${
                                 isSelected
                                   ? "bg-[#0B0B0B] text-white border-[#0B0B0B] shadow-md scale-105"
                                   : "bg-white text-black/80 border-black/15 hover:border-black hover:text-black hover:bg-black/5"
                               }`}
                             >
-                              <span>{s}</span>
+                              <span className="text-sm">{s}</span>
                               <span className={`text-[8.5px] font-semibold ${isSelected ? "text-emerald-400" : "text-black/40"}`}>
                                 Disp.
                               </span>
@@ -2349,7 +2349,7 @@ export default function App() {
                         }
                         setCartOpen(true);
                       }}
-                      className="w-full bg-gradient-to-r from-[#D94A2F] via-[#E85D43] to-[#D94A2F] hover:opacity-95 text-white text-sm font-black tracking-widest uppercase transition-all py-4.5 rounded-2xl shadow-lg hover:shadow-xl cursor-pointer flex items-center justify-center gap-3 group/buy"
+                      className="w-full bg-gradient-to-r from-[#D94A2F] via-[#E85D43] to-[#D94A2F] hover:opacity-95 text-white text-sm font-bold tracking-[0.06em] uppercase transition-all py-4.5 rounded-2xl shadow-lg hover:shadow-xl cursor-pointer flex items-center justify-center gap-3 group/buy font-['Chakra_Petch',sans-serif]"
                     >
                       <Zap size={18} className="fill-white transition-transform group-hover/buy:scale-125" />
                       COMPRAR AGORA • 1-CLIQUE
@@ -2358,14 +2358,14 @@ export default function App() {
 
                     {/* Botão Secundário: Adicionar à Sacola */}
                     <div className="flex gap-2.5">
-                      <div className="flex items-center border border-black/20 bg-white rounded-xl overflow-hidden">
+                      <div className="flex items-center border border-black/20 bg-white rounded-xl overflow-hidden font-['Chakra_Petch',sans-serif]">
                         <button
                           onClick={() => setProductQty((q) => Math.max(1, q - 1))}
                           className="w-10 h-12 flex items-center justify-center text-sm font-bold text-black hover:bg-black/5 cursor-pointer"
                         >
                           -
                         </button>
-                        <span className="w-9 text-center font-extrabold text-xs text-black">
+                        <span className="w-9 text-center font-bold text-xs text-black">
                           {productQty}
                         </span>
                         <button
@@ -2382,7 +2382,7 @@ export default function App() {
                             addToCart(selectedProduct, chosenSize, chosenColor);
                           }
                         }}
-                        className="flex-1 bg-[#0B0B0B] hover:bg-[#222222] text-white text-xs font-bold tracking-widest uppercase transition-all rounded-xl cursor-pointer flex items-center justify-center gap-2 h-12 shadow-sm"
+                        className="flex-1 bg-[#0B0B0B] hover:bg-[#222222] text-white text-xs font-bold tracking-[0.06em] uppercase transition-all rounded-xl cursor-pointer flex items-center justify-center gap-2 h-12 shadow-sm font-['Chakra_Petch',sans-serif]"
                       >
                         <ShoppingBag size={16} />
                         ADICIONAR À SACOLA
@@ -2392,7 +2392,7 @@ export default function App() {
 
                   {/* Simulador de Frete Expresso */}
                   <div className="bg-[#FAFAFC] border border-black/8 rounded-2xl p-4 space-y-3">
-                    <span className="text-xs font-bold text-black uppercase tracking-wider flex items-center gap-2">
+                    <span className="text-xs font-bold text-black uppercase tracking-wider flex items-center gap-2 font-['Chakra_Petch',sans-serif]">
                       <Truck size={16} className="text-[#D94A2F]" />
                       Frete e Prazo de Entrega
                     </span>
@@ -2410,7 +2410,7 @@ export default function App() {
                         onClick={() => {
                           if (productCep.length >= 8) setProductShippingResult(true);
                         }}
-                        className="bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold px-5 py-2.5 rounded-xl uppercase transition-colors cursor-pointer"
+                        className="bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold px-5 py-2.5 rounded-xl uppercase transition-colors cursor-pointer font-['Chakra_Petch',sans-serif]"
                       >
                         Calcular
                       </button>
@@ -2426,7 +2426,7 @@ export default function App() {
                               <span className="text-[11px] text-emerald-700">Rastreio monitorado 24h</span>
                             </div>
                           </div>
-                          <span className="font-black text-emerald-700 uppercase bg-white px-2 py-1 rounded">GRÁTIS</span>
+                          <span className="font-bold text-emerald-700 uppercase bg-white px-2 py-1 rounded font-['Chakra_Petch',sans-serif]">GRÁTIS</span>
                         </div>
                         <div className="flex items-center justify-between bg-white text-black p-3 rounded-xl border border-black/10">
                           <div className="flex items-center gap-2">
@@ -2436,7 +2436,7 @@ export default function App() {
                               <span className="text-[11px] text-black/50">Entrega prioritária</span>
                             </div>
                           </div>
-                          <span className="font-black text-black">R$ 14,90</span>
+                          <span className="font-bold text-black font-['Chakra_Petch',sans-serif]">R$ 14,90</span>
                         </div>
                       </div>
                     )}
@@ -2447,7 +2447,7 @@ export default function App() {
                     <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
                       <RotateCcw size={18} className="text-[#D94A2F] shrink-0" />
                       <div>
-                        <span className="font-bold text-black block text-[11px]">1ª Troca Grátis</span>
+                        <span className="font-bold text-black block text-[11px] font-['Chakra_Petch',sans-serif]">1ª Troca Grátis</span>
                         <span className="text-[10px] text-black/50">Até 30 dias após receber</span>
                       </div>
                     </div>
@@ -2455,7 +2455,7 @@ export default function App() {
                     <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
                       <ShieldCheck size={18} className="text-[#D94A2F] shrink-0" />
                       <div>
-                        <span className="font-bold text-black block text-[11px]">Garantia Oficial</span>
+                        <span className="font-bold text-black block text-[11px] font-['Chakra_Petch',sans-serif]">Garantia Oficial</span>
                         <span className="text-[10px] text-black/50">90 dias direto de fábrica</span>
                       </div>
                     </div>
@@ -2463,7 +2463,7 @@ export default function App() {
                     <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
                       <Lock size={18} className="text-[#D94A2F] shrink-0" />
                       <div>
-                        <span className="font-bold text-black block text-[11px]">100% Seguro</span>
+                        <span className="font-bold text-black block text-[11px] font-['Chakra_Petch',sans-serif]">100% Seguro</span>
                         <span className="text-[10px] text-black/50">Criptografia de ponta</span>
                       </div>
                     </div>
@@ -2471,7 +2471,7 @@ export default function App() {
                     <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
                       <Truck size={18} className="text-[#D94A2F] shrink-0" />
                       <div>
-                        <span className="font-bold text-black block text-[11px]">Frete Grátis</span>
+                        <span className="font-bold text-black block text-[11px] font-['Chakra_Petch',sans-serif]">Frete Grátis</span>
                         <span className="text-[10px] text-black/50">Em compras &gt; R$ 259</span>
                       </div>
                     </div>
@@ -2482,10 +2482,10 @@ export default function App() {
               {/* 3. SEÇÃO DE ANATOMIA & ENGENHARIA SANDRINI 2026 (DEEP DIVE VISUAL) */}
               <div className="mt-20 pt-12 border-t border-black/10">
                 <div className="text-center max-w-2xl mx-auto mb-12">
-                  <span className="text-xs font-black tracking-widest text-[#D94A2F] uppercase block mb-2">
+                  <span className="text-xs font-bold tracking-widest text-[#D94A2F] uppercase block mb-2 font-['Chakra_Petch',sans-serif]">
                     SANDRINI PERFORMANCE LABS
                   </span>
-                  <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#0B0B0B] font-['Montserrat',sans-serif]">
+                  <h2 className="text-2xl sm:text-3xl font-bold uppercase tracking-[0.04em] text-[#0B0B0B] font-['Chakra_Petch',sans-serif]">
                     ENGENHARIA & TECNOLOGIA
                   </h2>
                   <p className="text-xs sm:text-sm text-black/60 mt-2">
@@ -2499,10 +2499,10 @@ export default function App() {
                     <div className="w-12 h-12 rounded-2xl bg-[#0B0B0B] text-[#D94A2F] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                       <Zap size={24} />
                     </div>
-                    <span className="text-[10.5px] font-bold tracking-wider text-[#D94A2F] uppercase block mb-1">
+                    <span className="text-[10.5px] font-semibold tracking-wider text-[#D94A2F] uppercase block mb-1 font-['Chakra_Petch',sans-serif]">
                       ABSORÇÃO & RETORNO
                     </span>
-                    <h3 className="text-lg font-black uppercase text-black mb-2 font-['Montserrat',sans-serif]">
+                    <h3 className="text-base sm:text-lg font-bold uppercase text-black mb-2 tracking-[0.03em] font-['Chakra_Petch',sans-serif]">
                       MaxPulse™ EVA
                     </h3>
                     <p className="text-xs text-black/70 leading-relaxed">
@@ -2515,10 +2515,10 @@ export default function App() {
                     <div className="w-12 h-12 rounded-2xl bg-[#0B0B0B] text-[#D94A2F] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                       <Layers size={24} />
                     </div>
-                    <span className="text-[10.5px] font-bold tracking-wider text-[#D94A2F] uppercase block mb-1">
+                    <span className="text-[10.5px] font-semibold tracking-wider text-[#D94A2F] uppercase block mb-1 font-['Chakra_Petch',sans-serif]">
                       RESPIRABILIDADE TÉRMICA
                     </span>
-                    <h3 className="text-lg font-black uppercase text-black mb-2 font-['Montserrat',sans-serif]">
+                    <h3 className="text-base sm:text-lg font-bold uppercase text-black mb-2 tracking-[0.03em] font-['Chakra_Petch',sans-serif]">
                       AirFlow 3D Mesh
                     </h3>
                     <p className="text-xs text-black/70 leading-relaxed">
@@ -2531,10 +2531,10 @@ export default function App() {
                     <div className="w-12 h-12 rounded-2xl bg-[#0B0B0B] text-[#D94A2F] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                       <Activity size={24} />
                     </div>
-                    <span className="text-[10.5px] font-bold tracking-wider text-[#D94A2F] uppercase block mb-1">
+                    <span className="text-[10.5px] font-semibold tracking-wider text-[#D94A2F] uppercase block mb-1 font-['Chakra_Petch',sans-serif]">
                       TRAÇÃO MULTIDIRECIONAL
                     </span>
-                    <h3 className="text-lg font-black uppercase text-black mb-2 font-['Montserrat',sans-serif]">
+                    <h3 className="text-base sm:text-lg font-bold uppercase text-black mb-2 tracking-[0.03em] font-['Chakra_Petch',sans-serif]">
                       CarbonGrip™ Rubber
                     </h3>
                     <p className="text-xs text-black/70 leading-relaxed">
@@ -2547,10 +2547,10 @@ export default function App() {
                     <div className="w-12 h-12 rounded-2xl bg-[#0B0B0B] text-[#D94A2F] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                       <ShieldCheck size={24} />
                     </div>
-                    <span className="text-[10.5px] font-bold tracking-wider text-[#D94A2F] uppercase block mb-1">
+                    <span className="text-[10.5px] font-semibold tracking-wider text-[#D94A2F] uppercase block mb-1 font-['Chakra_Petch',sans-serif]">
                       ESTABILIDADE ANTI-TORÇÃO
                     </span>
-                    <h3 className="text-lg font-black uppercase text-black mb-2 font-['Montserrat',sans-serif]">
+                    <h3 className="text-base sm:text-lg font-bold uppercase text-black mb-2 tracking-[0.03em] font-['Chakra_Petch',sans-serif]">
                       Anatomical Heel Cup
                     </h3>
                     <p className="text-xs text-black/70 leading-relaxed">
@@ -2572,7 +2572,7 @@ export default function App() {
                     <button
                       key={tab.id}
                       onClick={() => setV2ActiveTab(tab.id as any)}
-                      className={`text-xs font-bold tracking-wider uppercase px-5 py-2.5 rounded-full transition-all cursor-pointer ${
+                      className={`text-xs font-bold tracking-[0.04em] uppercase px-5 py-2.5 rounded-full transition-all cursor-pointer font-['Chakra_Petch',sans-serif] ${
                         v2ActiveTab === tab.id
                           ? "bg-[#0B0B0B] text-white shadow-sm"
                           : "bg-[#F4F4F6] text-black/70 hover:bg-black/10 hover:text-black"
@@ -2609,7 +2609,7 @@ export default function App() {
                         { label: "Origem", val: "Nacional (Sandrini Oficial)" },
                       ].map((row, i) => (
                         <div key={i} className="grid grid-cols-3 p-4 bg-white even:bg-[#FAFAFC]">
-                          <span className="font-extrabold text-black uppercase">{row.label}</span>
+                          <span className="font-bold text-black uppercase font-['Chakra_Petch',sans-serif]">{row.label}</span>
                           <span className="col-span-2 text-black/70">{row.val}</span>
                         </div>
                       ))}
@@ -2620,19 +2620,19 @@ export default function App() {
                     <div className="space-y-6">
                       <div className="bg-gradient-to-br from-[#FAFAFC] to-[#F1F3F6] border border-black/8 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6">
                         <div className="text-center sm:border-r border-black/10 sm:pr-8">
-                          <span className="text-5xl font-black text-black font-['Montserrat',sans-serif]">{selectedProduct.rating}</span>
+                          <span className="text-5xl font-bold text-black font-['Chakra_Petch',sans-serif]">{selectedProduct.rating}</span>
                           <div className="flex text-amber-400 justify-center mt-1.5">
                             {[...Array(5)].map((_, i) => (
                               <Star key={i} size={15} className="fill-amber-400 text-amber-400" />
                             ))}
                           </div>
-                          <span className="text-[11px] text-black/50 uppercase font-bold block mt-1">
+                          <span className="text-[11px] text-black/50 uppercase font-bold block mt-1 font-['Chakra_Petch',sans-serif]">
                             {selectedProduct.reviews} Opiniões
                           </span>
                         </div>
 
                         <div className="space-y-1 text-xs text-black/70">
-                          <p className="font-extrabold text-black text-sm">
+                          <p className="font-bold text-black text-sm">
                             ⭐ 98% dos compradores recomendam este produto
                           </p>
                           <p>
@@ -2651,8 +2651,8 @@ export default function App() {
                           <div key={idx} className="bg-white border border-black/8 rounded-2xl p-5 space-y-2 shadow-2xs">
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-2">
-                                <span className="font-bold text-xs text-black uppercase">{rev.name}</span>
-                                <span className="text-[9.5px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                                <span className="font-bold text-xs text-black uppercase font-['Chakra_Petch',sans-serif]">{rev.name}</span>
+                                <span className="text-[9.5px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-['Chakra_Petch',sans-serif]">
                                   VERIFICADO
                                 </span>
                               </div>
@@ -2676,7 +2676,7 @@ export default function App() {
                         Meça seu pé do calcanhar à ponta do dedão para selecionar a numeração com encaixe perfeito:
                       </p>
                       <div className="rounded-2xl border border-black/10 overflow-hidden divide-y divide-black/8 text-xs">
-                        <div className="grid grid-cols-2 p-3.5 bg-[#0B0B0B] text-white font-bold uppercase">
+                        <div className="grid grid-cols-2 p-3.5 bg-[#0B0B0B] text-white font-bold uppercase font-['Chakra_Petch',sans-serif]">
                           <span>Tamanho Brasil</span>
                           <span>Comprimento do Pé (cm)</span>
                         </div>
@@ -2690,7 +2690,7 @@ export default function App() {
                           { size: "44", cm: "29,5 cm" },
                         ].map((row, i) => (
                           <div key={i} className="grid grid-cols-2 p-3.5 bg-white even:bg-[#FAFAFC]">
-                            <span className="font-extrabold text-black">{row.size} BR</span>
+                            <span className="font-bold text-black font-['Chakra_Petch',sans-serif]">{row.size} BR</span>
                             <span className="text-black/70">{row.cm}</span>
                           </div>
                         ))}
@@ -2713,8 +2713,8 @@ export default function App() {
                         />
                       </div>
                       <div className="truncate hidden sm:block">
-                        <h4 className="text-xs font-bold text-white truncate uppercase">{selectedProduct.name}</h4>
-                        <span className="text-[11px] text-[#D94A2F] font-extrabold">
+                        <h4 className="text-xs font-bold text-white truncate uppercase font-['Chakra_Petch',sans-serif]">{selectedProduct.name}</h4>
+                        <span className="text-[11px] text-[#D94A2F] font-bold font-['Chakra_Petch',sans-serif]">
                           {formatPrice(calculatePixPrice(selectedProduct.price))} no PIX
                         </span>
                       </div>
@@ -2723,7 +2723,7 @@ export default function App() {
                     <div className="flex items-center gap-3 shrink-0">
                       <div className="hidden md:flex items-center gap-1.5 text-xs">
                         <span className="text-white/60">Tamanho:</span>
-                        <b className="text-white bg-white/10 px-2 py-0.5 rounded">{chosenSize}</b>
+                        <b className="text-white bg-white/10 px-2 py-0.5 rounded font-['Chakra_Petch',sans-serif]">{chosenSize}</b>
                       </div>
 
                       <button
@@ -2731,7 +2731,7 @@ export default function App() {
                           addToCart(selectedProduct, chosenSize, chosenColor);
                           setCartOpen(true);
                         }}
-                        className="bg-[#D94A2F] hover:bg-white hover:text-black text-white text-xs font-black tracking-wider uppercase px-6 py-3 rounded-xl transition-all cursor-pointer flex items-center gap-2 shadow-md"
+                        className="bg-[#D94A2F] hover:bg-white hover:text-black text-white text-xs font-bold tracking-[0.06em] uppercase px-6 py-3 rounded-xl transition-all cursor-pointer flex items-center gap-2 shadow-md font-['Chakra_Petch',sans-serif]"
                       >
                         <Zap size={14} /> COMPRAR AGORA
                       </button>
@@ -2744,7 +2744,7 @@ export default function App() {
 
           {/* 4. Quem Comprou Também Levou (Recomendações Globais no Rodapé) */}
           <div className="max-w-[1400px] mx-auto px-4 sm:px-8 mt-16 border-t border-[#EBEBEB] pt-10">
-            <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#0B0B0B] font-['Montserrat',sans-serif] mb-6">
+            <h3 className="text-xl sm:text-2xl font-bold uppercase tracking-[0.04em] text-[#0B0B0B] font-['Chakra_Petch',sans-serif] mb-6">
               QUEM COMPROU, TAMBÉM LEVOU
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
