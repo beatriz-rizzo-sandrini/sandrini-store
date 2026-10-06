@@ -28,6 +28,14 @@ import {
   Percent,
   SlidersHorizontal,
   ChevronDown,
+  Zap,
+  Award,
+  Activity,
+  Layers,
+  Eye,
+  CheckCircle2,
+  PackageCheck,
+  Cpu,
 } from "lucide-react";
 import logoImg from "@/imports/logonew-v1-01.png";
 import logoFooterImg from "@/imports/logonew-v1-01.png";
@@ -719,6 +727,22 @@ export default function App() {
   const [productCep, setProductCep] = useState("");
   const [productShippingResult, setProductShippingResult] = useState(false);
   const [activeTab, setActiveTab] = useState<"descricao" | "especificacoes" | "avaliacoes" | "medidas">("descricao");
+  const [productLayoutVersion, setProductLayoutVersion] = useState<"v1" | "v2">("v2");
+  const [v2ActiveTab, setV2ActiveTab] = useState<"tecnologia" | "especificacoes" | "avaliacoes" | "medidas">("tecnologia");
+  const [v2ImageIdx, setV2ImageIdx] = useState(0);
+  const [showStickyBar, setShowStickyBar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 450) {
+        setShowStickyBar(true);
+      } else {
+        setShowStickyBar(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const openProductDetails = (product: Product, defaultColor: string | null = null) => {
     setChosenSize(product.sizes[0] || "41");
@@ -726,6 +750,7 @@ export default function App() {
     setChosenColor(initialColor);
     setSelectedProduct(product);
     setActiveImageIdx(0);
+    setV2ImageIdx(0);
     setProductQty(1);
     setProductShippingResult(false);
     setCurrentPage("product");
@@ -1424,194 +1449,681 @@ export default function App() {
         </>
       ) : currentPage === "product" && selectedProduct ? (
         /* ========================================================================= */
-        /* PÁGINA DE PRODUTO ULTRA-CLEAN & PREMIUM (INSPIRADA EM TORX / NIKE)        */
+        /* PÁGINA DE PRODUTO DUAL-VERSION (VERSÃO 1 TORX & VERSÃO 2 SANDRINI 2026)   */
         /* ========================================================================= */
-        <div className="bg-[#FFFFFF] min-h-screen py-6 sm:py-10 animate-fade-in text-[#111111]">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
-            {/* 1. Breadcrumb Discreto */}
-            <div className="flex items-center justify-between border-b border-black/5 pb-4 mb-8">
-              <nav className="flex items-center gap-2 text-xs font-normal text-black/50">
+        <div className="bg-[#FFFFFF] min-h-screen pb-16 animate-fade-in text-[#111111] font-['Open_Sans',sans-serif]">
+          {/* SWITCHER DE VERSÃO INTERATIVO (STICKY BANNER DE ALTO IMPACTO) */}
+          <div className="bg-[#0B0B0B] border-b border-[#222222] py-2.5 px-4 sticky top-18 sm:top-20 z-30 shadow-md">
+            <div className="max-w-[1400px] mx-auto flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs text-white/80 font-medium">
+                  Alternar Experiência de Produto:
+                </span>
+              </div>
+              <div className="inline-flex p-1 bg-[#1A1A1A] rounded-lg border border-white/10">
+                <button
+                  onClick={() => setProductLayoutVersion("v1")}
+                  className={`px-3.5 py-1.5 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                    productLayoutVersion === "v1"
+                      ? "bg-white text-black shadow-sm"
+                      : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  🏷️ Versão 1 (Torx Minimal)
+                </button>
+                <button
+                  onClick={() => setProductLayoutVersion("v2")}
+                  className={`px-3.5 py-1.5 rounded-md text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    productLayoutVersion === "v2"
+                      ? "bg-[#D94A2F] text-white shadow-md"
+                      : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  ✨ Versão 2 (Sandrini Performance 2026)
+                  <span className="bg-white/20 text-[9px] font-black uppercase px-1.5 py-0.2 rounded">NOVO</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {productLayoutVersion === "v1" ? (
+            /* ========================================================================= */
+            /* VERSÃO 1: TORX MINIMAL CLÁSSICO                                           */
+            /* ========================================================================= */
+            <div className="max-w-[1400px] mx-auto px-4 sm:px-8 pt-6 sm:pt-10">
+              {/* 1. Breadcrumb Discreto */}
+              <div className="flex items-center justify-between border-b border-black/5 pb-4 mb-8">
+                <nav className="flex items-center gap-2 text-xs font-normal text-black/50">
+                  <button
+                    onClick={() => {
+                      setCurrentPage("home");
+                      setSelectedProduct(null);
+                    }}
+                    className="hover:text-black transition-colors cursor-pointer"
+                  >
+                    Início
+                  </button>
+                  <span className="text-black/30">/</span>
+                  <button
+                    onClick={() => {
+                      setCurrentPage(selectedProduct.category);
+                      setSelectedProduct(null);
+                    }}
+                    className="hover:text-black transition-colors cursor-pointer"
+                  >
+                    {selectedProduct.category}
+                  </button>
+                  <span className="text-black/30">/</span>
+                  <span className="text-black font-medium truncate max-w-[240px] sm:max-w-md">
+                    {selectedProduct.name}
+                  </span>
+                </nav>
+
                 <button
                   onClick={() => {
                     setCurrentPage("home");
                     setSelectedProduct(null);
                   }}
-                  className="hover:text-black transition-colors cursor-pointer"
+                  className="text-xs font-semibold text-black/60 hover:text-[#D94A2F] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
                 >
-                  Início
+                  ← Voltar para o catálogo
                 </button>
-                <span className="text-black/30">/</span>
-                <button
-                  onClick={() => {
-                    setCurrentPage(selectedProduct.category);
-                    setSelectedProduct(null);
-                  }}
-                  className="hover:text-black transition-colors cursor-pointer"
-                >
-                  {selectedProduct.category}
-                </button>
-                <span className="text-black/30">/</span>
-                <span className="text-black font-medium truncate max-w-[240px] sm:max-w-md">
-                  {selectedProduct.name}
-                </span>
-              </nav>
+              </div>
 
-              <button
-                onClick={() => {
-                  setCurrentPage("home");
-                  setSelectedProduct(null);
-                }}
-                className="text-xs font-semibold text-black/60 hover:text-[#D94A2F] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
-              >
-                ← Voltar para o catálogo
-              </button>
-            </div>
-
-            {/* 2. Grid Principal: Galeria (Esquerda) + Compra (Direita) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-              {/* COLUNA ESQUERDA: GALERIA DE FOTOS EM GRADE DE 2 COLUNAS */}
-              <div className="lg:col-span-7">
-                <div className="relative">
-                  {/* Selo de Desconto Minimalista */}
-                  {selectedProduct.discountBadge && (
-                    <div className="absolute top-4 left-4 z-10">
-                      <span className="bg-[#D94A2F] text-white text-[11px] font-bold tracking-wider px-3 py-1 uppercase shadow-xs">
-                        {selectedProduct.discountBadge}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Grade de 2 Colunas */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {galleryImages.map((imgUrl, idx) => (
-                      <div
-                        key={idx}
-                        className="group relative bg-[#F8F8F8] overflow-hidden aspect-square flex items-center justify-center p-6 transition-all duration-300 hover:bg-[#F3F3F3]"
-                      >
-                        <img
-                          src={imgUrl}
-                          alt={`${selectedProduct.name} vista ${idx + 1}`}
-                          className="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-105"
-                        />
+              {/* 2. Grid Principal: Galeria (Esquerda) + Compra (Direita) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+                {/* COLUNA ESQUERDA: GALERIA DE FOTOS EM GRADE DE 2 COLUNAS */}
+                <div className="lg:col-span-7">
+                  <div className="relative">
+                    {/* Selo de Desconto Minimalista */}
+                    {selectedProduct.discountBadge && (
+                      <div className="absolute top-4 left-4 z-10">
+                        <span className="bg-[#D94A2F] text-white text-[11px] font-bold tracking-wider px-3 py-1 uppercase shadow-xs">
+                          {selectedProduct.discountBadge}
+                        </span>
                       </div>
-                    ))}
+                    )}
+
+                    {/* Grade de 2 Colunas */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {galleryImages.map((imgUrl, idx) => (
+                        <div
+                          key={idx}
+                          className="group relative bg-[#F8F8F8] overflow-hidden aspect-square flex items-center justify-center p-6 transition-all duration-300 hover:bg-[#F3F3F3]"
+                        >
+                          <img
+                            src={imgUrl}
+                            alt={`${selectedProduct.name} vista ${idx + 1}`}
+                            className="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-105"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Garantia Oficial Sandrini */}
+                  <div className="mt-8 py-5 px-6 bg-[#FAFAFA] border border-[#EAEAEA] flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3.5">
+                      <ShieldCheck className="text-[#D94A2F] shrink-0" size={24} />
+                      <div>
+                        <h4 className="text-xs font-bold text-black uppercase tracking-wide">Produto Oficial Sandrini</h4>
+                        <p className="text-xs text-black/60 mt-0.5">Garantia oficial de 90 dias com Nota Fiscal direta de fábrica.</p>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-bold text-[#D94A2F] uppercase tracking-wider whitespace-nowrap">
+                      100% Original
+                    </span>
                   </div>
                 </div>
 
-                {/* Garantia Oficial Sandrini */}
-                <div className="mt-8 py-5 px-6 bg-[#FAFAFA] border border-[#EAEAEA] flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3.5">
-                    <ShieldCheck className="text-[#D94A2F] shrink-0" size={24} />
-                    <div>
-                      <h4 className="text-xs font-bold text-black uppercase tracking-wide">Produto Oficial Sandrini</h4>
-                      <p className="text-xs text-black/60 mt-0.5">Garantia oficial de 90 dias com Nota Fiscal direta de fábrica.</p>
+                {/* COLUNA DIREITA: INFORMAÇÕES & COMPRA STICKY */}
+                <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+                  {/* 1. Header do Produto */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold tracking-widest text-[#D94A2F] uppercase">
+                        {selectedProduct.badge || "Sandrini Performance"}
+                      </span>
+                      <span className="text-[11px] text-black/40 font-mono">
+                        SAN-{selectedProduct.id}90
+                      </span>
+                    </div>
+
+                    <h1 className="text-2xl sm:text-[28px] font-extrabold tracking-tight text-black leading-tight font-['Montserrat',sans-serif]">
+                      {selectedProduct.name}
+                    </h1>
+
+                    {/* Avaliações */}
+                    <div className="flex items-center gap-2 pt-1 text-xs">
+                      <div className="flex text-amber-400">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
+                        ))}
+                      </div>
+                      <span className="font-bold text-black">{selectedProduct.rating}</span>
+                      <span className="text-black/40">({selectedProduct.reviews} avaliações)</span>
+                      <span className="text-black/20">•</span>
+                      <span className="text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded text-[11px]">
+                        +1.200 vendidos
+                      </span>
                     </div>
                   </div>
-                  <span className="text-[11px] font-bold text-[#D94A2F] uppercase tracking-wider whitespace-nowrap">
-                    100% Original
-                  </span>
+
+                  {/* 2. Preços (Limpo & Destaque) */}
+                  <div className="py-4 border-y border-black/10 space-y-1">
+                    {selectedProduct.originalPrice && (
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="text-black/40 line-through">
+                          De {formatPrice(selectedProduct.originalPrice)}
+                        </span>
+                        <span className="text-[#D94A2F] font-bold text-[11px]">
+                          Economize {formatPrice(selectedProduct.originalPrice - calculatePixPrice(selectedProduct.price))}
+                        </span>
+                      </div>
+                    )}
+
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl sm:text-4xl font-extrabold text-black tracking-tight font-['Montserrat',sans-serif]">
+                        {formatPrice(calculatePixPrice(selectedProduct.price))}
+                      </span>
+                      <span className="text-xs font-bold text-[#D94A2F] uppercase tracking-wider">
+                        no PIX
+                      </span>
+                      <span className="text-xs text-black/40 font-normal">
+                        (10% de desconto)
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-black/60 pt-1 font-normal">
+                      ou <b className="font-semibold text-black">{formatPrice(selectedProduct.price)}</b> em até <b className="font-semibold text-black">6x de {formatPrice(selectedProduct.price / 6)}</b> sem juros no cartão
+                    </p>
+                  </div>
+
+                  {/* 3. Seleção de Cor com Miniaturas Fotográficas Reais */}
+                  {selectedProduct.colors && selectedProduct.colors.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-medium text-black/70">
+                          Cor: <b className="text-black font-bold">{chosenColor}</b>
+                        </span>
+                        <span className="text-[11px] text-black/40">
+                          {selectedProduct.colors.length} opções
+                        </span>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2.5">
+                        {selectedProduct.colors.map((c) => {
+                          const isSelected = chosenColor === c.name;
+                          return (
+                            <button
+                              key={c.name}
+                              onClick={() => {
+                                setChosenColor(c.name);
+                                setActiveImageIdx(0);
+                                setV2ImageIdx(0);
+                              }}
+                              className={`relative w-16 h-16 p-1 bg-[#F9F9F9] border-2 cursor-pointer transition-all ${
+                                isSelected
+                                  ? "border-black shadow-xs scale-105"
+                                  : "border-transparent hover:border-black/30"
+                              }`}
+                              title={c.name}
+                            >
+                              <img
+                                src={c.img}
+                                alt={c.name}
+                                className="w-full h-full object-contain mix-blend-multiply"
+                              />
+                              {isSelected && (
+                                <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-black text-white flex items-center justify-center text-[9px] font-bold">
+                                  ✓
+                                </span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 4. Seleção de Tamanho */}
+                  {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-medium text-black/70">
+                          Tamanho: <b className="text-black font-bold">{chosenSize}</b>
+                        </span>
+
+                        <button
+                          onClick={() => setSizeGuideOpen(true)}
+                          className="text-xs font-semibold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 cursor-pointer"
+                        >
+                          <SlidersHorizontal size={12} /> Tabela de Medidas
+                        </button>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProduct.sizes.map((s) => {
+                          const isSelected = chosenSize === s;
+                          return (
+                            <button
+                              key={s}
+                              onClick={() => setChosenSize(s)}
+                              className={`w-12 h-11 border text-xs font-bold uppercase cursor-pointer transition-all flex items-center justify-center ${
+                                isSelected
+                                  ? "bg-black text-white border-black font-extrabold shadow-xs"
+                                  : "bg-white text-black/80 border-[#E2E2E2] hover:border-black hover:text-black"
+                              }`}
+                            >
+                              {s}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 5. Alerta de Estoque Discreto */}
+                  <div className="flex items-center gap-2 text-xs font-medium text-amber-900 bg-amber-50/80 border border-amber-200/60 px-3.5 py-2.5">
+                    <Flame size={15} className="text-[#D94A2F] shrink-0" />
+                    <span>Poucas unidades restantes no tamanho {chosenSize}.</span>
+                  </div>
+
+                  {/* 6. Botões de Compra */}
+                  <div className="space-y-2.5 pt-1">
+                    <div className="flex gap-2.5">
+                      {/* Quantidade */}
+                      <div className="flex items-center border border-[#D0D0D0] bg-white">
+                        <button
+                          onClick={() => setProductQty((q) => Math.max(1, q - 1))}
+                          className="w-10 h-12 flex items-center justify-center text-sm font-semibold text-black hover:bg-black/5 cursor-pointer"
+                        >
+                          -
+                        </button>
+                        <span className="w-10 text-center font-bold text-xs text-black">
+                          {productQty}
+                        </span>
+                        <button
+                          onClick={() => setProductQty((q) => q + 1)}
+                          className="w-10 h-12 flex items-center justify-center text-sm font-semibold text-black hover:bg-black/5 cursor-pointer"
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      {/* Adicionar à Sacola */}
+                      <button
+                        onClick={() => {
+                          for (let i = 0; i < productQty; i++) {
+                            addToCart(selectedProduct, chosenSize, chosenColor);
+                          }
+                        }}
+                        className="flex-1 bg-[#0B0B0B] hover:bg-[#222222] text-white text-xs font-bold tracking-widest uppercase transition-colors cursor-pointer flex items-center justify-center gap-2 h-12"
+                      >
+                        <ShoppingBag size={16} />
+                        Adicionar à Sacola
+                      </button>
+                    </div>
+
+                    {/* Comprar Agora (Coral Sandrini) */}
+                    <button
+                      onClick={() => {
+                        for (let i = 0; i < productQty; i++) {
+                          addToCart(selectedProduct, chosenSize, chosenColor);
+                        }
+                        setCartOpen(true);
+                      }}
+                      className="w-full bg-[#D94A2F] hover:bg-[#c23e25] text-white text-xs font-extrabold tracking-widest uppercase transition-all py-4 shadow-sm hover:shadow-md cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      Comprar Agora
+                      <ArrowRight size={16} />
+                    </button>
+                  </div>
+
+                  {/* 7. Cálculo de Frete Limpo */}
+                  <div className="pt-4 border-t border-black/10 space-y-3">
+                    <span className="text-xs font-bold text-black uppercase tracking-wider flex items-center gap-1.5">
+                      <Truck size={15} className="text-[#D94A2F]" />
+                      Calcular Frete e Prazo
+                    </span>
+
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        maxLength={9}
+                        value={productCep}
+                        onChange={(e) => setProductCep(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                        placeholder="00000-000"
+                        className="flex-1 bg-white border border-[#D0D0D0] px-3.5 py-2.5 text-xs outline-none focus:border-black font-medium uppercase"
+                      />
+                      <button
+                        onClick={() => {
+                          if (productCep.length >= 8) setProductShippingResult(true);
+                        }}
+                        className="bg-black hover:bg-[#D94A2F] text-white text-xs font-bold px-5 py-2.5 uppercase transition-colors cursor-pointer"
+                      >
+                        Calcular
+                      </button>
+                    </div>
+
+                    {productShippingResult && (
+                      <div className="space-y-2 pt-2 text-xs">
+                        <div className="flex items-center justify-between bg-emerald-50 text-emerald-950 p-3 border border-emerald-200">
+                          <span className="font-semibold">🚚 PAC Econômico (4 a 6 dias úteis)</span>
+                          <span className="font-bold text-emerald-700 uppercase">GRÁTIS</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-white text-black p-3 border border-[#E0E0E0]">
+                          <span className="font-semibold">⚡ Sedex Expresso (1 a 2 dias úteis)</span>
+                          <span className="font-bold text-black">R$ 14,90</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 8. 4 Benefícios e Confiança */}
+                  <div className="grid grid-cols-2 gap-3 pt-2 text-xs text-black/80">
+                    <div className="flex items-center gap-2.5">
+                      <Truck size={17} className="text-[#D94A2F] shrink-0" />
+                      <span className="font-medium text-[11.5px] leading-tight">Frete Grátis &gt; R$ 259</span>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <RotateCcw size={17} className="text-[#D94A2F] shrink-0" />
+                      <span className="font-medium text-[11.5px] leading-tight">1ª Troca Grátis 30 Dias</span>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <CreditCard size={17} className="text-[#D94A2F] shrink-0" />
+                      <span className="font-medium text-[11.5px] leading-tight">Até 6x Sem Juros</span>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <ShieldCheck size={17} className="text-[#D94A2F] shrink-0" />
+                      <span className="font-medium text-[11.5px] leading-tight">Garantia Sandrini 90D</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* COLUNA DIREITA: INFORMAÇÕES & COMPRA STICKY */}
-              <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-6">
-                {/* 1. Header do Produto */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold tracking-widest text-[#D94A2F] uppercase">
-                      {selectedProduct.badge || "Sandrini Performance"}
-                    </span>
-                    <span className="text-[11px] text-black/40 font-mono">
-                      SAN-{selectedProduct.id}90
-                    </span>
-                  </div>
-
-                  <h1 className="text-2xl sm:text-[28px] font-extrabold tracking-tight text-black leading-tight font-['Montserrat',sans-serif]">
-                    {selectedProduct.name}
-                  </h1>
-
-                  {/* Avaliações */}
-                  <div className="flex items-center gap-2 pt-1 text-xs">
-                    <div className="flex text-amber-400">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={13} className="fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                    <span className="font-bold text-black">{selectedProduct.rating}</span>
-                    <span className="text-black/40">({selectedProduct.reviews} avaliações)</span>
-                    <span className="text-black/20">•</span>
-                    <span className="text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded text-[11px]">
-                      +1.200 vendidos
-                    </span>
-                  </div>
+              {/* 3. Abas de Conteúdo Detalhado Versão 1 */}
+              <div className="mt-16 border-t border-[#EBEBEB] pt-10">
+                <div className="flex flex-wrap items-center gap-2 border-b border-[#EBEBEB] pb-3 mb-8">
+                  {[
+                    { id: "descricao", label: "DESCRIÇÃO DO PRODUTO" },
+                    { id: "especificacoes", label: "ESPECIFICAÇÕES TÉCNICAS" },
+                    { id: "avaliacoes", label: `AVALIAÇÕES (${selectedProduct.reviews})` },
+                    { id: "medidas", label: "TABELA DE MEDIDAS" },
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id as any)}
+                      className={`text-xs font-bold tracking-wider uppercase px-4 py-2.5 border-b-2 transition-all cursor-pointer ${
+                        activeTab === tab.id
+                          ? "border-[#D94A2F] text-[#D94A2F] bg-[#D94A2F]/5"
+                          : "border-transparent text-black/60 hover:text-black"
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
                 </div>
 
-                {/* 2. Preços (Limpo & Destaque) */}
-                <div className="py-4 border-y border-black/10 space-y-1">
-                  {selectedProduct.originalPrice && (
-                    <div className="flex items-center gap-2 text-xs">
-                      <span className="text-black/40 line-through">
-                        De {formatPrice(selectedProduct.originalPrice)}
-                      </span>
-                      <span className="text-[#D94A2F] font-bold text-[11px]">
-                        Economize {formatPrice(selectedProduct.originalPrice - calculatePixPrice(selectedProduct.price))}
-                      </span>
+                <div className="max-w-4xl">
+                  {activeTab === "descricao" && (
+                    <div className="space-y-4 text-xs sm:text-sm text-black/80 leading-relaxed font-normal">
+                      <p className="font-semibold text-black text-sm sm:text-base">
+                        O {selectedProduct.name} foi desenvolvido com a mais alta tecnologia esportiva para entregar performance, amortecimento e durabilidade em cada passada.
+                      </p>
+                      <p>
+                        Com cabedal confeccionado em <b>Engineered Mesh respirável</b>, o modelo proporciona ventilação contínua aos pés, evitando o superaquecimento durante treinos intensos e provas de longa distância.
+                      </p>
+                      <p>
+                        A entressola conta com o composto exclusivo <b>Sandrini MaxPulse™</b>, que absorve os impactos com máxima eficiência e devolve a energia em impulsão responsiva para você correr mais longe com menos esforço.
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                        <div className="bg-[#FAFAFA] p-4 border border-[#EBEBEB]">
+                          <h5 className="font-black uppercase text-xs text-black mb-1">Amortecimento Dinâmico</h5>
+                          <p className="text-xs text-black/60">Absorção de impacto contínua com espuma responsiva de alta densidade.</p>
+                        </div>
+                        <div className="bg-[#FAFAFA] p-4 border border-[#EBEBEB]">
+                          <h5 className="font-black uppercase text-xs text-black mb-1">Cabedal AirFlow</h5>
+                          <p className="text-xs text-black/60">Tecido tecnológico perfurado a laser para respirabilidade térmica.</p>
+                        </div>
+                        <div className="bg-[#FAFAFA] p-4 border border-[#EBEBEB]">
+                          <h5 className="font-black uppercase text-xs text-black mb-1">Solado Sandrini Grip</h5>
+                          <p className="text-xs text-black/60">Borracha de alta tração e durabilidade para asfalto e esteira.</p>
+                        </div>
+                      </div>
                     </div>
                   )}
 
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-3xl sm:text-4xl font-extrabold text-black tracking-tight font-['Montserrat',sans-serif]">
-                      {formatPrice(calculatePixPrice(selectedProduct.price))}
-                    </span>
-                    <span className="text-xs font-bold text-[#D94A2F] uppercase tracking-wider">
-                      no PIX
-                    </span>
-                    <span className="text-xs text-black/40 font-normal">
-                      (10% de desconto)
-                    </span>
-                  </div>
+                  {activeTab === "especificacoes" && (
+                    <div className="border border-[#EBEBEB] divide-y divide-[#EBEBEB] text-xs">
+                      {[
+                        { label: "Categoria", val: selectedProduct.category },
+                        { label: "Drop", val: "8 mm" },
+                        { label: "Peso Aproximado", val: "245g (tamanho 41 individual)" },
+                        { label: "Tipo de Pisada", val: "Neutra / Supinada leve" },
+                        { label: "Cabedal", val: "Engineered Mesh com reforços estruturais" },
+                        { label: "Entressola", val: "Sandrini MaxPulse™ EVA High Rebound" },
+                        { label: "Solado", val: "Borracha vulcanizada antiderrapante" },
+                        { label: "Garantia do Fabricante", val: "90 dias contra defeitos de fabricação" },
+                        { label: "Origem", val: "Nacional (Sandrini Oficial)" },
+                      ].map((row, i) => (
+                        <div key={i} className="grid grid-cols-3 p-3.5 bg-white even:bg-[#FAFAFA]">
+                          <span className="font-bold text-black uppercase">{row.label}</span>
+                          <span className="col-span-2 text-black/70">{row.val}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
-                  <p className="text-xs text-black/60 pt-1 font-normal">
-                    ou <b className="font-semibold text-black">{formatPrice(selectedProduct.price)}</b> em até <b className="font-semibold text-black">6x de {formatPrice(selectedProduct.price / 6)}</b> sem juros no cartão
-                  </p>
+                  {activeTab === "avaliacoes" && (
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-4 bg-[#FAFAFA] border border-[#EBEBEB] p-5">
+                        <div className="text-center border-r border-[#EBEBEB] pr-6">
+                          <span className="text-4xl font-black text-black">{selectedProduct.rating}</span>
+                          <div className="flex text-amber-400 justify-center mt-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                            ))}
+                          </div>
+                          <span className="text-[10px] text-black/50 uppercase block mt-1">{selectedProduct.reviews} opiniões</span>
+                        </div>
+                        <div className="text-xs text-black/70 space-y-1">
+                          <p className="font-bold text-black">98% dos clientes recomendam este modelo</p>
+                          <p>Avaliações reais de clientes que compraram e testaram o produto.</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3">
+                        {[
+                          { name: "Lucas M.", date: "Há 3 dias", rating: 5, text: "Tênis sensacional! Muito leve, o amortecimento é perfeito para rodagens de 10km a 21km. Acabamento de primeira linha da Sandrini." },
+                          { name: "Rodrigo S.", date: "Há 1 semana", rating: 5, text: "Superou as expectativas! Confortável demais no pé, não aperta os dedos e a sola agarra muito bem tanto no asfalto quanto na esteira." },
+                          { name: "Carlos Eduardo", date: "Há 2 semanas", rating: 5, text: "Excelente custo-benefício. O design é lindo demais ao vivo, as fotos representam perfeitamente. Entrega muito rápida!" }
+                        ].map((rev, idx) => (
+                          <div key={idx} className="bg-white border border-[#EBEBEB] p-4 space-y-1.5">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="font-bold text-xs text-black uppercase">{rev.name}</span>
+                                <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5">COMPRA VERIFICADA</span>
+                              </div>
+                              <span className="text-[10px] text-black/40">{rev.date}</span>
+                            </div>
+                            <div className="flex text-amber-400">
+                              {[...Array(rev.rating)].map((_, i) => (
+                                <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
+                              ))}
+                            </div>
+                            <p className="text-xs text-black/75 leading-relaxed">{rev.text}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === "medidas" && (
+                    <div className="space-y-4">
+                      <p className="text-xs text-black/70">
+                        Utilize uma fita métrica ou régua para medir o comprimento do seu pé (do calcanhar à ponta do dedão) e encontre sua numeração ideal:
+                      </p>
+                      <div className="border border-[#EBEBEB] divide-y divide-[#EBEBEB] text-xs">
+                        <div className="grid grid-cols-2 p-3 bg-black text-white font-bold uppercase">
+                          <span>Tamanho BR</span>
+                          <span>Comprimento do Pé (cm)</span>
+                        </div>
+                        {[
+                          { size: "38", cm: "25,5 cm" },
+                          { size: "39", cm: "26,0 cm" },
+                          { size: "40", cm: "26,5 cm" },
+                          { size: "41", cm: "27,5 cm" },
+                          { size: "42", cm: "28,0 cm" },
+                          { size: "43", cm: "29,0 cm" },
+                          { size: "44", cm: "29,5 cm" },
+                        ].map((row, i) => (
+                          <div key={i} className="grid grid-cols-2 p-3 bg-white even:bg-[#FAFAFA]">
+                            <span className="font-bold text-black">{row.size}</span>
+                            <span className="text-black/70">{row.cm}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
+              </div>
+            </div>
+          ) : (
+            /* ========================================================================= */
+            /* VERSÃO 2: SANDRINI PERFORMANCE 2026 (ULTRA-MODERNO, TECH & STATE OF THE ART) */
+            /* ========================================================================= */
+            <div className="max-w-[1440px] mx-auto px-4 sm:px-8 pt-6 sm:pt-10">
+              {/* 1. Header de Navegação Futurista & Tagline */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/8 pb-4 mb-8">
+                <nav className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-black/50">
+                  <button
+                    onClick={() => {
+                      setCurrentPage("home");
+                      setSelectedProduct(null);
+                    }}
+                    className="hover:text-[#D94A2F] transition-colors cursor-pointer"
+                  >
+                    Sandrini
+                  </button>
+                  <ChevronRight size={13} className="text-black/30" />
+                  <button
+                    onClick={() => {
+                      setCurrentPage(selectedProduct.category);
+                      setSelectedProduct(null);
+                    }}
+                    className="hover:text-[#D94A2F] transition-colors cursor-pointer text-black/70"
+                  >
+                    {selectedProduct.category}
+                  </button>
+                  <ChevronRight size={13} className="text-black/30" />
+                  <span className="text-[#0B0B0B] font-bold truncate max-w-[200px] sm:max-w-md">
+                    {selectedProduct.name}
+                  </span>
+                </nav>
 
-                {/* 3. Seleção de Cor com Miniaturas Fotográficas Reais */}
-                {selectedProduct.colors && selectedProduct.colors.length > 0 && (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-black/70">
-                        Cor: <b className="text-black font-bold">{chosenColor}</b>
-                      </span>
-                      <span className="text-[11px] text-black/40">
-                        {selectedProduct.colors.length} opções
-                      </span>
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex items-center gap-1.5 bg-[#0B0B0B] text-white text-[10.5px] font-extrabold tracking-widest uppercase px-3 py-1 rounded-full shadow-xs">
+                    <Zap size={12} className="text-[#D94A2F] fill-[#D94A2F]" />
+                    LABS PRO 2026
+                  </span>
+                  <button
+                    onClick={() => {
+                      setCurrentPage("home");
+                      setSelectedProduct(null);
+                    }}
+                    className="text-xs font-bold text-black/60 hover:text-[#D94A2F] transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+                  >
+                    ← Voltar ao Início
+                  </button>
+                </div>
+              </div>
+
+              {/* 2. Grid Principal: Palco Visual de Performance (Esquerda) + Cápsula de Compra High-Tech (Direita) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                {/* COLUNA ESQUERDA (7 COLS): PALCO DE EXIBIÇÃO AMBIENTAL MULTI-ÂNGULO */}
+                <div className="lg:col-span-7 space-y-6">
+                  {/* Palco Principal do Produto com Iluminação Studio & Efeito Flutuante */}
+                  <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-[#F6F7FA] via-[#ECEFF4] to-[#F8F9FB] border border-black/8 p-6 sm:p-12 shadow-sm transition-all">
+                    {/* Top Overlay Badges */}
+                    <div className="flex items-center justify-between gap-2 absolute top-5 left-5 right-5 z-10 pointer-events-none">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="bg-[#D94A2F] text-white text-[11px] font-black tracking-widest uppercase px-3 py-1 rounded-md shadow-sm">
+                          {selectedProduct.discountBadge || "-10% NO PIX"}
+                        </span>
+                        <span className="bg-white/90 backdrop-blur-md text-[#0B0B0B] text-[10.5px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md border border-black/10">
+                          ED. LIMITADA 2026
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 pointer-events-auto">
+                        <button
+                          onClick={() => toggleFavorite(selectedProduct.id)}
+                          className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-md border border-black/10 flex items-center justify-center text-black/70 hover:text-[#D94A2F] hover:bg-white transition-all shadow-xs cursor-pointer"
+                          title="Favoritar"
+                        >
+                          <Heart
+                            size={18}
+                            className={favorites.includes(selectedProduct.id) ? "fill-[#D94A2F] text-[#D94A2F]" : ""}
+                          />
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-2.5">
-                      {selectedProduct.colors.map((c) => {
-                        const isSelected = chosenColor === c.name;
+                    {/* Imagem Central em Alta Definição */}
+                    <div className="relative aspect-[4/3] w-full flex items-center justify-center select-none py-4">
+                      {/* Aura Dinâmica de Fundo */}
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-[#D94A2F]/10 blur-3xl" />
+                      </div>
+
+                      <img
+                        src={galleryImages[v2ImageIdx] || galleryImages[0] || selectedProduct.img}
+                        alt={`${selectedProduct.name} ângulo ${v2ImageIdx + 1}`}
+                        className="relative z-10 max-h-[340px] sm:max-h-[420px] w-auto max-w-full object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.18)] transition-all duration-500 ease-out hover:scale-105"
+                      />
+
+                      {/* Sombra de Contato Studio */}
+                      <div className="absolute bottom-2 sm:bottom-4 w-3/4 h-5 bg-black/25 blur-lg rounded-full" />
+                    </div>
+
+                    {/* Tag de Ângulo Atual */}
+                    <div className="absolute bottom-4 right-5 z-10 bg-black/80 backdrop-blur-md text-white text-[10.5px] font-bold tracking-widest uppercase px-3 py-1 rounded-full">
+                      VISTA {v2ImageIdx + 1} DE {galleryImages.length}
+                    </div>
+                  </div>
+
+                  {/* Carrossel / Miniaturas de Ângulos Interativos */}
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-black uppercase tracking-wider flex items-center gap-1.5">
+                        <Eye size={14} className="text-[#D94A2F]" />
+                        Ângulos de Alta Resolução ({galleryImages.length} vistas)
+                      </span>
+                      <span className="text-[11px] text-black/50">Clique para alternar o visual</span>
+                    </div>
+
+                    <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
+                      {galleryImages.map((imgUrl, idx) => {
+                        const isCurrent = v2ImageIdx === idx;
                         return (
                           <button
-                            key={c.name}
-                            onClick={() => {
-                              setChosenColor(c.name);
-                              setActiveImageIdx(0);
-                            }}
-                            className={`relative w-16 h-16 p-1 bg-[#F9F9F9] border-2 cursor-pointer transition-all ${
-                              isSelected
-                                ? "border-black shadow-xs scale-105"
-                                : "border-transparent hover:border-black/30"
+                            key={idx}
+                            onClick={() => setV2ImageIdx(idx)}
+                            className={`group relative aspect-square rounded-2xl overflow-hidden bg-[#F7F7F9] p-2 border-2 transition-all cursor-pointer ${
+                              isCurrent
+                                ? "border-[#D94A2F] shadow-md scale-105 bg-white"
+                                : "border-black/5 hover:border-black/30 hover:bg-white"
                             }`}
-                            title={c.name}
                           >
                             <img
-                              src={c.img}
-                              alt={c.name}
-                              className="w-full h-full object-contain mix-blend-multiply"
+                              src={imgUrl}
+                              alt={`Ângulo ${idx + 1}`}
+                              className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
                             />
-                            {isSelected && (
-                              <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-black text-white flex items-center justify-center text-[9px] font-bold">
+                            {isCurrent && (
+                              <span className="absolute bottom-1 right-1 w-3.5 h-3.5 bg-[#D94A2F] text-white rounded-full flex items-center justify-center text-[8px] font-black">
                                 ✓
                               </span>
                             )}
@@ -1620,331 +2132,632 @@ export default function App() {
                       })}
                     </div>
                   </div>
-                )}
 
-                {/* 4. Seleção de Tamanho */}
-                {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-black/70">
-                        Tamanho: <b className="text-black font-bold">{chosenSize}</b>
-                      </span>
-
-                      <button
-                        onClick={() => setSizeGuideOpen(true)}
-                        className="text-xs font-semibold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 cursor-pointer"
-                      >
-                        <SlidersHorizontal size={12} /> Tabela de Medidas
-                      </button>
+                  {/* 3 Cartões de Destaque de Engenharia / Specs no Palco */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-2">
+                    <div className="bg-[#FAFAFC] border border-black/6 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
+                      <div className="w-10 h-10 rounded-xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                        <Zap size={20} />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-black/40 uppercase tracking-widest block">Amortecimento</span>
+                        <h5 className="text-xs font-extrabold text-black">MaxPulse™ EVA</h5>
+                      </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProduct.sizes.map((s) => {
-                        const isSelected = chosenSize === s;
-                        return (
-                          <button
-                            key={s}
-                            onClick={() => setChosenSize(s)}
-                            className={`w-12 h-11 border text-xs font-bold uppercase cursor-pointer transition-all flex items-center justify-center ${
-                              isSelected
-                                ? "bg-black text-white border-black font-extrabold shadow-xs"
-                                : "bg-white text-black/80 border-[#E2E2E2] hover:border-black hover:text-black"
-                            }`}
-                          >
-                            {s}
-                          </button>
-                        );
-                      })}
+                    <div className="bg-[#FAFAFC] border border-black/6 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
+                      <div className="w-10 h-10 rounded-xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                        <Activity size={20} />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-black/40 uppercase tracking-widest block">Drop Dinâmico</span>
+                        <h5 className="text-xs font-extrabold text-black">8 mm / 245g</h5>
+                      </div>
+                    </div>
+
+                    <div className="bg-[#FAFAFC] border border-black/6 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
+                      <div className="w-10 h-10 rounded-xl bg-[#D94A2F]/10 text-[#D94A2F] flex items-center justify-center shrink-0">
+                        <Award size={20} />
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-black/40 uppercase tracking-widest block">Certificado</span>
+                        <h5 className="text-xs font-extrabold text-black">100% Original</h5>
+                      </div>
                     </div>
                   </div>
-                )}
-
-                {/* 5. Alerta de Estoque Discreto */}
-                <div className="flex items-center gap-2 text-xs font-medium text-amber-900 bg-amber-50/80 border border-amber-200/60 px-3.5 py-2.5">
-                  <Flame size={15} className="text-[#D94A2F] shrink-0" />
-                  <span>Poucas unidades restantes no tamanho {chosenSize}.</span>
                 </div>
 
-                {/* 6. Botões de Compra */}
-                <div className="space-y-2.5 pt-1">
-                  <div className="flex gap-2.5">
-                    {/* Quantidade */}
-                    <div className="flex items-center border border-[#D0D0D0] bg-white">
-                      <button
-                        onClick={() => setProductQty((q) => Math.max(1, q - 1))}
-                        className="w-10 h-12 flex items-center justify-center text-sm font-semibold text-black hover:bg-black/5 cursor-pointer"
-                      >
-                        -
-                      </button>
-                      <span className="w-10 text-center font-bold text-xs text-black">
-                        {productQty}
+                {/* COLUNA DIREITA (5 COLS): CÁPSULA DE COMPRA HIGH-TECH STICKY */}
+                <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+                  {/* Bloco de Título & Identificação */}
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+                        <span className="text-[11px] font-bold text-emerald-700 tracking-wider uppercase">
+                          Em Estoque no CD • Envio em 24h
+                        </span>
+                      </div>
+                      <span className="text-[11px] text-black/40 font-mono tracking-wider">
+                        REF: SAN-{selectedProduct.id}90
                       </span>
-                      <button
-                        onClick={() => setProductQty((q) => q + 1)}
-                        className="w-10 h-12 flex items-center justify-center text-sm font-semibold text-black hover:bg-black/5 cursor-pointer"
-                      >
-                        +
-                      </button>
                     </div>
 
-                    {/* Adicionar à Sacola */}
+                    <h1 className="text-2xl sm:text-[32px] font-black uppercase tracking-tight text-[#0B0B0B] leading-tight font-['Montserrat',sans-serif]">
+                      {selectedProduct.name}
+                    </h1>
+
+                    {/* Social Proof & Rating Pill */}
+                    <div className="flex items-center gap-2.5 pt-0.5">
+                      <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200/80 px-2.5 py-1 rounded-full text-xs font-bold text-amber-900">
+                        <Star size={13} className="fill-amber-400 text-amber-400" />
+                        <span>{selectedProduct.rating}</span>
+                        <span className="text-black/40 font-normal">({selectedProduct.reviews} avaliações)</span>
+                      </div>
+
+                      <span className="text-xs font-semibold text-black/60">
+                        ⚡ <b>98%</b> de aprovação
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Matriz de Preço Moderno com Foco em PIX */}
+                  <div className="bg-gradient-to-br from-[#FAFAFC] to-[#F2F4F8] border border-black/8 rounded-2xl p-5 space-y-3 shadow-2xs">
+                    {selectedProduct.originalPrice && (
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-black/40 line-through font-medium">
+                          De {formatPrice(selectedProduct.originalPrice)}
+                        </span>
+                        <span className="bg-[#D94A2F]/10 text-[#D94A2F] font-bold text-[11px] px-2 py-0.5 rounded">
+                          Economia de {formatPrice(selectedProduct.originalPrice - calculatePixPrice(selectedProduct.price))}
+                        </span>
+                      </div>
+                    )}
+
+                    <div className="flex items-baseline gap-2.5 flex-wrap">
+                      <span className="text-3xl sm:text-4xl font-black text-[#0B0B0B] tracking-tight font-['Montserrat',sans-serif]">
+                        {formatPrice(calculatePixPrice(selectedProduct.price))}
+                      </span>
+                      <span className="inline-flex items-center gap-1 bg-[#D94A2F] text-white text-[11px] font-black tracking-wider uppercase px-2.5 py-1 rounded-md shadow-xs">
+                        <Percent size={12} /> 10% OFF NO PIX
+                      </span>
+                    </div>
+
+                    <div className="pt-2 border-t border-black/8 flex items-center justify-between text-xs text-black/70">
+                      <div className="flex items-center gap-1.5 font-medium">
+                        <CreditCard size={15} className="text-[#D94A2F]" />
+                        <span>ou <b>6x de {formatPrice(selectedProduct.price / 6)}</b> sem juros</span>
+                      </div>
+                      <span className="text-[11px] text-black/40">Total: {formatPrice(selectedProduct.price)}</span>
+                    </div>
+
+                    {/* Atalho de Cupom Sandrini */}
+                    <div className="bg-white border border-[#D94A2F]/30 rounded-xl p-2.5 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <Tag size={15} className="text-[#D94A2F]" />
+                        <span className="text-[11.5px] text-black/80 font-semibold">
+                          Cupom: <b className="text-[#D94A2F] font-black">BEMVINDOSANDRINI</b>
+                        </span>
+                      </div>
+                      <button
+                        onClick={copyCouponCode}
+                        className="text-[10.5px] font-bold bg-[#0B0B0B] hover:bg-[#D94A2F] text-white px-3 py-1 rounded-lg uppercase transition-colors cursor-pointer"
+                      >
+                        {couponCopied ? "Copiado!" : "Copiar"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Seletor Visual de Cores com Fotos Reais */}
+                  {selectedProduct.colors && selectedProduct.colors.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-black/80">
+                          Cor: <b className="text-black font-extrabold">{chosenColor}</b>
+                        </span>
+                        <span className="text-[11px] text-black/50 font-medium">
+                          {selectedProduct.colors.length} variações disponíveis
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-4 sm:grid-cols-4 gap-2.5">
+                        {selectedProduct.colors.map((c) => {
+                          const isSelected = chosenColor === c.name;
+                          return (
+                            <button
+                              key={c.name}
+                              onClick={() => {
+                                setChosenColor(c.name);
+                                setActiveImageIdx(0);
+                                setV2ImageIdx(0);
+                              }}
+                              className={`group relative rounded-xl p-1.5 bg-[#F9FAFB] border-2 cursor-pointer transition-all flex flex-col items-center gap-1 ${
+                                isSelected
+                                  ? "border-[#D94A2F] bg-white shadow-md scale-105 ring-2 ring-[#D94A2F]/20"
+                                  : "border-black/10 hover:border-black/30 hover:bg-white"
+                              }`}
+                            >
+                              <div className="w-full aspect-square relative">
+                                <img
+                                  src={c.img}
+                                  alt={c.name}
+                                  className="w-full h-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
+                                />
+                              </div>
+                              <span className="text-[9.5px] font-bold uppercase truncate max-w-full text-black/70">
+                                {c.name.split(" ")[0]}
+                              </span>
+                              {isSelected && (
+                                <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-[#D94A2F] text-white rounded-full flex items-center justify-center text-[8px] font-black">
+                                  ✓
+                                </span>
+                              )}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Seletor Inteligente de Tamanhos */}
+                  {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="font-semibold text-black/80">
+                          Tamanho Selecionado: <b className="text-black font-extrabold">{chosenSize} BR</b>
+                        </span>
+
+                        <button
+                          onClick={() => setSizeGuideOpen(true)}
+                          className="text-xs font-bold text-[#D94A2F] hover:underline uppercase inline-flex items-center gap-1 cursor-pointer"
+                        >
+                          <SlidersHorizontal size={13} /> Guia de Medidas
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+                        {selectedProduct.sizes.map((s) => {
+                          const isSelected = chosenSize === s;
+                          return (
+                            <button
+                              key={s}
+                              onClick={() => setChosenSize(s)}
+                              className={`h-12 rounded-xl text-xs font-extrabold uppercase cursor-pointer transition-all flex flex-col items-center justify-center border ${
+                                isSelected
+                                  ? "bg-[#0B0B0B] text-white border-[#0B0B0B] shadow-md scale-105"
+                                  : "bg-white text-black/80 border-black/15 hover:border-black hover:text-black hover:bg-black/5"
+                              }`}
+                            >
+                              <span>{s}</span>
+                              <span className={`text-[8.5px] font-semibold ${isSelected ? "text-emerald-400" : "text-black/40"}`}>
+                                Disp.
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Botões de Ação de Alta Conversão */}
+                  <div className="space-y-3 pt-1">
+                    {/* Botão Primário: Comprar Agora 1-Clique */}
                     <button
                       onClick={() => {
                         for (let i = 0; i < productQty; i++) {
                           addToCart(selectedProduct, chosenSize, chosenColor);
                         }
+                        setCartOpen(true);
                       }}
-                      className="flex-1 bg-[#0B0B0B] hover:bg-[#222222] text-white text-xs font-bold tracking-widest uppercase transition-colors cursor-pointer flex items-center justify-center gap-2 h-12"
+                      className="w-full bg-gradient-to-r from-[#D94A2F] via-[#E85D43] to-[#D94A2F] hover:opacity-95 text-white text-sm font-black tracking-widest uppercase transition-all py-4.5 rounded-2xl shadow-lg hover:shadow-xl cursor-pointer flex items-center justify-center gap-3 group/buy"
                     >
-                      <ShoppingBag size={16} />
-                      Adicionar à Sacola
+                      <Zap size={18} className="fill-white transition-transform group-hover/buy:scale-125" />
+                      COMPRAR AGORA • 1-CLIQUE
+                      <ArrowRight size={18} className="transition-transform group-hover/buy:translate-x-1" />
                     </button>
+
+                    {/* Botão Secundário: Adicionar à Sacola */}
+                    <div className="flex gap-2.5">
+                      <div className="flex items-center border border-black/20 bg-white rounded-xl overflow-hidden">
+                        <button
+                          onClick={() => setProductQty((q) => Math.max(1, q - 1))}
+                          className="w-10 h-12 flex items-center justify-center text-sm font-bold text-black hover:bg-black/5 cursor-pointer"
+                        >
+                          -
+                        </button>
+                        <span className="w-9 text-center font-extrabold text-xs text-black">
+                          {productQty}
+                        </span>
+                        <button
+                          onClick={() => setProductQty((q) => q + 1)}
+                          className="w-10 h-12 flex items-center justify-center text-sm font-bold text-black hover:bg-black/5 cursor-pointer"
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      <button
+                        onClick={() => {
+                          for (let i = 0; i < productQty; i++) {
+                            addToCart(selectedProduct, chosenSize, chosenColor);
+                          }
+                        }}
+                        className="flex-1 bg-[#0B0B0B] hover:bg-[#222222] text-white text-xs font-bold tracking-widest uppercase transition-all rounded-xl cursor-pointer flex items-center justify-center gap-2 h-12 shadow-sm"
+                      >
+                        <ShoppingBag size={16} />
+                        ADICIONAR À SACOLA
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Comprar Agora (Coral Sandrini) */}
-                  <button
-                    onClick={() => {
-                      for (let i = 0; i < productQty; i++) {
-                        addToCart(selectedProduct, chosenSize, chosenColor);
-                      }
-                      setCartOpen(true);
-                    }}
-                    className="w-full bg-[#D94A2F] hover:bg-[#c23e25] text-white text-xs font-extrabold tracking-widest uppercase transition-all py-4 shadow-sm hover:shadow-md cursor-pointer flex items-center justify-center gap-2"
-                  >
-                    Comprar Agora
-                    <ArrowRight size={16} />
-                  </button>
+                  {/* Simulador de Frete Expresso */}
+                  <div className="bg-[#FAFAFC] border border-black/8 rounded-2xl p-4 space-y-3">
+                    <span className="text-xs font-bold text-black uppercase tracking-wider flex items-center gap-2">
+                      <Truck size={16} className="text-[#D94A2F]" />
+                      Frete e Prazo de Entrega
+                    </span>
+
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        maxLength={9}
+                        value={productCep}
+                        onChange={(e) => setProductCep(e.target.value.replace(/\D/g, "").slice(0, 8))}
+                        placeholder="Digite seu CEP..."
+                        className="flex-1 bg-white border border-black/15 rounded-xl px-3.5 py-2.5 text-xs outline-none focus:border-[#D94A2F] font-medium"
+                      />
+                      <button
+                        onClick={() => {
+                          if (productCep.length >= 8) setProductShippingResult(true);
+                        }}
+                        className="bg-[#0B0B0B] hover:bg-[#D94A2F] text-white text-xs font-bold px-5 py-2.5 rounded-xl uppercase transition-colors cursor-pointer"
+                      >
+                        Calcular
+                      </button>
+                    </div>
+
+                    {productShippingResult && (
+                      <div className="space-y-2 pt-1 text-xs">
+                        <div className="flex items-center justify-between bg-emerald-50 text-emerald-950 p-3 rounded-xl border border-emerald-200">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm">🚚</span>
+                            <div>
+                              <span className="font-bold block">PAC Econômico (3 a 5 dias)</span>
+                              <span className="text-[11px] text-emerald-700">Rastreio monitorado 24h</span>
+                            </div>
+                          </div>
+                          <span className="font-black text-emerald-700 uppercase bg-white px-2 py-1 rounded">GRÁTIS</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-white text-black p-3 rounded-xl border border-black/10">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm">⚡</span>
+                            <div>
+                              <span className="font-bold block">Sedex Expresso (24h a 48h)</span>
+                              <span className="text-[11px] text-black/50">Entrega prioritária</span>
+                            </div>
+                          </div>
+                          <span className="font-black text-black">R$ 14,90</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4 Selos de Garantia & Confiança Sandrini */}
+                  <div className="grid grid-cols-2 gap-2.5 pt-1 text-xs">
+                    <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
+                      <RotateCcw size={18} className="text-[#D94A2F] shrink-0" />
+                      <div>
+                        <span className="font-bold text-black block text-[11px]">1ª Troca Grátis</span>
+                        <span className="text-[10px] text-black/50">Até 30 dias após receber</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
+                      <ShieldCheck size={18} className="text-[#D94A2F] shrink-0" />
+                      <div>
+                        <span className="font-bold text-black block text-[11px]">Garantia Oficial</span>
+                        <span className="text-[10px] text-black/50">90 dias direto de fábrica</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
+                      <Lock size={18} className="text-[#D94A2F] shrink-0" />
+                      <div>
+                        <span className="font-bold text-black block text-[11px]">100% Seguro</span>
+                        <span className="text-[10px] text-black/50">Criptografia de ponta</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2.5 bg-white border border-black/8 p-3 rounded-xl">
+                      <Truck size={18} className="text-[#D94A2F] shrink-0" />
+                      <div>
+                        <span className="font-bold text-black block text-[11px]">Frete Grátis</span>
+                        <span className="text-[10px] text-black/50">Em compras &gt; R$ 259</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3. SEÇÃO DE ANATOMIA & ENGENHARIA SANDRINI 2026 (DEEP DIVE VISUAL) */}
+              <div className="mt-20 pt-12 border-t border-black/10">
+                <div className="text-center max-w-2xl mx-auto mb-12">
+                  <span className="text-xs font-black tracking-widest text-[#D94A2F] uppercase block mb-2">
+                    SANDRINI PERFORMANCE LABS
+                  </span>
+                  <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#0B0B0B] font-['Montserrat',sans-serif]">
+                    ENGENHARIA & TECNOLOGIA
+                  </h2>
+                  <p className="text-xs sm:text-sm text-black/60 mt-2">
+                    Cada componente do {selectedProduct.name} foi desenvolvido para maximizar o retorno de energia, leveza e durabilidade.
+                  </p>
                 </div>
 
-                {/* 7. Cálculo de Frete Limpo */}
-                <div className="pt-4 border-t border-black/10 space-y-3">
-                  <span className="text-xs font-bold text-black uppercase tracking-wider flex items-center gap-1.5">
-                    <Truck size={15} className="text-[#D94A2F]" />
-                    Calcular Frete e Prazo
-                  </span>
-
-                  <div className="flex gap-2">
-                    <input
-                      type="text"
-                      maxLength={9}
-                      value={productCep}
-                      onChange={(e) => setProductCep(e.target.value.replace(/\D/g, "").slice(0, 8))}
-                      placeholder="00000-000"
-                      className="flex-1 bg-white border border-[#D0D0D0] px-3.5 py-2.5 text-xs outline-none focus:border-black font-medium uppercase"
-                    />
-                    <button
-                      onClick={() => {
-                        if (productCep.length >= 8) setProductShippingResult(true);
-                      }}
-                      className="bg-black hover:bg-[#D94A2F] text-white text-xs font-bold px-5 py-2.5 uppercase transition-colors cursor-pointer"
-                    >
-                      Calcular
-                    </button>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {/* Card 1: MaxPulse EVA */}
+                  <div className="bg-gradient-to-b from-white to-[#F8F9FB] border border-black/8 rounded-3xl p-6 shadow-xs hover:shadow-md transition-all group">
+                    <div className="w-12 h-12 rounded-2xl bg-[#0B0B0B] text-[#D94A2F] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                      <Zap size={24} />
+                    </div>
+                    <span className="text-[10.5px] font-bold tracking-wider text-[#D94A2F] uppercase block mb-1">
+                      ABSORÇÃO & RETORNO
+                    </span>
+                    <h3 className="text-lg font-black uppercase text-black mb-2 font-['Montserrat',sans-serif]">
+                      MaxPulse™ EVA
+                    </h3>
+                    <p className="text-xs text-black/70 leading-relaxed">
+                      Entressola em composto responsivo de alta densidade que absorve 94% do impacto e devolve energia instantânea na passada.
+                    </p>
                   </div>
 
-                  {productShippingResult && (
-                    <div className="space-y-2 pt-2 text-xs">
-                      <div className="flex items-center justify-between bg-emerald-50 text-emerald-950 p-3 border border-emerald-200">
-                        <span className="font-semibold">🚚 PAC Econômico (4 a 6 dias úteis)</span>
-                        <span className="font-bold text-emerald-700 uppercase">GRÁTIS</span>
+                  {/* Card 2: AirFlow 3D Mesh */}
+                  <div className="bg-gradient-to-b from-white to-[#F8F9FB] border border-black/8 rounded-3xl p-6 shadow-xs hover:shadow-md transition-all group">
+                    <div className="w-12 h-12 rounded-2xl bg-[#0B0B0B] text-[#D94A2F] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                      <Layers size={24} />
+                    </div>
+                    <span className="text-[10.5px] font-bold tracking-wider text-[#D94A2F] uppercase block mb-1">
+                      RESPIRABILIDADE TÉRMICA
+                    </span>
+                    <h3 className="text-lg font-black uppercase text-black mb-2 font-['Montserrat',sans-serif]">
+                      AirFlow 3D Mesh
+                    </h3>
+                    <p className="text-xs text-black/70 leading-relaxed">
+                      Trama tridimensional perfurada a laser para circulação de ar 360°, mantendo os pés até 3°C mais secos durante a corrida.
+                    </p>
+                  </div>
+
+                  {/* Card 3: CarbonGrip Outsole */}
+                  <div className="bg-gradient-to-b from-white to-[#F8F9FB] border border-black/8 rounded-3xl p-6 shadow-xs hover:shadow-md transition-all group">
+                    <div className="w-12 h-12 rounded-2xl bg-[#0B0B0B] text-[#D94A2F] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                      <Activity size={24} />
+                    </div>
+                    <span className="text-[10.5px] font-bold tracking-wider text-[#D94A2F] uppercase block mb-1">
+                      TRAÇÃO MULTIDIRECIONAL
+                    </span>
+                    <h3 className="text-lg font-black uppercase text-black mb-2 font-['Montserrat',sans-serif]">
+                      CarbonGrip™ Rubber
+                    </h3>
+                    <p className="text-xs text-black/70 leading-relaxed">
+                      Solado com composto de borracha vulcanizada e cravos hexagonais que oferecem máxima aderência em asfalto molhado ou esteira.
+                    </p>
+                  </div>
+
+                  {/* Card 4: Anatomical Heel Lock */}
+                  <div className="bg-gradient-to-b from-white to-[#F8F9FB] border border-black/8 rounded-3xl p-6 shadow-xs hover:shadow-md transition-all group">
+                    <div className="w-12 h-12 rounded-2xl bg-[#0B0B0B] text-[#D94A2F] flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                      <ShieldCheck size={24} />
+                    </div>
+                    <span className="text-[10.5px] font-bold tracking-wider text-[#D94A2F] uppercase block mb-1">
+                      ESTABILIDADE ANTI-TORÇÃO
+                    </span>
+                    <h3 className="text-lg font-black uppercase text-black mb-2 font-['Montserrat',sans-serif]">
+                      Anatomical Heel Cup
+                    </h3>
+                    <p className="text-xs text-black/70 leading-relaxed">
+                      Contraforte anatômico estruturado que fixa o calcanhar com firmeza, prevenindo deslizes internos e protegendo o tendão.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4. Abas Detalhadas Versão 2 (Tabs com Estilo Moderno) */}
+              <div className="mt-16 pt-10 border-t border-black/10">
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 border-b border-black/10 pb-4 mb-8">
+                  {[
+                    { id: "tecnologia", label: "Visão Geral & Tecnologia" },
+                    { id: "especificacoes", label: "Ficha Técnica Completa" },
+                    { id: "avaliacoes", label: `Avaliações dos Clientes (${selectedProduct.reviews})` },
+                    { id: "medidas", label: "Tabela de Medidas & Guia" },
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setV2ActiveTab(tab.id as any)}
+                      className={`text-xs font-bold tracking-wider uppercase px-5 py-2.5 rounded-full transition-all cursor-pointer ${
+                        v2ActiveTab === tab.id
+                          ? "bg-[#0B0B0B] text-white shadow-sm"
+                          : "bg-[#F4F4F6] text-black/70 hover:bg-black/10 hover:text-black"
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="max-w-4xl">
+                  {v2ActiveTab === "tecnologia" && (
+                    <div className="space-y-4 text-xs sm:text-sm text-black/80 leading-relaxed">
+                      <p className="font-semibold text-black text-sm sm:text-base">
+                        Projetado para atletas que exigem performance sem abrir mão do conforto no dia a dia.
+                      </p>
+                      <p>
+                        O <b>{selectedProduct.name}</b> combina engenharia moderna e materiais nobres para oferecer um ciclo de passada suave, amortecimento dinâmico e durabilidade excepcional.
+                      </p>
+                    </div>
+                  )}
+
+                  {v2ActiveTab === "especificacoes" && (
+                    <div className="rounded-2xl border border-black/10 overflow-hidden divide-y divide-black/8 text-xs">
+                      {[
+                        { label: "Categoria", val: selectedProduct.category },
+                        { label: "Drop", val: "8 mm" },
+                        { label: "Peso Aproximado", val: "245g (tamanho 41 individual)" },
+                        { label: "Tipo de Pisada", val: "Neutra / Supinada leve" },
+                        { label: "Cabedal", val: "Engineered Mesh respirável a laser com reforços fusionados" },
+                        { label: "Entressola", val: "Sandrini MaxPulse™ EVA High Rebound" },
+                        { label: "Solado", val: "Borracha vulcanizada antiderrapante de alta tração" },
+                        { label: "Garantia", val: "90 dias contra defeitos de fabricação direto de fábrica" },
+                        { label: "Origem", val: "Nacional (Sandrini Oficial)" },
+                      ].map((row, i) => (
+                        <div key={i} className="grid grid-cols-3 p-4 bg-white even:bg-[#FAFAFC]">
+                          <span className="font-extrabold text-black uppercase">{row.label}</span>
+                          <span className="col-span-2 text-black/70">{row.val}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {v2ActiveTab === "avaliacoes" && (
+                    <div className="space-y-6">
+                      <div className="bg-gradient-to-br from-[#FAFAFC] to-[#F1F3F6] border border-black/8 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-6">
+                        <div className="text-center sm:border-r border-black/10 sm:pr-8">
+                          <span className="text-5xl font-black text-black font-['Montserrat',sans-serif]">{selectedProduct.rating}</span>
+                          <div className="flex text-amber-400 justify-center mt-1.5">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} size={15} className="fill-amber-400 text-amber-400" />
+                            ))}
+                          </div>
+                          <span className="text-[11px] text-black/50 uppercase font-bold block mt-1">
+                            {selectedProduct.reviews} Opiniões
+                          </span>
+                        </div>
+
+                        <div className="space-y-1 text-xs text-black/70">
+                          <p className="font-extrabold text-black text-sm">
+                            ⭐ 98% dos compradores recomendam este produto
+                          </p>
+                          <p>
+                            Avaliações verificadas de clientes que adquiriram o tênis na loja oficial Sandrini.
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between bg-white text-black p-3 border border-[#E0E0E0]">
-                        <span className="font-semibold">⚡ Sedex Expresso (1 a 2 dias úteis)</span>
-                        <span className="font-bold text-black">R$ 14,90</span>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {[
+                          { name: "Lucas M.", date: "Há 3 dias", rating: 5, text: "Tênis sensacional! Muito leve, o amortecimento é perfeito para rodagens de 10km a 21km. Acabamento impecável." },
+                          { name: "Rodrigo S.", date: "Há 1 semana", rating: 5, text: "Superou as expectativas! Confortável demais no pé, não aperta e o visual ao vivo é ainda mais bonito." },
+                          { name: "Carlos Eduardo", date: "Há 2 semanas", rating: 5, text: "Excelente custo-benefício. O design é lindo, fotos fiéis ao produto e a entrega chegou antes do prazo." },
+                          { name: "Mariana F.", date: "Há 3 semanas", rating: 5, text: "Comprei para caminhadas e treinos diários. Muito macio e respirável. Recomendo muito!" }
+                        ].map((rev, idx) => (
+                          <div key={idx} className="bg-white border border-black/8 rounded-2xl p-5 space-y-2 shadow-2xs">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <span className="font-bold text-xs text-black uppercase">{rev.name}</span>
+                                <span className="text-[9.5px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
+                                  VERIFICADO
+                                </span>
+                              </div>
+                              <span className="text-[10px] text-black/40">{rev.date}</span>
+                            </div>
+                            <div className="flex text-amber-400">
+                              {[...Array(rev.rating)].map((_, i) => (
+                                <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
+                              ))}
+                            </div>
+                            <p className="text-xs text-black/75 leading-relaxed">{rev.text}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {v2ActiveTab === "medidas" && (
+                    <div className="space-y-4">
+                      <p className="text-xs text-black/70">
+                        Meça seu pé do calcanhar à ponta do dedão para selecionar a numeração com encaixe perfeito:
+                      </p>
+                      <div className="rounded-2xl border border-black/10 overflow-hidden divide-y divide-black/8 text-xs">
+                        <div className="grid grid-cols-2 p-3.5 bg-[#0B0B0B] text-white font-bold uppercase">
+                          <span>Tamanho Brasil</span>
+                          <span>Comprimento do Pé (cm)</span>
+                        </div>
+                        {[
+                          { size: "38", cm: "25,5 cm" },
+                          { size: "39", cm: "26,0 cm" },
+                          { size: "40", cm: "26,5 cm" },
+                          { size: "41", cm: "27,5 cm" },
+                          { size: "42", cm: "28,0 cm" },
+                          { size: "43", cm: "29,0 cm" },
+                          { size: "44", cm: "29,5 cm" },
+                        ].map((row, i) => (
+                          <div key={i} className="grid grid-cols-2 p-3.5 bg-white even:bg-[#FAFAFC]">
+                            <span className="font-extrabold text-black">{row.size} BR</span>
+                            <span className="text-black/70">{row.cm}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
                 </div>
+              </div>
 
-                {/* 8. 4 Benefícios e Confiança */}
-                <div className="grid grid-cols-2 gap-3 pt-2 text-xs text-black/80">
-                  <div className="flex items-center gap-2.5">
-                    <Truck size={17} className="text-[#D94A2F] shrink-0" />
-                    <span className="font-medium text-[11.5px] leading-tight">Frete Grátis &gt; R$ 259</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <RotateCcw size={17} className="text-[#D94A2F] shrink-0" />
-                    <span className="font-medium text-[11.5px] leading-tight">1ª Troca Grátis 30 Dias</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <CreditCard size={17} className="text-[#D94A2F] shrink-0" />
-                    <span className="font-medium text-[11.5px] leading-tight">Até 6x Sem Juros</span>
-                  </div>
-                  <div className="flex items-center gap-2.5">
-                    <ShieldCheck size={17} className="text-[#D94A2F] shrink-0" />
-                    <span className="font-medium text-[11.5px] leading-tight">Garantia Sandrini 90D</span>
+              {/* 5. Sticky Bottom Quick-Buy Bar Versão 2 */}
+              {showStickyBar && (
+                <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#0B0B0B]/95 backdrop-blur-md border-t border-white/15 py-3 px-4 sm:px-8 shadow-2xl animate-fade-in text-white">
+                  <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-12 h-12 rounded-lg bg-white/10 p-1 shrink-0 overflow-hidden">
+                        <img
+                          src={galleryImages[0] || selectedProduct.img}
+                          alt={selectedProduct.name}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <div className="truncate hidden sm:block">
+                        <h4 className="text-xs font-bold text-white truncate uppercase">{selectedProduct.name}</h4>
+                        <span className="text-[11px] text-[#D94A2F] font-extrabold">
+                          {formatPrice(calculatePixPrice(selectedProduct.price))} no PIX
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 shrink-0">
+                      <div className="hidden md:flex items-center gap-1.5 text-xs">
+                        <span className="text-white/60">Tamanho:</span>
+                        <b className="text-white bg-white/10 px-2 py-0.5 rounded">{chosenSize}</b>
+                      </div>
+
+                      <button
+                        onClick={() => {
+                          addToCart(selectedProduct, chosenSize, chosenColor);
+                          setCartOpen(true);
+                        }}
+                        className="bg-[#D94A2F] hover:bg-white hover:text-black text-white text-xs font-black tracking-wider uppercase px-6 py-3 rounded-xl transition-all cursor-pointer flex items-center gap-2 shadow-md"
+                      >
+                        <Zap size={14} /> COMPRAR AGORA
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
+          )}
 
-            {/* 3. Abas de Conteúdo Detalhado (Descrição, Ficha Técnica, Avaliações, Medidas) */}
-            <div className="mt-16 border-t border-[#EBEBEB] pt-10">
-              {/* Tab Navigation */}
-              <div className="flex flex-wrap items-center gap-2 border-b border-[#EBEBEB] pb-3 mb-8">
-                {[
-                  { id: "descricao", label: "DESCRIÇÃO DO PRODUTO" },
-                  { id: "especificacoes", label: "ESPECIFICAÇÕES TÉCNICAS" },
-                  { id: "avaliacoes", label: `AVALIAÇÕES (${selectedProduct.reviews})` },
-                  { id: "medidas", label: "TABELA DE MEDIDAS" },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
-                    className={`text-xs font-bold tracking-wider uppercase px-4 py-2.5 border-b-2 transition-all cursor-pointer ${
-                      activeTab === tab.id
-                        ? "border-[#D94A2F] text-[#D94A2F] bg-[#D94A2F]/5"
-                        : "border-transparent text-black/60 hover:text-black"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Tab Contents */}
-              <div className="max-w-4xl">
-                {activeTab === "descricao" && (
-                  <div className="space-y-4 text-xs sm:text-sm text-black/80 leading-relaxed font-normal">
-                    <p className="font-semibold text-black text-sm sm:text-base">
-                      O {selectedProduct.name} foi desenvolvido com a mais alta tecnologia esportiva para entregar performance, amortecimento e durabilidade em cada passada.
-                    </p>
-                    <p>
-                      Com cabedal confeccionado em <b>Engineered Mesh respirável</b>, o modelo proporciona ventilação contínua aos pés, evitando o superaquecimento durante treinos intensos e provas de longa distância.
-                    </p>
-                    <p>
-                      A entressola conta com o composto exclusivo <b>Sandrini MaxPulse™</b>, que absorve os impactos com máxima eficiência e devolve a energia em impulsão responsiva para você correr mais longe com menos esforço.
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-                      <div className="bg-[#FAFAFA] p-4 border border-[#EBEBEB]">
-                        <h5 className="font-black uppercase text-xs text-black mb-1">Amortecimento Dinâmico</h5>
-                        <p className="text-xs text-black/60">Absorção de impacto contínua com espuma responsiva de alta densidade.</p>
-                      </div>
-                      <div className="bg-[#FAFAFA] p-4 border border-[#EBEBEB]">
-                        <h5 className="font-black uppercase text-xs text-black mb-1">Cabedal AirFlow</h5>
-                        <p className="text-xs text-black/60">Tecido tecnológico perfurado a laser para respirabilidade térmica.</p>
-                      </div>
-                      <div className="bg-[#FAFAFA] p-4 border border-[#EBEBEB]">
-                        <h5 className="font-black uppercase text-xs text-black mb-1">Solado Sandrini Grip</h5>
-                        <p className="text-xs text-black/60">Borracha de alta tração e durabilidade para asfalto e esteira.</p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {activeTab === "especificacoes" && (
-                  <div className="border border-[#EBEBEB] divide-y divide-[#EBEBEB] text-xs">
-                    {[
-                      { label: "Categoria", val: selectedProduct.category },
-                      { label: "Drop", val: "8 mm" },
-                      { label: "Peso Aproximado", val: "245g (tamanho 41 individual)" },
-                      { label: "Tipo de Pisada", val: "Neutra / Supinada leve" },
-                      { label: "Cabedal", val: "Engineered Mesh com reforços estruturais" },
-                      { label: "Entressola", val: "Sandrini MaxPulse™ EVA High Rebound" },
-                      { label: "Solado", val: "Borracha vulcanizada antiderrapante" },
-                      { label: "Garantia do Fabricante", val: "90 dias contra defeitos de fabricação" },
-                      { label: "Origem", val: "Nacional (Sandrini Oficial)" },
-                    ].map((row, i) => (
-                      <div key={i} className="grid grid-cols-3 p-3.5 bg-white even:bg-[#FAFAFA]">
-                        <span className="font-bold text-black uppercase">{row.label}</span>
-                        <span className="col-span-2 text-black/70">{row.val}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {activeTab === "avaliacoes" && (
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-4 bg-[#FAFAFA] border border-[#EBEBEB] p-5">
-                      <div className="text-center border-r border-[#EBEBEB] pr-6">
-                        <span className="text-4xl font-black text-black">{selectedProduct.rating}</span>
-                        <div className="flex text-amber-400 justify-center mt-1">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
-                          ))}
-                        </div>
-                        <span className="text-[10px] text-black/50 uppercase block mt-1">{selectedProduct.reviews} opiniões</span>
-                      </div>
-                      <div className="text-xs text-black/70 space-y-1">
-                        <p className="font-bold text-black">98% dos clientes recomendam este modelo</p>
-                        <p>Avaliações reais de clientes que compraram e testaram o produto.</p>
-                      </div>
-                    </div>
-
-                    {/* Comentários */}
-                    <div className="space-y-3">
-                      {[
-                        { name: "Lucas M.", date: "Há 3 dias", rating: 5, text: "Tênis sensacional! Muito leve, o amortecimento é perfeito para rodagens de 10km a 21km. Acabamento de primeira linha da Sandrini." },
-                        { name: "Rodrigo S.", date: "Há 1 semana", rating: 5, text: "Superou as expectativas! Confortável demais no pé, não aperta os dedos e a sola agarra muito bem tanto no asfalto quanto na esteira." },
-                        { name: "Carlos Eduardo", date: "Há 2 semanas", rating: 5, text: "Excelente custo-benefício. O design é lindo demais ao vivo, as fotos representam perfeitamente. Entrega muito rápida!" }
-                      ].map((rev, idx) => (
-                        <div key={idx} className="bg-white border border-[#EBEBEB] p-4 space-y-1.5">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <span className="font-bold text-xs text-black uppercase">{rev.name}</span>
-                              <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5">COMPRA VERIFICADA</span>
-                            </div>
-                            <span className="text-[10px] text-black/40">{rev.date}</span>
-                          </div>
-                          <div className="flex text-amber-400">
-                            {[...Array(rev.rating)].map((_, i) => (
-                              <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
-                            ))}
-                          </div>
-                          <p className="text-xs text-black/75 leading-relaxed">{rev.text}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {activeTab === "medidas" && (
-                  <div className="space-y-4">
-                    <p className="text-xs text-black/70">
-                      Utilize uma fita métrica ou régua para medir o comprimento do seu pé (do calcanhar à ponta do dedão) e encontre sua numeração ideal:
-                    </p>
-                    <div className="border border-[#EBEBEB] divide-y divide-[#EBEBEB] text-xs">
-                      <div className="grid grid-cols-2 p-3 bg-black text-white font-bold uppercase">
-                        <span>Tamanho BR</span>
-                        <span>Comprimento do Pé (cm)</span>
-                      </div>
-                      {[
-                        { size: "38", cm: "25,5 cm" },
-                        { size: "39", cm: "26,0 cm" },
-                        { size: "40", cm: "26,5 cm" },
-                        { size: "41", cm: "27,5 cm" },
-                        { size: "42", cm: "28,0 cm" },
-                        { size: "43", cm: "29,0 cm" },
-                        { size: "44", cm: "29,5 cm" },
-                      ].map((row, i) => (
-                        <div key={i} className="grid grid-cols-2 p-3 bg-white even:bg-[#FAFAFA]">
-                          <span className="font-bold text-black">{row.size}</span>
-                          <span className="text-black/70">{row.cm}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* 4. Quem Comprou Também Levou (Recomendações) */}
-            <div className="mt-16 border-t border-[#EBEBEB] pt-10">
-              <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#0B0B0B] font-['Montserrat',sans-serif] mb-6">
-                QUEM COMPROU, TAMBÉM LEVOU
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {PRODUCTS.filter((p) => p.id !== selectedProduct.id).slice(0, 4).map((p) => (
-                  <TorxProductCard
-                    key={p.id}
-                    product={p}
-                    onAddToCart={(prod, size) => addToCart(prod, size)}
-                    onClickDetails={(prod, color) => openProductDetails(prod, color)}
-                    isFavorite={favorites.includes(p.id)}
-                    onToggleFavorite={toggleFavorite}
-                  />
-                ))}
-              </div>
+          {/* 4. Quem Comprou Também Levou (Recomendações Globais no Rodapé) */}
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-8 mt-16 border-t border-[#EBEBEB] pt-10">
+            <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-[#0B0B0B] font-['Montserrat',sans-serif] mb-6">
+              QUEM COMPROU, TAMBÉM LEVOU
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {PRODUCTS.filter((p) => p.id !== selectedProduct.id).slice(0, 4).map((p) => (
+                <TorxProductCard
+                  key={p.id}
+                  product={p}
+                  onAddToCart={(prod, size) => addToCart(prod, size)}
+                  onClickDetails={(prod, color) => openProductDetails(prod, color)}
+                  isFavorite={favorites.includes(p.id)}
+                  onToggleFavorite={toggleFavorite}
+                />
+              ))}
             </div>
           </div>
         </div>
